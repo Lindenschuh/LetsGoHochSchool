@@ -9,15 +9,73 @@ import java.util.HashMap;
  * Created by Lars on 02.06.2016.
  */
 public class User {
-    public String name;
-    public String email;
-    public String password;
-    public boolean admin;
-    public HashMap<String,ArrayList<String>> todos;
-    public ArrayList<Course> courses;
-    public String Times;
-    public Image image;
 
-    //TODO: Konstrucktur
+    private String name;
+    private String email;
+    private String password;
+    private boolean admin;
+    private HashMap<String,ArrayList<String>> todos;
+    private ArrayList<Course> courses;
+    private String times;
+    private Image image;
 
+
+
+
+    public User(String name,String email, String password,boolean admin, String times)
+    {
+        this.name = name;
+        this.email= email;
+        this.password = password;
+        this.admin = admin;
+        this.times= times;
+        this.courses = new ArrayList<>();
+        todos = new HashMap<String, ArrayList<String>>();
+    }
+
+    public void setImage(Image image)
+    {
+        this.image = image;
+    }
+
+    public void setTodos(ArrayList<String> todoList,String course)
+    {
+        todos.put(course,todoList);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public HashMap<String, ArrayList<String>> getTodos() {
+        return todos;
+    }
+
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
+    public String getTimes() {
+        return times;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public boolean validation(String name,String password)
+    {
+        if(this.name.toLowerCase() == name.toLowerCase()&& this.password == password)
+            return true;
+        else
+            return false;
+    }
 }
