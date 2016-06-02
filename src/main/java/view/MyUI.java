@@ -1,7 +1,10 @@
-package com.Demo;
+package view;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.Demo.CustomForm;
+import com.Demo.Customer;
+import com.Demo.CustomerService;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
@@ -26,7 +29,7 @@ import java.util.List;
 @Widgetset("com.Demo.MyAppWidgetset")
 public class MyUI extends UI {
 
-    private  CustomerService service = CustomerService.getInstance();
+    private CustomerService service = CustomerService.getInstance();
     private Grid grid = new Grid();
     private TextField filterText = new TextField();
 
