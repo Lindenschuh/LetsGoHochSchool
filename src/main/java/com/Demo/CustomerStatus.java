@@ -1,4 +1,4 @@
-package com.lars;
+package com.Demo;
 
 
 public enum CustomerStatus {

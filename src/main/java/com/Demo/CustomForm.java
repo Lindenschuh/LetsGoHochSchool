@@ -1,4 +1,4 @@
-package com.lars;
+package com.Demo;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.event.ShortcutAction;

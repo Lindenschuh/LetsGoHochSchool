@@ -1,17 +1,15 @@
-package com.lars;
+package com.Demo;
 
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
-import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.List;
@@ -23,8 +21,9 @@ import java.util.List;
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be 
  * overridden to add component to the user interface and initialize non-component functionality.
  */
+//TODO Main klasse mit USER
 @Theme("mytheme")
-@Widgetset("com.lars.MyAppWidgetset")
+@Widgetset("com.Demo.MyAppWidgetset")
 public class MyUI extends UI {
 
     private  CustomerService service = CustomerService.getInstance();
