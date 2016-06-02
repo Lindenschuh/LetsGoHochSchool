@@ -32,7 +32,7 @@ public class Course {
         achievements = new ArrayList<Achievement>();
         dates = new ArrayList<LocalDateTime>();
 
-        generateDate(date,lessons);
+       // generateDate(date,lessons);
     }
 
     private void generateDate(String date,int lessons) {
