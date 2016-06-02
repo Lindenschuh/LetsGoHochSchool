@@ -26,9 +26,9 @@ public class Master {
 
     }
 
-    private void testDatesProfile() {
+    private static void testDatesProfile() {
         User user = new User("Steve","Steve@stud.hs-heilbronn.de","123",false,"");
-        User admin = new User("Albus Percival Wulfric Brian Dumbledore", "adumbledore@prof.hs-heilbronn.de", "123456Seven", true, "<p>Mi 12.30 - 13.30<br>A527</p>");
+        User admin = new User("Albus Percival Wulfric Brian Dumbledore", "adumbledore@prof.hs-heilbronn.de", "123456Seven", true, "<div id = \"ip\"><p>Mi 12.30 - 13.30<br>A527</p></div><style type=\"text/css\"> #ip { background-color: #d3d3d3; width : 150px; height : 150px;} </style>");
 
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
