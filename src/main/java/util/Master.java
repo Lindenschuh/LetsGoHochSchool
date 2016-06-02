@@ -11,4 +11,11 @@ import java.util.ArrayList;
 public class Master {
     static ArrayList<Course> allCourse = new ArrayList<Course>();
     static ArrayList<User> allUser = new ArrayList<User>();
+
+
+    public static void makeTest()
+    {
+        allUser.add(new User("Steve","Steve@stud.hs-heilbronn.de","123",false,""));
+        allCourse.add(new Course("Mathe",null,"MatheThings","25.10.1995:20:00",10,"200"));
+    }
 }
