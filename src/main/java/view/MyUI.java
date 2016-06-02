@@ -6,10 +6,15 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
+import controller.Profile;
 import model.User;
 import util.Master;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -23,22 +28,11 @@ import util.Master;
 @Widgetset("com.Demo.MyAppWidgetset")
 public class MyUI extends UI {
 
-    GridLayout mainLayout = new GridLayout();
+    GridLayout mainLayout = new GridLayout(4,4);
 
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        Master.makeTest();
-
-        User myUser = Master.allUser.get(0);
-
-        TextField text = new TextField("WOW");
-        text.setValue(myUser.getName());
-
-        mainLayout.addComponent(text);
-
-        setContent(mainLayout);
-
 
     }
 

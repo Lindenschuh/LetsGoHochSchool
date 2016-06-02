@@ -9,7 +9,7 @@ import model.User;
 
     class Modul {
 
-    protected CssLayout layout;
+    protected CssLayout layout = new CssLayout();
 
     protected Modul(User user)
     {
