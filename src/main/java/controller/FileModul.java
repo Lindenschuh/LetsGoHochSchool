@@ -26,13 +26,13 @@ public class FileModul extends Modul {
     public FileModul(User user, Course course) {
         super(user);
         this.course = course;
-        files = course.getFiles();
+
 
         CreatView();
     }
 
     private void CreatView() {
-
+        files = course.getFiles();
         VerticalLayout vert = new VerticalLayout();
         vert.addComponent(new Label("<h2>Dokumente<h2>", ContentMode.HTML));
 
