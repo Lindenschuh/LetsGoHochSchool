@@ -19,7 +19,7 @@ public class User {
     private String times;
     private Image image;
 
-
+    //TODO: Default image für jeden Benutzer?
 
 
     public User(String name,String email, String password,boolean admin, String times)
