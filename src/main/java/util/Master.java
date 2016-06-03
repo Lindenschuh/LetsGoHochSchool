@@ -1,10 +1,9 @@
-﻿package util;
+package util;
 
 import com.vaadin.server.FileResource;
-import com.vaadin.server.VaadinService;
-import com.vaadin.ui.CustomLayout;
+
 import com.vaadin.ui.Image;
-import com.vaadin.ui.Panel;
+
 import model.Course;
 import model.User;
 
@@ -35,9 +34,9 @@ public class Master {
         allCourse.clear();
 
         allUser.add(new User("Steve","Steve@stud.hs-heilbronn.de","123",false,""));
-        allCourse.add(new Course("Mathe",null,"MatheThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Englisch",null,"EnglishThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Programmieren",null,"ProgrammingThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Mathe",null,"MatheThings","25-10-1995 20:00",10,"200"));
+        allCourse.add(new Course("Englisch",null,"EnglishThings","25-10-1995 20:00",10,"200"));
+        allCourse.add(new Course("Programmieren",null,"ProgrammingThings","25-10-1995 20:00",10,"200"));
         /*allCourse.add(new Course("Signal Verarbeitung 1",null,"SingalThings","25.10.1995:20:00",10,"200"));
         allCourse.add(new Course("Signal Verarbeitung 2",null,"SingalThings","25.10.1995:20:00",10,"200"));
         allCourse.add(new Course("Signal Verarbeitung 3",null,"SingalThings","25.10.1995:20:00",10,"200"));
@@ -71,14 +70,14 @@ public class Master {
 
         allUser.add(user);
         allUser.add(admin);
-        allCourse.add(new Course("Mathe",null,"MatheThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Mathe",null,"MatheThings","25-10-2016 20:00",10,"200"));
 
     }
 
     private static void todoTest(User user) {
         ArrayList<String> newTodos = new ArrayList<>();
         newTodos.add("Rechne aufgabe 2");
-        newTodos.add("Uebe brüche");
+        newTodos.add("Uebe brueche");
         user.setTodos(newTodos,"Mathe");
     }
 

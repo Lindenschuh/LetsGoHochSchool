@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,11 +33,12 @@ public class Course {
         achievements = new ArrayList<Achievement>();
         dates = new ArrayList<LocalDateTime>();
 
-       // generateDate(date,lessons);
+       generateDate(date,lessons);
     }
 
     private void generateDate(String date,int lessons) {
-        LocalDateTime firstLesson = LocalDateTime.parse(date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime firstLesson = LocalDateTime.parse(date,formatter);
 
 
         for(int i = 0; i<lessons;i++)
