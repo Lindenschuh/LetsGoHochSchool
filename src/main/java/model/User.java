@@ -78,4 +78,12 @@ public class User {
         else
             return false;
     }
+
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
+    public void removeCourse(Course course) {
+        courses.remove(course);
+    }
 }

@@ -23,25 +23,13 @@ import util.Master;
 @Widgetset("com.Demo.MyAppWidgetset")
 public class MyUI extends UI {
 
-    GridLayout mainLayout = new GridLayout();
+    GridLayout mainLayout = new GridLayout(4,4);
 
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        Master.makeTest();
-
-        User myUser = Master.allUser.get(0);
-
-        TextField text = new TextField("WOW");
-        text.setValue(myUser.getName());
-
-        mainLayout.addComponent(text);
-
-        setContent(mainLayout);
-
 
     }
-
 
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
