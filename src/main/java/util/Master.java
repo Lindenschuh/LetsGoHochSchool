@@ -45,5 +45,14 @@ public class Master {
         allUser.add(user);
         allUser.add(admin);
         allCourse.add(new Course("Mathe",null,"MatheThings","25.10.1995:20:00",10,"200"));
+
+
+    }
+
+    private static void todoTest(User user) {
+        ArrayList<String> newTodos = new ArrayList<>();
+        newTodos.add("Rechne aufgabe 2");
+        newTodos.add("Uebe brüche");
+        user.setTodos(newTodos,"Mathe");
     }
 }

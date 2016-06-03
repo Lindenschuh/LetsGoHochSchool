@@ -55,8 +55,8 @@ public class User {
         return admin;
     }
 
-    public HashMap<String, ArrayList<String>> getTodos() {
-        return todos;
+    public ArrayList<String> getTodos(String coursName) {
+        return todos.get(coursName);
     }
 
     public ArrayList<Course> getCourses() {
