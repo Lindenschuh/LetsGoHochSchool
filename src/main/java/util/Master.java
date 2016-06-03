@@ -1,4 +1,4 @@
-package util;
+﻿package util;
 
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
@@ -26,15 +26,44 @@ public class Master {
         testDatesProfile();
     }
 
-    /*
-     * To show the Profile in the MyUI simply input this code:
-     * Master.makeTest();
-     *
-     * User user = Master.allUser.get(0);
-     * Profile profile = new Profile(user);
-     *
-     * setContent(profile.getContend());
+
+
+    /**
+     * Create some test data.
      */
+    public static void makeCourseModulTestData() {
+        allUser.clear();
+        allCourse.clear();
+
+        allUser.add(new User("Steve","Steve@stud.hs-heilbronn.de","123",false,""));
+        allCourse.add(new Course("Mathe",null,"MatheThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Englisch",null,"EnglishThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Programmieren",null,"ProgrammingThings","25.10.1995:20:00",10,"200"));
+        /*allCourse.add(new Course("Signal Verarbeitung 1",null,"SingalThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Signal Verarbeitung 2",null,"SingalThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Signal Verarbeitung 3",null,"SingalThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Signal Verarbeitung 4",null,"SingalThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Signal Verarbeitung 5",null,"SingalThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Signal Verarbeitung 6",null,"SingalThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Signal Verarbeitung 7",null,"SingalThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Signal Verarbeitung 8",null,"SingalThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Signal Verarbeitung 9",null,"SingalThings","25.10.1995:20:00",10,"200"));
+        allCourse.add(new Course("Signal Verarbeitung 10",null,"SingalThings","25.10.1995:20:00",10,"200"));*/
+
+        allCourse.forEach(c -> allUser.get(0).addCourse(c));
+
+    }
+
+
+    /*
+    * To show the Profile in the MyUI simply input this code:
+    * Master.makeTest();
+    *
+    * User user = Master.allUser.get(0);
+    * Profile profile = new Profile(user);
+    *
+    * setContent(profile.getContend());
+    */
     private static void testDatesProfile() {
         User user = new User("Steve","Steve@stud.hs-heilbronn.de","123",false,"");
         User admin = new User("Albus Percival Wulfric Brian Dumbledore", "adumbledore@prof.hs-heilbronn.de", "123456Seven", true, "<div id = \"ip\"><p>Mi 12.30 - 13.30<br>A527</p></div><style type=\"text/css\"> #ip { background-color: #d3d3d3; width : 150px; height : 150px;} </style>");
@@ -55,7 +84,6 @@ public class Master {
         allUser.add(admin);
         allCourse.add(new Course("Mathe",null,"MatheThings","25.10.1995:20:00",10,"200"));
 
-
     }
 
     private static void todoTest(User user) {
@@ -64,4 +92,5 @@ public class Master {
         newTodos.add("Uebe brüche");
         user.setTodos(newTodos,"Mathe");
     }
+
 }
