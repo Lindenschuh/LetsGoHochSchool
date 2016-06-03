@@ -55,10 +55,7 @@ public abstract class AchievementsGallery extends Modul{
         achievementImage = new ArrayList<>();
         achievementLabel = new ArrayList<>();
 
-
-        update();
         createLayout(width);
-        updateLayout();
 
     }
 
@@ -85,33 +82,7 @@ public abstract class AchievementsGallery extends Modul{
         moduleLayout.addComponent(nameLabel);
         moduleLayout.addComponent(contentLayout);
 
-        String stringPath = Paths.get("").toAbsolutePath().toString();
-
-        achievements.forEach( achievement -> {
-            File f = new File(stringPath + "/Resource/Images/Achievements/" + achievement.getName() +".png");
-
-            if(f.exists()) {
-                FileResource resource = new FileResource(f);
-                Image tmpImage = new Image(null, resource);
-                tmpImage.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                tmpImage.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                tmpImage.setDescription(achievement.getName());
-                achievementImage.add(tmpImage);
-            } else {
-                try {
-                    CustomLayout customLayout = new CustomLayout(
-                            new ByteArrayInputStream(
-                                    ("<p> <center>" + achievement.getName() +  "</center> </p>").getBytes()));
-                    customLayout.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                    customLayout.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                    achievementLabel.add(customLayout);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        File f = new File(stringPath + "/Resource/Images/Icons/ellipsis-h.png");
+        File f = new File(Paths.get("").toAbsolutePath().toString() + "/Resource/Images/Icons/ellipsis-h.png");
 
         if(f.exists()) {
             FileResource resource = new FileResource(f);
@@ -119,7 +90,7 @@ public abstract class AchievementsGallery extends Modul{
             moreAchievementsImg.setDescription("Alle Erfolge anzeigen.");
             moreAchievementsImg.addClickListener( event -> {
                 showAll = !showAll;
-                update();
+                updateLayout();
             });
         }
 
@@ -130,9 +101,34 @@ public abstract class AchievementsGallery extends Modul{
         layout.addComponents(moduleLayout);
     }
 
-    private void updateLayout (){
+    protected void updateLayout (){
         if(contentLayout != null) {
             contentLayout.removeAllComponents();
+
+            achievements.forEach( achievement -> {
+                File f = new File(Paths.get("").toAbsolutePath().toString()
+                        + "/Resource/Images/Achievements/" + achievement.getName() +".png");
+
+                if(f.exists()) {
+                    FileResource resource = new FileResource(f);
+                    Image tmpImage = new Image(null, resource);
+                    tmpImage.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                    tmpImage.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                    tmpImage.setDescription(achievement.getName());
+                    achievementImage.add(tmpImage);
+                } else {
+                    try {
+                        CustomLayout customLayout = new CustomLayout(
+                                new ByteArrayInputStream(
+                                        ("<p> <center>" + achievement.getName() +  "</center> </p>").getBytes()));
+                        customLayout.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                        customLayout.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                        achievementLabel.add(customLayout);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
             achievementImage.forEach(img -> {
                 if( contentLayout.getCursorX() < maxColumns || showAll){
@@ -168,7 +164,6 @@ public abstract class AchievementsGallery extends Modul{
 
     protected void setAchievements(ArrayList<Achievement> achievements) {
         this.achievements = achievements;
-        updateLayout();
     }
 
 }

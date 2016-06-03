@@ -4,6 +4,7 @@ import com.vaadin.server.FileResource;
 
 import com.vaadin.ui.Image;
 
+import model.Achievement;
 import model.Course;
 import model.User;
 
@@ -16,8 +17,11 @@ import java.util.ArrayList;
  * Created by Lars on 02.06.2016.
  */
 public class Master {
-   public static ArrayList<Course> allCourse = new ArrayList<Course>();
-   public static ArrayList<User> allUser = new ArrayList<User>();
+   public static ArrayList<Course> allCourse = new ArrayList<>();
+   public static ArrayList<User> allUser = new ArrayList<>();
+    public static ArrayList<Achievement> allAchievements = new ArrayList<>();
+
+    public static void makeTest() {
 
 
     public static void makeTest()
@@ -33,8 +37,13 @@ public class Master {
     public static void makeCourseModulTestData() {
         allUser.clear();
         allCourse.clear();
+        allAchievements.clear();
 
+        //create some users
         allUser.add(new User("Steve","Steve@stud.hs-heilbronn.de","123",false,""));
+
+        //create some courses
+        allCourse.add(new Course("Raketen-Wissenschaften",null,"RocketThings","25-10-1995 20:00",10,"200"));
         allCourse.add(new Course("Mathe",null,"MatheThings","25-10-1995 20:00",10,"200"));
         allCourse.add(new Course("Englisch",null,"EnglishThings","25-10-1995 20:00",10,"200"));
         allCourse.add(new Course("Programmieren",null,"ProgrammingThings","25-10-1995 20:00",10,"200"));
@@ -48,6 +57,15 @@ public class Master {
         allCourse.add(new Course("Signal Verarbeitung 8",null,"SingalThings","25.10.1995:20:00",10,"200"));
         allCourse.add(new Course("Signal Verarbeitung 9",null,"SingalThings","25.10.1995:20:00",10,"200"));
         allCourse.add(new Course("Signal Verarbeitung 10",null,"SingalThings","25.10.1995:20:00",10,"200"));*/
+
+
+        //create some achievements
+        allAchievements.add(new Achievement("Mathe Koenig", allCourse.get(0)));
+        allAchievements.add(new Achievement("Programmier Ass", allCourse.get(0)));
+        allAchievements.add(new Achievement("Raketen start", allCourse.get(0)));
+        allAchievements.add(new Achievement("Coding Master", allCourse.get(0)));
+
+
 
         allCourse.forEach(c -> allUser.get(0).addCourse(c));
 

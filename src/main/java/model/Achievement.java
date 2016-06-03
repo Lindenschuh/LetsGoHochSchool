@@ -6,13 +6,15 @@ package model;
 public class Achievement {
 
     private String name;
+    private Course course;
     private boolean finished;
 
     //TODO: Bedinugen aufbauen (?)
 
 
-    public Achievement(String name) {
+    public Achievement(String name, Course course) {
         this.name = name;
+        this.course = course;
         this.finished = false;
     }
 
@@ -30,5 +32,13 @@ public class Achievement {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }
