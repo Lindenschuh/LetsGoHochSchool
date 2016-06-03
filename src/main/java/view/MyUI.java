@@ -6,10 +6,17 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
+import controller.Profile;
+import controller.TodoList;
+import model.Course;
 import model.User;
 import util.Master;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 

@@ -19,7 +19,7 @@ public class User {
     private String times;
     private Image image;
 
-
+    //TODO: Default image für jeden Benutzer?
 
 
     public User(String name,String email, String password,boolean admin, String times)
@@ -55,8 +55,8 @@ public class User {
         return admin;
     }
 
-    public HashMap<String, ArrayList<String>> getTodos() {
-        return todos;
+    public ArrayList<String> getTodos(String coursName) {
+        return todos.get(coursName);
     }
 
     public ArrayList<Course> getCourses() {
