@@ -8,6 +8,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 /**
+ * Profile class to show the module Profile
+ *
  * Created by Aljos on 02.06.2016.
  */
 public class Profile extends Modul {

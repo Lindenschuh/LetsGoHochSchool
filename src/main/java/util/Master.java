@@ -23,9 +23,18 @@ public class Master {
 
     public static void makeTest()
     {
-
+        testDatesProfile();
     }
 
+    /*
+     * To show the Profile in the MyUI simply input this code:
+     * Master.makeTest();
+     *
+     * User user = Master.allUser.get(0);
+     * Profile profile = new Profile(user);
+     *
+     * setContent(profile.getContend());
+     */
     private static void testDatesProfile() {
         User user = new User("Steve","Steve@stud.hs-heilbronn.de","123",false,"");
         User admin = new User("Albus Percival Wulfric Brian Dumbledore", "adumbledore@prof.hs-heilbronn.de", "123456Seven", true, "<div id = \"ip\"><p>Mi 12.30 - 13.30<br>A527</p></div><style type=\"text/css\"> #ip { background-color: #d3d3d3; width : 150px; height : 150px;} </style>");
