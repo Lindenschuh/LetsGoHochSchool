@@ -1,7 +1,11 @@
 package model;
 
+import com.vaadin.server.FileResource;
 import com.vaadin.ui.Image;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,6 +35,12 @@ public class User {
         this.times= times;
         this.courses = new ArrayList<>();
         todos = new HashMap<String, ArrayList<String>>();
+
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+
+        FileResource resourceUser = new FileResource(new File(s + "/Resource/Images/ProfilePictures/profile_default.png"));
+        this.image = new Image(null, resourceUser);
     }
 
     public void setImage(Image image)
