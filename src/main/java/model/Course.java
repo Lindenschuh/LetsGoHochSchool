@@ -1,11 +1,13 @@
 package model;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -17,23 +19,38 @@ public class Course {
     private User admin;
     private String beschreibung;
     private ArrayList<File> files;
+    private File dir;
     private ArrayList<LocalDateTime> dates;
     private String room;
     //TODO: Bild ?
 
 
     public Course(String name,User admin,String beschreibung,String date, int lessons,String room){
-
+        String stringPath = Paths.get("").toAbsolutePath().toString();
         this.name = name;
         this.admin = admin;
         this.beschreibung = beschreibung;
         this.room = room;
-
-        files = new ArrayList<File>();
+        this.dir = new File(stringPath+"/CourseFolder/"+name);
         achievements = new ArrayList<Achievement>();
         dates = new ArrayList<LocalDateTime>();
 
-       generateDate(date,lessons);
+        generateDate(date,lessons);
+        creatDir();
+        loadFiles();
+    }
+
+    private void loadFiles() {
+        if(dir.listFiles()!= null)
+            files = new ArrayList<File>(Arrays.asList(dir.listFiles()));
+        else
+            files = new ArrayList<File>();
+    }
+
+    private void creatDir() {
+        if(!dir.exists())
+            dir.mkdir();
+
     }
 
     private void generateDate(String date,int lessons) {
