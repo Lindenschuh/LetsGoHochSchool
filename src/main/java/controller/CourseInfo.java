@@ -9,12 +9,12 @@ import model.User;
 public class CourseInfo extends Modul {
     User usr;
     Course course;
-    TextArea area;
+    Label area;
 
     public CourseInfo(User user, Course course) {
         super(user);
         usr = user;
-        area = new TextArea();
+        area = new Label("", ContentMode.HTML);
         this.course = course;
         setupLayout();
     }
