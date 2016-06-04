@@ -24,7 +24,7 @@ public class Master {
 
     public static void makeTest()
     {
-
+        testDatesProfile();
     }
 
 
@@ -92,8 +92,6 @@ public class Master {
         FileResource resourceAdmin = new FileResource(new File(s + "/Resource/Images/profile_Admin.png"));
         Image imageAdmin = new Image(null, resourceAdmin);
 
-        user.setImage(imageUser);
-        admin.setImage(imageAdmin);
 
         allUser.add(user);
         allUser.add(admin);

@@ -100,7 +100,7 @@ public class MyUI extends UI {
 
 
         //Layout for the content
-        HorizontalLayout contentLayout = new HorizontalLayout();
+        VerticalLayout contentLayout = new VerticalLayout();
         contentLayout.setSizeFull();
         contentLayout.addStyleName("contend");
         bottomLayout.addComponent(contentLayout);
@@ -110,9 +110,13 @@ public class MyUI extends UI {
 
 
         Master.makeTest();
-        OverviewCourses a = new OverviewCourses(Master.allUser.get(0), (int) contentLayout.getWidth() );
+        Profile profile1 = new Profile(Master.allUser.get(1));
 
-        contentLayout.addComponent(a.getContend());
+        Profile profile2 = new Profile(Master.allUser.get(0));
+
+        contentLayout.addComponent(profile1.getContend());
+
+        contentLayout.addComponent(profile2.getContend());
     }
 
 
