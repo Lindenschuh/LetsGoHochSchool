@@ -5,11 +5,13 @@ import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 import controller.FileModul;
+import controller.OverviewCourses;
 import controller.Profile;
 import controller.TodoList;
 import model.Course;
@@ -31,12 +33,85 @@ import java.nio.file.Paths;
 @Widgetset("com.Demo.MyAppWidgetset")
 public class MyUI extends UI {
 
-    GridLayout mainLayout = new GridLayout(4,4);
-
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+        //Wrapper Layout for the whole page
+        final VerticalLayout wrapperLayout = new VerticalLayout();
+        setContent(wrapperLayout);
 
+
+        //Top Layout for the head
+        CssLayout topLayout = new CssLayout();
+        topLayout.addStyleName("top");
+        wrapperLayout.addComponent(topLayout);
+
+        Label title = new Label("Head");
+        title.addStyleName("h1");
+        topLayout.addComponent(title);
+
+        //Bottom Layout for the menu and content
+        HorizontalLayout bottomLayout = new HorizontalLayout();
+        bottomLayout.setSizeFull();
+        wrapperLayout.addComponent(bottomLayout);
+
+
+
+        //menue layout for all buttons in the menu
+        CssLayout menuLayout = new CssLayout();
+        menuLayout.addStyleName("menu");
+        bottomLayout.addComponent(menuLayout);
+
+        Button search = new Button("Search");
+        search.setSizeFull();
+        search.setIcon(FontAwesome.SEARCH);
+        menuLayout.addComponent(search);
+
+        Button home = new Button("Home");
+        home.setSizeFull();
+        home.setIcon(FontAwesome.HOME);
+        menuLayout.addComponent(home);
+
+        Button profile = new Button("Profile");
+        profile.setSizeFull();
+        profile.setIcon(FontAwesome.USER);
+        menuLayout.addComponent(profile);
+
+        Button course = new Button("Course");
+        course.setSizeFull();
+        course.setIcon(FontAwesome.BOOK);
+        menuLayout.addComponent(course);
+
+        Button schedule = new Button("Schedule");
+        schedule.setSizeFull();
+        schedule.setIcon(FontAwesome.CALENDAR);
+        menuLayout.addComponent(schedule);
+
+        Button achievements = new Button("Achievements");
+        achievements.setSizeFull();
+        achievements.setIcon(FontAwesome.TROPHY);
+        menuLayout.addComponent(achievements);
+
+        Button settings = new Button("Settings");
+        settings.setSizeFull();
+        settings.setIcon(FontAwesome.COG);
+        menuLayout.addComponent(settings);
+
+
+        //Layout for the content
+        HorizontalLayout contentLayout = new HorizontalLayout();
+        contentLayout.setSizeFull();
+        contentLayout.addStyleName("contend");
+        bottomLayout.addComponent(contentLayout);
+
+        bottomLayout.setExpandRatio(menuLayout, 2);
+        bottomLayout.setExpandRatio(contentLayout, 8);
+
+
+        Master.makeTest();
+        OverviewCourses a = new OverviewCourses(Master.allUser.get(0), (int) contentLayout.getWidth() );
+
+        contentLayout.addComponent(a.getContend());
     }
 
 

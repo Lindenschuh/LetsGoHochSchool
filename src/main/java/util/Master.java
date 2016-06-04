@@ -25,7 +25,7 @@ public class Master {
 
     public static void makeTest()
     {
-        testDatesProfile();
+        makeCourseModulTestData();
     }
 
 
