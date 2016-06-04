@@ -1,7 +1,9 @@
 package controller;
 
 import com.vaadin.server.FileResource;
+import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable;
+import com.vaadin.ui.AbstractLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomLayout;
@@ -26,37 +28,50 @@ public abstract class AchievementsGallery extends Modul{
 
 
     private final static int COMPONENT_SIZE = 100;
-    private final static int SPACING_SIZE = 30;
+    private final static int SPACING_SIZE = 40;
 
     private String name;
     private int maxColumns;
     private boolean showAll;
+    int componentCounter;
 
     protected User user;
+    private Page page;
     private Label nameLabel;
     private Image moreAchievementsImg;
 
     private GridLayout contentLayout;
+    private AbstractLayout parentLayout;
     private VerticalLayout moduleLayout;
 
     private ArrayList<Achievement> achievements;
     private ArrayList<Image> achievementImage;
     private ArrayList<CustomLayout> achievementLabel;
 
+    //TODO
 
-    public AchievementsGallery(User user, int width, String name) {
+
+    public AchievementsGallery(User user, Page page, AbstractLayout parent, String name) {
         super(user);
         this.user = user;
         this.name = name;
+        this.page = page;
+        this.parentLayout = parent;
+
+        page.addBrowserWindowResizeListener(l -> {
+            calcLayoutSize((int) (page.getBrowserWindowWidth() * (parentLayout.getWidth() / 100)));
+            update();
+        });
 
         showAll = false;
         layout = new CssLayout();
 
+        achievements = new ArrayList<>();
         achievementImage = new ArrayList<>();
         achievementLabel = new ArrayList<>();
 
+        int width = (int) (page.getBrowserWindowWidth() * (parent.getWidth() / 100));
         createLayout(width);
-
     }
 
     protected void calcLayoutSize(int width) {
@@ -75,7 +90,7 @@ public abstract class AchievementsGallery extends Modul{
         moduleLayout = new VerticalLayout();
         contentLayout = new GridLayout();
 
-        contentLayout = new GridLayout(maxColumns + 1, 1);
+        contentLayout = new GridLayout(maxColumns , 1);
         contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         nameLabel = new Label(getName());
@@ -104,6 +119,7 @@ public abstract class AchievementsGallery extends Modul{
     protected void updateLayout (){
         if(contentLayout != null) {
             contentLayout.removeAllComponents();
+            achievementImage.clear();
 
             achievements.forEach( achievement -> {
                 File f = new File(Paths.get("").toAbsolutePath().toString()
@@ -130,16 +146,31 @@ public abstract class AchievementsGallery extends Modul{
                 }
             });
 
+            componentCounter = 0;
+
+            if(showAll) {
+                contentLayout.setColumns(maxColumns - 1);
+            } else {
+                contentLayout.setColumns(maxColumns);
+                contentLayout.setRows(1);
+            }
+
             achievementImage.forEach(img -> {
-                if( contentLayout.getCursorX() < maxColumns || showAll){
+                if( contentLayout.getCursorX() < maxColumns - 1|| showAll){
                     contentLayout.addComponent(img);
+                    componentCounter++;
                 }
             });
-            achievementLabel.forEach(label -> {
+            /*achievementLabel.forEach(label -> {
                 if(contentLayout.getCursorX() < maxColumns || showAll){
                     contentLayout.addComponent(label);
                 }
-            });
+            });*/
+
+
+            if((componentCounter - 1) == maxColumns) {
+
+            }
 
             contentLayout.addComponent(moreAchievementsImg);
             contentLayout.setComponentAlignment(moreAchievementsImg, Alignment.BOTTOM_RIGHT);
@@ -163,7 +194,8 @@ public abstract class AchievementsGallery extends Modul{
     }
 
     protected void setAchievements(ArrayList<Achievement> achievements) {
-        this.achievements = achievements;
+        this.achievements.clear();
+        this.achievements.addAll(achievements);
     }
 
 }

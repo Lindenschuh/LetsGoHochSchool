@@ -1,6 +1,9 @@
 package controller;
 
+import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable;
+import com.vaadin.ui.AbsoluteLayout;
+import com.vaadin.ui.AbstractLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomLayout;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
  */
 public class OverviewCourses extends Modul {
 
-    private final static int SPACING_SIZE = 30;
+    private final static int SPACING_SIZE = 40;
     private final static int COMPONENT_SIZE = 100;
     private final static String MODUL_NAME = "Kurse";
 
@@ -31,10 +34,13 @@ public class OverviewCourses extends Modul {
     private boolean showAll;
 
     private User user;
+    private Page page;
     private Label nameLabel;
     private Image moreCoursesImg;
-    private VerticalLayout moduleLayout;
+
     private GridLayout contentLayout;
+    private AbstractLayout parentLayout;
+    private VerticalLayout moduleLayout;
 
     private ArrayList<Image> imagesCourses;
     private ArrayList<CustomLayout> labelsCourses;
@@ -43,16 +49,26 @@ public class OverviewCourses extends Modul {
     /**
      * The course module shows all the courses from a user.
      * @param user The {@link User}.
-     * @param width Max width, for this view.
+     *
      */
-    public OverviewCourses(User user, int width) {
+    public OverviewCourses(User user, Page page, AbstractLayout parent) {
         super(user);
         this.user = user;
+        this.page = page;
+        this.parentLayout = parent;
+
+
+        page.addBrowserWindowResizeListener(l -> {
+            calcLayoutSize((int) (page.getBrowserWindowWidth() * (parentLayout.getWidth() / 100)));
+            update();
+        });
 
         showAll = false;
         layout = new CssLayout();
         imagesCourses = new ArrayList<>();
         labelsCourses = new ArrayList<>();
+
+        int width = (int) (page.getBrowserWindowWidth() * (parentLayout.getWidth() / 100));
 
         createLayout(width);
         update();
@@ -72,39 +88,13 @@ public class OverviewCourses extends Modul {
 
 
     private void update() {
+        imagesCourses.clear();
+        labelsCourses.clear();
         contentLayout.removeAllComponents();
 
-        imagesCourses.forEach(img -> {
-            if( contentLayout.getCursorX() < maxColumns || showAll){
-                contentLayout.addComponent(img);
-            }
-        });
-        labelsCourses.forEach(label -> {
-            if(contentLayout.getCursorX() < maxColumns || showAll){
-                contentLayout.addComponent(label);
-            }
-        });
-
-        contentLayout.addComponent(moreCoursesImg);
-        contentLayout.setComponentAlignment(moreCoursesImg, Alignment.BOTTOM_RIGHT);
-    }
-
-
-    private void createLayout(int width) {
-        calcLayoutSize(width);
-
-        moduleLayout = new VerticalLayout();
-        contentLayout = new GridLayout(maxColumns + 1, 1);
-        contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-
-        nameLabel = new Label(MODUL_NAME);
-        moduleLayout.addComponent(nameLabel);
-        moduleLayout.addComponent(contentLayout);
-
-        String stringPath = Paths.get("").toAbsolutePath().toString();
-
         user.getCourses().forEach(course -> {
-            File f = new File(stringPath + "/Resource/Images/Courses/" + course.getName() +".jpg");
+            File f = new File(Paths.get("").toAbsolutePath().toString()
+                    + "/Resource/Images/Courses/" + course.getName() +".jpg");
 
             if(f.exists()) {
                 FileResource resource = new FileResource(f);
@@ -127,7 +117,8 @@ public class OverviewCourses extends Modul {
             }
         });
 
-        File f = new File(stringPath + "/Resource/Images/Icons/ellipsis-h.png");
+        File f = new File(Paths.get("").toAbsolutePath().toString()
+                + "/Resource/Images/Icons/ellipsis-h.png");
 
         if(f.exists()) {
             FileResource resource = new FileResource(f);
@@ -139,10 +130,52 @@ public class OverviewCourses extends Modul {
             });
         }
 
+        if(showAll) {
+            contentLayout.setColumns(maxColumns - 1);
+        } else {
+            contentLayout.setColumns(maxColumns);
+            contentLayout.setRows(1);
+        }
+
+
+
+
+        imagesCourses.forEach(img -> {
+
+            int maxComponents = maxColumns - 1;
+
+            if( contentLayout.getCursorX() < maxComponents || showAll){
+                contentLayout.addComponent(img);
+            }
+        });
+        labelsCourses.forEach(label -> {
+
+            int maxComponents = maxColumns - 1;
+
+            if(contentLayout.getCursorX() < maxComponents || showAll){
+                contentLayout.addComponent(label);
+            }
+        });
+
+        contentLayout.addComponent(moreCoursesImg);
+        contentLayout.setComponentAlignment(moreCoursesImg, Alignment.BOTTOM_RIGHT);
+    }
+
+
+    private void createLayout(int width) {
+        calcLayoutSize(width);
+
+        moduleLayout = new VerticalLayout();
+        contentLayout = new GridLayout(maxColumns + 1, 1);
+        contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        nameLabel = new Label(MODUL_NAME);
+        moduleLayout.addComponent(nameLabel);
+        moduleLayout.addComponent(contentLayout);
+
         moduleLayout.setSpacing(true);
         moduleLayout.setMargin(true);
         contentLayout.setSpacing(true);
-
         layout.addComponents(moduleLayout);
     }
 

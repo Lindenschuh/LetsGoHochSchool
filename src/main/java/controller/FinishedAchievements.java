@@ -1,5 +1,7 @@
 package controller;
 
+import com.vaadin.server.Page;
+import com.vaadin.ui.AbstractLayout;
 import model.Achievement;
 import model.User;
 import util.Master;
@@ -13,8 +15,8 @@ import java.util.ArrayList;
 public class FinishedAchievements  extends AchievementsGallery{
 
 
-    public FinishedAchievements(User user, int width) {
-        super(user, width, "Fertige Erfolge");
+    public FinishedAchievements(User user, Page page, AbstractLayout parent) {
+        super(user, page, parent, "Fertige Erfolge");
         update();
     }
 

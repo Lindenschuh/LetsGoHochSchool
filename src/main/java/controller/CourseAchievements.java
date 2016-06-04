@@ -1,5 +1,7 @@
 package controller;
 
+import com.vaadin.server.Page;
+import com.vaadin.ui.AbstractLayout;
 import com.vaadin.ui.Label;
 import model.Achievement;
 import model.Course;
@@ -17,8 +19,8 @@ public class CourseAchievements extends AchievementsGallery{
 
     private Course course;
 
-    public CourseAchievements(User user, Course course, int width) {
-        super(user, width, course.getName());
+    public CourseAchievements(User user, Course course, Page page, AbstractLayout parent) {
+        super(user, page, parent, course.getName());
         this.course = course;
         update();
     }

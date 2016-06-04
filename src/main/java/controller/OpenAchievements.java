@@ -1,5 +1,7 @@
 package controller;
 
+import com.vaadin.server.Page;
+import com.vaadin.ui.AbstractLayout;
 import model.Achievement;
 import model.User;
 import util.Master;
@@ -12,8 +14,8 @@ import java.util.ArrayList;
  */
 public class OpenAchievements extends AchievementsGallery {
 
-    public OpenAchievements(User user, int width) {
-        super(user, width, "Offene Erfolge");
+    public OpenAchievements(User user, Page page, AbstractLayout parent) {
+        super(user, page, parent, "Offene Erfolge");
         update();
     }
 
