@@ -48,12 +48,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.vaadin.addon</groupId>
-			<artifactId>easyuploads</artifactId>
-			<version>7.4.3</version>
-		</dependency>
-
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
@@ -130,6 +124,8 @@
 				<executions>
 					<execution>
 						<goals>
+							<goal>clean</goal>
+							<goal>resources</goal>
 							<goal>update-theme</goal>
 							<goal>update-widgetset</goal>
 							<goal>compile</goal>

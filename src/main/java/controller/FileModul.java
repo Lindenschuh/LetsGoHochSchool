@@ -6,7 +6,6 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import model.Course;
 import model.User;
-import org.vaadin.easyuploads.UploadField;
 
 import java.io.File;
 import java.io.FileOutputStream;
