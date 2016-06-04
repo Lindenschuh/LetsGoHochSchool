@@ -41,32 +41,78 @@ public class Master {
         allUser.add(new User("Steve","Steve@stud.hs-heilbronn.de","123",false,""));
         allUser.add(new User("Albus Percival Wulfric Brian Dumbledore", "adumbledore@prof.hs-heilbronn.de", "123456Seven", true, "<div id = \"ip\"><p>Mi 12.30 - 13.30<br>A527</p></div><style type=\"text/css\"> #ip { background-color: #d3d3d3; width : 150px; height : 150px;} </style>"));
 
-
         //create some courses
-        allCourse.add(new Course("Raketen-Wissenschaften",null,"RocketThings","25-10-1995 20:00",10,"200"));
+        allCourse.add(new Course("Raketen Wissenschaften",null,"RocketThings","25-10-1995 20:00",10,"200"));
         allCourse.add(new Course("Mathe",null,"MatheThings","25-10-1995 20:00",10,"200"));
         allCourse.add(new Course("Englisch",null,"EnglishThings","25-10-1995 20:00",10,"200"));
+        allCourse.add(new Course("Virtual Reality",null,"VRThings","25-10-1995 11:30",10,"200"));
+        allCourse.add(new Course("Spieleentwicklung 1",null,"PMTThings","25-03-2016 09:45",10,"200"));
         allCourse.add(new Course("Programmieren",null,"ProgrammingThings","25-10-1995 20:00",10,"200"));
-        /*allCourse.add(new Course("Signal Verarbeitung 1",null,"SingalThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Signal Verarbeitung 2",null,"SingalThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Signal Verarbeitung 3",null,"SingalThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Signal Verarbeitung 4",null,"SingalThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Signal Verarbeitung 5",null,"SingalThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Signal Verarbeitung 6",null,"SingalThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Signal Verarbeitung 7",null,"SingalThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Signal Verarbeitung 8",null,"SingalThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Signal Verarbeitung 9",null,"SingalThings","25.10.1995:20:00",10,"200"));
-        allCourse.add(new Course("Signal Verarbeitung 10",null,"SingalThings","25.10.1995:20:00",10,"200"));*/
+        allCourse.add(new Course("Signalverarbeitung 1",null,"SingalThings","25-03-2016 08:00",10,"200"));
+        allCourse.add(new Course("Projekt Management und Tools",null,"PMTThings","25-03-2016 09:45",10,"200"));
+        allCourse.add(new Course("Personal Productivity",null,"PersonalThings","24-03-2016 17:00",10,"200"));
+        allCourse.add(new Course("Spieleentwicklung 2",null,"PMTThings","25-03-2016 09:45",10,"200"));
+        allCourse.add(new Course("Signalverarbeitung 2",null,"SingalThings","25-10-1995 11:30",10,"200"));
+        allCourse.add(new Course("Verteilte Systeme",null,"SingalThings","25-10-1995 11:30",10,"200"));
+        allCourse.add(new Course("Studium",null,"StudyThings","25-10-1995 11:30",10,"200"));
+
 
 
         //create some achievements
-        allAchievements.add(new Achievement("Mathe Koenig", allCourse.get(0)));
+        //Raketen Wissenschaften
+        Achievement a1 = new Achievement("Mathe Koenig", allCourse.get(0));
+        Achievement a2 = new Achievement("Astronaut", allCourse.get(0));
+
+        a1.setFinished(true);
+        a2.setFinished(true);
+        allAchievements.add(a1);
+        allAchievements.add(a2);
         allAchievements.add(new Achievement("Programmier Ass", allCourse.get(0)));
         allAchievements.add(new Achievement("Raketen start", allCourse.get(0)));
-        allAchievements.add(new Achievement("Coding Master", allCourse.get(0)));
+
+
+        //Spieleentwicklung 1
+        allAchievements.add(new Achievement("Gaming", allCourse.get(4)));
+        allAchievements.add(new Achievement("Unity Developer", allCourse.get(4)));
+
+
+        //Programmieren
+        Achievement a3 = new Achievement("HTML Fabrik", allCourse.get(5));
+        Achievement a4 = new Achievement("UI Designer", allCourse.get(5));
+        a3.setFinished(true);
+        a4.setFinished(true);
+        allAchievements.add(a3);
+        allAchievements.add(a4);
+
+
+        //Signalverarbeitung 1
+        allAchievements.add(new Achievement("Elektronik", allCourse.get(6)));
+        //allAchievements.add(new Achievement("Microcontroller", allCourse.get(6)));
+        allAchievements.add(new Achievement("Signalverarbeiter", allCourse.get(6)));
+        allAchievements.add(new Achievement("Funkmast", allCourse.get(6)));
+
+
+        //Projekt Management und Tools
+        allAchievements.add(new Achievement("Scrum", allCourse.get(7)));
+
+
+        //Personal Productivity
+        allAchievements.add(new Achievement("Git Master", allCourse.get(8)));
+        //allAchievements.add(new Achievement("JUnit", allCourse.get(8)));
+
+
+        //Verteilte Systeme
+        allAchievements.add(new Achievement("Cloud", allCourse.get(11)));
+
+
+        //Studium
+        allAchievements.add(new Achievement("Auslandssemester", allCourse.get(12)));
+        allAchievements.add(new Achievement("Erstes Buch", allCourse.get(12)));
+        allAchievements.add(new Achievement("Buecherwurm", allCourse.get(12)));
 
 
 
+        //Put it together
         allCourse.forEach(c -> allUser.get(0).addCourse(c));
         allCourse.forEach(c -> allUser.get(1).addCourse(c));
         todoTest(Master.allUser.get(0));

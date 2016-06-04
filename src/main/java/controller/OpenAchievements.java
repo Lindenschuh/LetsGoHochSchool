@@ -5,6 +5,7 @@ import com.vaadin.ui.AbstractLayout;
 import model.Achievement;
 import model.User;
 import util.Master;
+import view.MyUI;
 
 import java.util.ArrayList;
 
@@ -14,8 +15,8 @@ import java.util.ArrayList;
  */
 public class OpenAchievements extends AchievementsGallery {
 
-    public OpenAchievements(User user, Page page, AbstractLayout parent) {
-        super(user, page, parent, "Offene Erfolge");
+    public OpenAchievements(User user, MyUI ui) {
+        super(user, ui, "Offene Erfolge");
         update();
     }
 

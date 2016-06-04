@@ -13,6 +13,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import model.Achievement;
 import model.User;
+import view.MyUI;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,20 +29,19 @@ public abstract class AchievementsGallery extends Modul{
 
 
     private final static int COMPONENT_SIZE = 100;
-    private final static int SPACING_SIZE = 40;
+    private final static int SPACING_SIZE = 43;
 
     private String name;
     private int maxColumns;
     private boolean showAll;
     int componentCounter;
 
+    private MyUI ui;
     protected User user;
-    private Page page;
     private Label nameLabel;
     private Image moreAchievementsImg;
 
     private GridLayout contentLayout;
-    private AbstractLayout parentLayout;
     private VerticalLayout moduleLayout;
 
     private ArrayList<Achievement> achievements;
@@ -51,17 +51,11 @@ public abstract class AchievementsGallery extends Modul{
     //TODO
 
 
-    public AchievementsGallery(User user, Page page, AbstractLayout parent, String name) {
+    public AchievementsGallery(User user, MyUI ui, String name) {
         super(user);
         this.user = user;
         this.name = name;
-        this.page = page;
-        this.parentLayout = parent;
-
-        page.addBrowserWindowResizeListener(l -> {
-            calcLayoutSize((int) (page.getBrowserWindowWidth() * (parentLayout.getWidth() / 100)));
-            update();
-        });
+        this.ui = ui;
 
         showAll = false;
         layout = new CssLayout();
@@ -70,12 +64,12 @@ public abstract class AchievementsGallery extends Modul{
         achievementImage = new ArrayList<>();
         achievementLabel = new ArrayList<>();
 
-        int width = (int) (page.getBrowserWindowWidth() * (parent.getWidth() / 100));
-        createLayout(width);
+        createLayout();
     }
 
-    protected void calcLayoutSize(int width) {
+    protected void calcLayoutSize() {
         int columnCounter = 0;
+        int width = (int) (ui.getPage().getBrowserWindowWidth() * (ui.getContentLayout().getWidth() / 100));
 
         while(width > 0) {
             width -= COMPONENT_SIZE + SPACING_SIZE;
@@ -84,8 +78,13 @@ public abstract class AchievementsGallery extends Modul{
         maxColumns = columnCounter - 1;
     }
 
-    protected void createLayout(int width) {
-        calcLayoutSize(width);
+    protected void createLayout() {
+        calcLayoutSize();
+
+        ui.getPage().addBrowserWindowResizeListener(l -> {
+            calcLayoutSize();
+            update();
+        });
 
         moduleLayout = new VerticalLayout();
         contentLayout = new GridLayout();
@@ -94,6 +93,7 @@ public abstract class AchievementsGallery extends Modul{
         contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         nameLabel = new Label(getName());
+        nameLabel.setStyleName("h3");
         moduleLayout.addComponent(nameLabel);
         moduleLayout.addComponent(contentLayout);
 
@@ -109,10 +109,8 @@ public abstract class AchievementsGallery extends Modul{
             });
         }
 
-        moduleLayout.setSpacing(true);
         moduleLayout.setMargin(true);
         contentLayout.setSpacing(true);
-
         layout.addComponents(moduleLayout);
     }
 
@@ -144,6 +142,7 @@ public abstract class AchievementsGallery extends Modul{
                         e.printStackTrace();
                     }
                 }
+
             });
 
             componentCounter = 0;
@@ -161,19 +160,15 @@ public abstract class AchievementsGallery extends Modul{
                     componentCounter++;
                 }
             });
-            /*achievementLabel.forEach(label -> {
-                if(contentLayout.getCursorX() < maxColumns || showAll){
-                    contentLayout.addComponent(label);
-                }
-            });*/
 
 
-            if((componentCounter - 1) == maxColumns) {
-
+            if (achievementImage.size() == maxColumns) {
+                //contentLayout.addComponent(new Label(Integer.toString(achievementImage.size())));
+                contentLayout.addComponent(achievementImage.get(maxColumns - 1));
+            } else if (achievementImage.size() > maxColumns) {
+                contentLayout.addComponent(moreAchievementsImg);
+                contentLayout.setComponentAlignment(moreAchievementsImg, Alignment.BOTTOM_RIGHT);
             }
-
-            contentLayout.addComponent(moreAchievementsImg);
-            contentLayout.setComponentAlignment(moreAchievementsImg, Alignment.BOTTOM_RIGHT);
         }
     }
 

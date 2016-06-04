@@ -5,6 +5,7 @@ import com.vaadin.ui.AbstractLayout;
 import model.Achievement;
 import model.User;
 import util.Master;
+import view.MyUI;
 
 import java.util.ArrayList;
 
@@ -15,8 +16,8 @@ import java.util.ArrayList;
 public class FinishedAchievements  extends AchievementsGallery{
 
 
-    public FinishedAchievements(User user, Page page, AbstractLayout parent) {
-        super(user, page, parent, "Fertige Erfolge");
+    public FinishedAchievements(User user, MyUI ui) {
+        super(user, ui, "Abgeschlossene Erfolge");
         update();
     }
 
@@ -28,7 +29,6 @@ public class FinishedAchievements  extends AchievementsGallery{
 
         //Instate of the dummy data use the user data.
         dummyAchievements.forEach(achievement -> {
-            achievement.setFinished(true);
             //filter the achievemnts here
             if(achievement.isFinished()) {
                 achievements.add(achievement);

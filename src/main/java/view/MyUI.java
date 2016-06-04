@@ -30,6 +30,7 @@ import java.nio.file.Paths;
 @Widgetset("com.Demo.MyAppWidgetset")
 public class MyUI extends UI {
 
+    private AbstractLayout contentLayout;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -96,7 +97,7 @@ public class MyUI extends UI {
 
 
         //Layout for the content
-        VerticalLayout contentLayout = new VerticalLayout();
+        contentLayout = new VerticalLayout();
         contentLayout.setSizeFull();
         contentLayout.addStyleName("contend");
         bottomLayout.addComponent(contentLayout);
@@ -106,9 +107,6 @@ public class MyUI extends UI {
 
 
         Master.makeTest();
-        User us = Master.allUser.get(1);
-        CourseController con = new CourseController(us);
-        contentLayout.addComponent(con.getContend());
 
     }
 
@@ -117,4 +115,9 @@ public class MyUI extends UI {
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }
+
+    public AbstractLayout getContentLayout() {
+        return contentLayout;
+    }
+
 }

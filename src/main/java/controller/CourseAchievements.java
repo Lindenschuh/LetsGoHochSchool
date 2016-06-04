@@ -7,6 +7,7 @@ import model.Achievement;
 import model.Course;
 import model.User;
 import util.Master;
+import view.MyUI;
 
 import java.util.ArrayList;
 
@@ -19,8 +20,8 @@ public class CourseAchievements extends AchievementsGallery{
 
     private Course course;
 
-    public CourseAchievements(User user, Course course, Page page, AbstractLayout parent) {
-        super(user, page, parent, course.getName());
+    public CourseAchievements(User user, MyUI ui, Course course) {
+        super(user, ui, course.getName());
         this.course = course;
         update();
     }

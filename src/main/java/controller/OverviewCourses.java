@@ -13,6 +13,7 @@ import com.vaadin.server.FileResource;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import model.User;
+import view.MyUI;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -26,20 +27,19 @@ import java.util.ArrayList;
  */
 public class OverviewCourses extends Modul {
 
-    private final static int SPACING_SIZE = 40;
+    private final static int SPACING_SIZE = 43;
     private final static int COMPONENT_SIZE = 100;
     private final static String MODUL_NAME = "Kurse";
 
     private int maxColumns;
     private boolean showAll;
 
+    private MyUI ui;
     private User user;
-    private Page page;
     private Label nameLabel;
     private Image moreCoursesImg;
 
     private GridLayout contentLayout;
-    private AbstractLayout parentLayout;
     private VerticalLayout moduleLayout;
 
     private ArrayList<Image> imagesCourses;
@@ -51,33 +51,25 @@ public class OverviewCourses extends Modul {
      * @param user The {@link User}.
      *
      */
-    public OverviewCourses(User user, Page page, AbstractLayout parent) {
+    public OverviewCourses(User user, MyUI ui) {
         super(user);
         this.user = user;
-        this.page = page;
-        this.parentLayout = parent;
-
-
-        page.addBrowserWindowResizeListener(l -> {
-            calcLayoutSize((int) (page.getBrowserWindowWidth() * (parentLayout.getWidth() / 100)));
-            update();
-        });
-
+        this.ui = ui;
         showAll = false;
         layout = new CssLayout();
         imagesCourses = new ArrayList<>();
         labelsCourses = new ArrayList<>();
 
-        int width = (int) (page.getBrowserWindowWidth() * (parentLayout.getWidth() / 100));
 
-        createLayout(width);
+        createLayout();
         update();
 
     }
 
 
-    private void calcLayoutSize(int width) {
+    private void calcLayoutSize() {
         int columnCounter = 0;
+        int width = (int) (ui.getPage().getBrowserWindowWidth() * (ui.getContentLayout().getWidth() / 100));
 
         while(width > 0) {
             width -= COMPONENT_SIZE + SPACING_SIZE;
@@ -91,6 +83,8 @@ public class OverviewCourses extends Modul {
         imagesCourses.clear();
         labelsCourses.clear();
         contentLayout.removeAllComponents();
+
+        calcLayoutSize();
 
         user.getCourses().forEach(course -> {
             File f = new File(Paths.get("").toAbsolutePath().toString()
@@ -137,9 +131,6 @@ public class OverviewCourses extends Modul {
             contentLayout.setRows(1);
         }
 
-
-
-
         imagesCourses.forEach(img -> {
 
             int maxComponents = maxColumns - 1;
@@ -157,23 +148,36 @@ public class OverviewCourses extends Modul {
             }
         });
 
-        contentLayout.addComponent(moreCoursesImg);
-        contentLayout.setComponentAlignment(moreCoursesImg, Alignment.BOTTOM_RIGHT);
+        if ((imagesCourses.size() + labelsCourses.size()) == maxColumns) {
+            if(labelsCourses.size() == 0) {
+                contentLayout.addComponent(imagesCourses.get(maxColumns - 1));
+            } else {
+                contentLayout.addComponent(labelsCourses.get(labelsCourses.size() - 1));
+            }
+        } else if ((imagesCourses.size() + labelsCourses.size()) > maxColumns) {
+            contentLayout.addComponent(moreCoursesImg);
+            contentLayout.setComponentAlignment(moreCoursesImg, Alignment.BOTTOM_RIGHT);
+        }
     }
 
 
-    private void createLayout(int width) {
-        calcLayoutSize(width);
+    private void createLayout() {
+        calcLayoutSize();
+
+        ui.getPage().addBrowserWindowResizeListener(l -> {
+            calcLayoutSize();
+            update();
+        });
 
         moduleLayout = new VerticalLayout();
         contentLayout = new GridLayout(maxColumns + 1, 1);
         contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         nameLabel = new Label(MODUL_NAME);
+        nameLabel.setStyleName("h3");
         moduleLayout.addComponent(nameLabel);
         moduleLayout.addComponent(contentLayout);
 
-        moduleLayout.setSpacing(true);
         moduleLayout.setMargin(true);
         contentLayout.setSpacing(true);
         layout.addComponents(moduleLayout);
