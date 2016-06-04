@@ -42,9 +42,9 @@ public class CourseController extends Modul{
         VerticalLayout ver = new VerticalLayout();
         hori.addComponent(ver);
         ver.addComponent(comb);
-        ver.addComponent(new TodoList(user,course).getContend());
-        ver.addComponent(new CourseInfo(user,course).getContend());
-        hori.addComponent(new FileModul(user,course).getContend());
+        ver.addComponent(new TodoList(user,course).getContent());
+        ver.addComponent(new CourseInfo(user,course).getContent());
+        hori.addComponent(new FileModul(user,course).getContent());
         layout.addComponent(hori);
 
     }
