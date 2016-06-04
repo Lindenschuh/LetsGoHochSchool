@@ -11,7 +11,7 @@ public class CourseInfo extends Modul {
     Course course;
     TextArea area;
 
-    private CourseInfo(User user, Course course) {
+    public CourseInfo(User user, Course course) {
         super(user);
         usr = user;
         area = new TextArea();

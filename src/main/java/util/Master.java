@@ -24,7 +24,7 @@ public class Master {
 
     public static void makeTest()
     {
-        testDatesProfile();
+        makeCourseModulTestData();
     }
 
 
@@ -39,6 +39,8 @@ public class Master {
 
         //create some users
         allUser.add(new User("Steve","Steve@stud.hs-heilbronn.de","123",false,""));
+        allUser.add(new User("Albus Percival Wulfric Brian Dumbledore", "adumbledore@prof.hs-heilbronn.de", "123456Seven", true, "<div id = \"ip\"><p>Mi 12.30 - 13.30<br>A527</p></div><style type=\"text/css\"> #ip { background-color: #d3d3d3; width : 150px; height : 150px;} </style>"));
+
 
         //create some courses
         allCourse.add(new Course("Raketen-Wissenschaften",null,"RocketThings","25-10-1995 20:00",10,"200"));
@@ -66,6 +68,7 @@ public class Master {
 
 
         allCourse.forEach(c -> allUser.get(0).addCourse(c));
+        allCourse.forEach(c -> allUser.get(1).addCourse(c));
         todoTest(Master.allUser.get(0));
     }
 

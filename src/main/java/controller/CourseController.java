@@ -43,6 +43,7 @@ public class CourseController extends Modul{
         hori.addComponent(ver);
         ver.addComponent(comb);
         ver.addComponent(new TodoList(user,course).getContend());
+        ver.addComponent(new CourseInfo(user,course).getContend());
         hori.addComponent(new FileModul(user,course).getContend());
         layout.addComponent(hori);
 

@@ -49,10 +49,16 @@ public class FileModul extends Modul {
             fd.extend(butt);
         }
 
+        Button bEdit = new Button();
+        bEdit.addClickListener(e -> startEdit());
+        vert.addComponent(bEdit);
         layout.addComponent(vert);
 
 
 
+    }
+
+    private void startEdit() {
     }
 
 
