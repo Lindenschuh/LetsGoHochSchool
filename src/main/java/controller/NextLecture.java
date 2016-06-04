@@ -43,7 +43,7 @@ public class NextLecture extends Modul {
         }
         else
         {
-            next = new Label("<u>Nächste Vorlesung</u>"
+            next = new Label("<u>Nächste Vorlesung</u>" +
                             "<br>" + c.getName() +
                             "<br>Zeit: " + c.getDates().get(0).toString() +
                              "<br>Raum: " + c.getRoom(), ContentMode.HTML);
