@@ -20,8 +20,7 @@ public class Master {
    public static ArrayList<Course> allCourse = new ArrayList<>();
    public static ArrayList<User> allUser = new ArrayList<>();
     public static ArrayList<Achievement> allAchievements = new ArrayList<>();
-
-    public static void makeTest() {
+    
 
 
     public static void makeTest()
