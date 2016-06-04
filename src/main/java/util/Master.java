@@ -22,8 +22,6 @@ public class Master {
     public static ArrayList<Achievement> allAchievements = new ArrayList<>();
 
 
-
-
     public static void makeTest()
     {
 
