@@ -91,6 +91,8 @@ public class Course {
         return beschreibung;
     }
 
+    public void setBeschreibung(String bes) { this.beschreibung = bes; }
+
     public ArrayList<File> getFiles() {
         return files;
     }
