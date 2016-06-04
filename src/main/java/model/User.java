@@ -66,7 +66,7 @@ public class User {
     }
 
     public ArrayList<String> getTodos(String coursName) {
-        return todos.get(coursName);
+        return todos.get(coursName)==null? new ArrayList<String>():todos.get(coursName);
     }
 
     public ArrayList<Course> getCourses() {

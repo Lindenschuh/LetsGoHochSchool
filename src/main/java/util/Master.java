@@ -20,12 +20,11 @@ public class Master {
    public static ArrayList<Course> allCourse = new ArrayList<>();
    public static ArrayList<User> allUser = new ArrayList<>();
     public static ArrayList<Achievement> allAchievements = new ArrayList<>();
-    
 
 
     public static void makeTest()
     {
-        makeCourseModulTestData();
+
     }
 
 
@@ -67,7 +66,7 @@ public class Master {
 
 
         allCourse.forEach(c -> allUser.get(0).addCourse(c));
-
+        todoTest(Master.allUser.get(0));
     }
 
 
@@ -107,6 +106,18 @@ public class Master {
         newTodos.add("Rechne aufgabe 2");
         newTodos.add("Uebe brueche");
         user.setTodos(newTodos,"Mathe");
+
+        ArrayList<String> newTodos1 = new ArrayList<>();
+        newTodos1.add("Boom");
+        newTodos1.add("krass");
+        user.setTodos(newTodos1,"Raketen-Wissenschaften");
+
+        ArrayList<String> newTodos2 = new ArrayList<>();
+        newTodos2.add("Observer?");
+        newTodos2.add("Amd vs Nvidia!");
+        user.setTodos(newTodos2,"Programmieren");
+
+
     }
 
 }
