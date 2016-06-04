@@ -34,4 +34,15 @@
 @mixin mytheme {
   @include valo;
 
+  .v-icon {
+    color: green;
+  }
+
+
+  .v-button {
+    text-align: left;
+    font-size: 20px;
+    font-style: oblique;
+  }
+
 }

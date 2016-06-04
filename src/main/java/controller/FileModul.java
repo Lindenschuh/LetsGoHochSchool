@@ -7,7 +7,6 @@ import com.vaadin.ui.themes.ValoTheme;
 import model.Course;
 import model.User;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;

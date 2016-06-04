@@ -1,6 +1,7 @@
 package controller;
 
 
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import model.User;
 
@@ -75,12 +76,10 @@ public class Profile extends Modul {
         //if the user has admin rights, add the custom layout with the times String
         //from the user.
         if(this.user.isAdmin()) {
-            try {
-                CustomLayout customLayout = new CustomLayout(new ByteArrayInputStream(times.getBytes()));
-                horizontalLayout.addComponent(customLayout);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+                Label lable = new Label(this.times, ContentMode.HTML);
+                horizontalLayout.addComponent(lable);
+
         }
 
 

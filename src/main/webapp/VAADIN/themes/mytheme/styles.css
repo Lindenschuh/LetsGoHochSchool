@@ -12932,3 +12932,13 @@ div.v-layout.v-horizontal.v-widget {
 	width: 19px;
 	overflow: hidden;
 }
+
+.mytheme .v-icon {
+	color: green;
+}
+
+.mytheme .v-button {
+	text-align: left;
+	font-size: 20px;
+	font-style: oblique;
+}
