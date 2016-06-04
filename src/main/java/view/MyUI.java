@@ -10,7 +10,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
-import controller.CourseController;
 import controller.FileModul;
 import controller.OverviewCourses;
 import controller.Profile;
