@@ -1,4 +1,4 @@
-package controller;
+package controller.course;
 
 import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable;
@@ -12,6 +12,7 @@ import com.vaadin.ui.Image;
 import com.vaadin.server.FileResource;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import controller.Modul;
 import model.User;
 import view.MyUI;
 
@@ -37,6 +38,7 @@ public class OverviewCourses extends Modul {
     private MyUI ui;
     private User user;
     private Label nameLabel;
+    private Image addCourseImg;
     private Image moreCoursesImg;
 
     private GridLayout contentLayout;
@@ -111,19 +113,6 @@ public class OverviewCourses extends Modul {
             }
         });
 
-        File f = new File(Paths.get("").toAbsolutePath().toString()
-                + "/Resource/Images/Icons/ellipsis-h.png");
-
-        if(f.exists()) {
-            FileResource resource = new FileResource(f);
-            moreCoursesImg = new Image(null, resource);
-            moreCoursesImg.setDescription("Alle Kurse anzeigen.");
-            moreCoursesImg.addClickListener( event -> {
-                showAll = !showAll;
-                update();
-            });
-        }
-
         if(showAll) {
             contentLayout.setColumns(maxColumns - 1);
         } else {
@@ -132,15 +121,14 @@ public class OverviewCourses extends Modul {
         }
 
         imagesCourses.forEach(img -> {
-
             int maxComponents = maxColumns - 1;
 
             if( contentLayout.getCursorX() < maxComponents || showAll){
                 contentLayout.addComponent(img);
             }
         });
-        labelsCourses.forEach(label -> {
 
+        labelsCourses.forEach(label -> {
             int maxComponents = maxColumns - 1;
 
             if(contentLayout.getCursorX() < maxComponents || showAll){
@@ -148,16 +136,24 @@ public class OverviewCourses extends Modul {
             }
         });
 
-        if ((imagesCourses.size() + labelsCourses.size()) == maxColumns) {
+
+
+        if((imagesCourses.size() + labelsCourses.size()) < maxColumns){
+            updateAddCourseButton();
+        } else if ((imagesCourses.size() + labelsCourses.size()) == maxColumns) {
             if(labelsCourses.size() == 0) {
                 contentLayout.addComponent(imagesCourses.get(maxColumns - 1));
             } else {
                 contentLayout.addComponent(labelsCourses.get(labelsCourses.size() - 1));
             }
+
         } else if ((imagesCourses.size() + labelsCourses.size()) > maxColumns) {
-            contentLayout.addComponent(moreCoursesImg);
-            contentLayout.setComponentAlignment(moreCoursesImg, Alignment.BOTTOM_RIGHT);
+            if(showAll) {
+                updateAddCourseButton();
+            }
+            updateShowAllCoursesButton();
         }
+
     }
 
 
@@ -181,6 +177,43 @@ public class OverviewCourses extends Modul {
         moduleLayout.setMargin(true);
         contentLayout.setSpacing(true);
         layout.addComponents(moduleLayout);
+    }
+
+    private void updateShowAllCoursesButton() {
+        File f = new File(Paths.get("").toAbsolutePath().toString()
+                + "/Resource/Images/Icons/ellipsis-h.png");
+        if(f.exists()) {
+            FileResource resource = new FileResource(f);
+            moreCoursesImg = new Image(null, resource);
+            moreCoursesImg.setDescription("Neuen Kurs erstellen.");
+            moreCoursesImg.addClickListener( event -> {
+                showAll = !showAll;
+                update();
+            });
+            contentLayout.addComponent(moreCoursesImg);
+            contentLayout.setComponentAlignment(moreCoursesImg, Alignment.BOTTOM_LEFT);
+        }
+
+    }
+
+    private void updateAddCourseButton() {
+        if(user.isAdmin()) {
+            File f = new File(Paths.get("").toAbsolutePath().toString()
+                    + "/Resource/Images/Icons/add.jpg");
+            if(f.exists()) {
+                FileResource resource = new FileResource(f);
+                addCourseImg = new Image(null, resource);
+                addCourseImg.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                addCourseImg.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                addCourseImg.setDescription("Kurs hinzufügen");
+                addCourseImg.addClickListener( event -> {
+                    //showAll = !showAll;
+                    //update();
+                });
+                contentLayout.addComponent(addCourseImg);
+            }
+
+        }
     }
 
 }

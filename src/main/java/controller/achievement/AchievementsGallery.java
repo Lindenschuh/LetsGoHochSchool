@@ -1,4 +1,4 @@
-package controller;
+package controller.achievement;
 
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Page;
@@ -11,6 +11,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import controller.Modul;
 import model.Achievement;
 import model.User;
 import view.MyUI;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
  * @author Andreas Reinsch (193790).
  * @version 0.1
  */
-public abstract class AchievementsGallery extends Modul{
+public abstract class AchievementsGallery extends Modul {
 
 
     private final static int COMPONENT_SIZE = 100;

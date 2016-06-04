@@ -1,7 +1,5 @@
-package controller;
+package controller.achievement;
 
-import com.vaadin.server.Page;
-import com.vaadin.ui.AbstractLayout;
 import model.Achievement;
 import model.User;
 import util.Master;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
  * @author Andreas Reinsch (193790).
  * @version 0.1
  */
-public class FinishedAchievements  extends AchievementsGallery{
+public class FinishedAchievements  extends AchievementsGallery {
 
 
     public FinishedAchievements(User user, MyUI ui) {

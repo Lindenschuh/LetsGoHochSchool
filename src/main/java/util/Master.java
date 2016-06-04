@@ -60,7 +60,7 @@ public class Master {
 
         //create some achievements
         //Raketen Wissenschaften
-        Achievement a1 = new Achievement("Mathe Koenig", allCourse.get(0));
+        Achievement a1 = new Achievement("Math King", allCourse.get(0));
         Achievement a2 = new Achievement("Astronaut", allCourse.get(0));
 
         a1.setFinished(true);
@@ -126,7 +126,7 @@ public class Master {
     * User user = Master.allUser.get(0);
     * Profile profile = new Profile(user);
     *
-    * setContent(profile.getContend());
+    * setContent(profile.getContent());
     */
     private static void testDatesProfile() {
         User user = new User("Steve","Steve@stud.hs-heilbronn.de","123",false,"");
