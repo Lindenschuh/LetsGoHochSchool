@@ -4,7 +4,6 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import model.Course;
 import model.User;
-import util.Master;
 
 
 public class CourseInfo extends Modul {
@@ -19,8 +18,8 @@ public class CourseInfo extends Modul {
     }
 
     private void setupLayout() {
-        VerticalLayout layout = new VerticalLayout();
-        layout.addComponent(new Label("<h2>Kursinfo<h2>", ContentMode.HTML));
+        VerticalLayout vertilayout = new VerticalLayout();
+        vertilayout.addComponent(new Label("<h2>Kursinfo<h2>", ContentMode.HTML));
 
         VerticalLayout vert = new VerticalLayout();
         vert.addComponent(new Label("<h1>" + course.getName() + "<h1>", ContentMode.HTML));
@@ -226,5 +225,6 @@ public class CourseInfo extends Modul {
             desc.addComponent(bttn10);
         }
         vert.addComponent(end);
+        layout.addComponent(vert);
     }
 }
