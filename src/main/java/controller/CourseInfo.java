@@ -39,6 +39,7 @@ public class CourseInfo extends Modul {
 
         updateText();
         VerticalLayout vertilayout = new VerticalLayout();
+        vertilayout.addComponent(area);
 
         Button bttn = new Button("Bearbeiten");
         bttn.addClickListener(new Button.ClickListener() {
