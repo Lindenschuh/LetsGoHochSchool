@@ -1,5 +1,6 @@
 package controller;
 
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import model.Course;
@@ -38,11 +39,14 @@ public class NextLecture extends Modul {
 
         if(nextLecture == null)
         {
-            next = new Label("<h1>Benutzer hat keine Vorlesungen<h1>");
+            next = new Label("Benutzer hat keine Vorlesungen", ContentMode.HTML);
         }
         else
         {
-            next = new Label("<h1>Nächste Vorlesung: <h1>" + c.getName() + " am " + c.getDates().get(0).toString() + "im Raum " + c.getRoom());
+            next = new Label("<u>Nächste Vorlesung</u>"
+                            "<br>" + c.getName() +
+                            "<br>Zeit: " + c.getDates().get(0).toString() +
+                             "<br>Raum: " + c.getRoom(), ContentMode.HTML);
         }
 
         HorizontalLayout horilayout = new HorizontalLayout();
