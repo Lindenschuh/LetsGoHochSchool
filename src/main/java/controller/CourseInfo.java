@@ -22,7 +22,7 @@ public class CourseInfo extends Modul {
     private void updateText()
     {
         area.setValue("<h2><u>Kursinfo</u><h2>" +
-                "<br><h1>" + course.getName() + "<h1>" +
+                "<br><h2>" + course.getName() + "</h2>" +
                 ////TODO: addd requirements, when available
                 "<br><b>Professor: <b>" + course.getAdmin() +
                 "<br><b>Raum: </b>" + course.getRoom() +
@@ -68,7 +68,7 @@ public class CourseInfo extends Modul {
             vertilayout.addComponent(bttn);
         }
 
-        vertilayout.addComponent(bttn);
+
         layout.addComponent(vertilayout);
     }
 }
