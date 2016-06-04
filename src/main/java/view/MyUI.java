@@ -10,10 +10,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
-import controller.FileModul;
-import controller.OverviewCourses;
-import controller.Profile;
-import controller.TodoList;
+import controller.*;
 import model.Course;
 import model.User;
 import util.Master;
@@ -109,13 +106,10 @@ public class MyUI extends UI {
 
 
         Master.makeTest();
-        Profile profile1 = new Profile(Master.allUser.get(1));
+        User us = Master.allUser.get(1);
+        CourseController con = new CourseController(us);
+        contentLayout.addComponent(con.getContend());
 
-        Profile profile2 = new Profile(Master.allUser.get(0));
-
-        contentLayout.addComponent(profile1.getContend());
-
-        contentLayout.addComponent(profile2.getContend());
     }
 
 

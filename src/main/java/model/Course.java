@@ -94,7 +94,12 @@ public class Course {
     public void setBeschreibung(String bes) { this.beschreibung = bes; }
 
     public ArrayList<File> getFiles() {
+        loadFiles();
         return files;
+    }
+
+    public void setFiles(ArrayList<File> files) {
+        this.files = files;
     }
 
     public ArrayList<LocalDateTime> getDates() {
