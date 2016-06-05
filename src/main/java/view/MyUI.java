@@ -100,10 +100,11 @@ public class MyUI extends UI {
         contentLayout = new VerticalLayout();
         contentLayout.setSizeFull();
         contentLayout.addStyleName("contend");
+        contentLayout.setHeight("100%");
         bottomLayout.addComponent(contentLayout);
 
-        bottomLayout.setExpandRatio(menuLayout, 2);
-        bottomLayout.setExpandRatio(contentLayout, 8);
+        bottomLayout.setExpandRatio(menuLayout, 15);
+        bottomLayout.setExpandRatio(contentLayout, 85);
 
 
         Master.makeTest();
