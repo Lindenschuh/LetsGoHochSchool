@@ -10,10 +10,10 @@ import model.User;
 public class Modul {
 
     protected CssLayout layout = new CssLayout();
+    protected User user;
 
-    public Modul(User user)
-    {
-
+    public Modul(User user) {
+        this.user = user;
     }
 
     public CssLayout getContent()

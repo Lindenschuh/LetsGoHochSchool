@@ -1,6 +1,6 @@
 package controller;
 
-import controller.course.OverviewCourses;
+import model.Course;
 import model.User;
 import view.MyUI;
 
@@ -10,18 +10,24 @@ import view.MyUI;
  */
 public class ProfileController extends Modul {
 
-    private MyUI ui;
-
     private Profile profile;
-    private OverviewCourses ovCourses;
+    private GalleryModul<Course> coursesOverview;
 
     public ProfileController(User user, MyUI ui) {
         super(user);
-        this.ui = ui;
-
         profile = new Profile(user);
-        ovCourses = new OverviewCourses(user, ui);
-        layout.addComponent(profile.getContent());
-        layout.addComponent(ovCourses.getContent());
+        coursesOverview = new GalleryModul<>(user, ui);
+
+        createLayout();
     }
+
+    private void createLayout() {
+        coursesOverview.setName("Kurse");
+        coursesOverview.showAddBtn(user.isAdmin());
+        coursesOverview.setData(user.getCourses());
+
+        layout.addComponent(profile.getContent());
+        layout.addComponent(coursesOverview.getContent());
+    }
+
 }
