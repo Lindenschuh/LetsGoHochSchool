@@ -12933,6 +12933,11 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
+.mytheme .h1 {
+	padding-left: 10%;
+	font-weight: bold;
+}
+
 .mytheme .v-button {
 	text-align: left;
 	font-size: 20px;

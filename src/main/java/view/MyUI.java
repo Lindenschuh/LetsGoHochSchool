@@ -31,6 +31,7 @@ import java.nio.file.Paths;
 public class MyUI extends UI {
 
     private AbstractLayout contentLayout;
+    private Label title;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -44,7 +45,7 @@ public class MyUI extends UI {
         topLayout.addStyleName("top");
         wrapperLayout.addComponent(topLayout);
 
-        Label title = new Label("Head");
+        title = new Label("Let's GO HochSCHOOL");
         title.addStyleName("h1");
         topLayout.addComponent(title);
 
@@ -122,5 +123,8 @@ public class MyUI extends UI {
     public AbstractLayout getContentLayout() {
         return contentLayout;
     }
+
+    public void setTitle(String title) { this.title.setValue(title); }
+
 
 }
