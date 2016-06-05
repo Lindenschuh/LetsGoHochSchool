@@ -7,16 +7,11 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 import controller.*;
-import model.Course;
 import model.User;
 import util.Master;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -32,6 +27,7 @@ public class MyUI extends UI {
 
     private AbstractLayout contentLayout;
     private Label title;
+    private User currentUser;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -72,11 +68,13 @@ public class MyUI extends UI {
         menuLayout.addComponent(home);
 
         Button profile = new Button("Profile");
+        profile.addClickListener(e -> setProfilePage());
         profile.setSizeFull();
         profile.setIcon(FontAwesome.USER);
         menuLayout.addComponent(profile);
 
         Button course = new Button("Course");
+        course.addClickListener(e -> setCoursePage());
         course.setSizeFull();
         course.setIcon(FontAwesome.BOOK);
         menuLayout.addComponent(course);
@@ -87,6 +85,7 @@ public class MyUI extends UI {
         menuLayout.addComponent(schedule);
 
         Button achievements = new Button("Achievements");
+        achievements.addClickListener( e -> setAchievementPage());
         achievements.setSizeFull();
         achievements.setIcon(FontAwesome.TROPHY);
         menuLayout.addComponent(achievements);
@@ -109,6 +108,7 @@ public class MyUI extends UI {
 
 
         Master.makeTest();
+        currentUser = Master.allUser.get(0);
 
 
 
@@ -125,6 +125,25 @@ public class MyUI extends UI {
     }
 
     public void setTitle(String title) { this.title.setValue(title); }
+
+    private void setAchievementPage() {
+        contentLayout.removeAllComponents();
+        AchievementsController a = new AchievementsController(currentUser, this);
+        contentLayout.addComponent(a.getContent());
+    }
+
+    private void setCoursePage() {
+        contentLayout.removeAllComponents();
+        CourseController c = new CourseController(currentUser);
+        contentLayout.addComponent(c.getContent());
+
+    }
+
+    private void setProfilePage() {
+        contentLayout.removeAllComponents();
+        ProfileController p = new ProfileController(currentUser, this);
+        contentLayout.addComponent(p.getContent());
+    }
 
 
 }
