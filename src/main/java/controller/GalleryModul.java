@@ -35,6 +35,7 @@ public class GalleryModul<T> extends Modul {
 
     private MyUI ui;
     private Label nameLabel;
+    private Image defaultImg;
     private Image addObjectBtn;
     private Image allObjectsBtn;
 
@@ -43,7 +44,6 @@ public class GalleryModul<T> extends Modul {
 
     private ArrayList<T> data;
     private ArrayList<Image> objectImgs;
-    private ArrayList<CustomLayout> objectLbls;
 
 
     /**
@@ -59,7 +59,6 @@ public class GalleryModul<T> extends Modul {
         layout = new CssLayout();
         data = new ArrayList<>();
         objectImgs = new ArrayList<>();
-        objectLbls = new ArrayList<>();
 
         createLayout();
     }
@@ -81,16 +80,17 @@ public class GalleryModul<T> extends Modul {
     private void update() {
         if(data != null) {
             objectImgs.clear();
-            objectLbls.clear();
             contentLayout.removeAllComponents();
 
             calcLayoutSize();
+            createDefaultImage();
             nameLabel.setValue(name);
 
             data.forEach(dataBean -> {
+
                 String className = dataBean.getClass().getName();
-                int nameStartPosition = className.indexOf('.');
-                className = className.substring(nameStartPosition + 1);
+                className = className.substring(className.indexOf('.') + 1);
+
                 File f = new File(Paths.get("").toAbsolutePath().toString()
                         + "/Resource/Images/" + className + "/" + dataBean.toString() +".png");
 
@@ -102,16 +102,8 @@ public class GalleryModul<T> extends Modul {
                     tmpImage.setDescription(dataBean.toString());
                     objectImgs.add(tmpImage);
                 } else {
-                    try {
-                        CustomLayout customLayout = new CustomLayout(
-                                new ByteArrayInputStream(
-                                        ("<p> <center>" + dataBean.toString() +  "</center> </p>").getBytes()));
-                        customLayout.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                        customLayout.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                        objectLbls.add(customLayout);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    defaultImg.setDescription(dataBean.toString());
+                    objectImgs.add(defaultImg);
                 }
             });
 
@@ -130,15 +122,6 @@ public class GalleryModul<T> extends Modul {
                     contentLayout.addComponent(img);
                 }
             });
-
-            objectLbls.forEach(label -> {
-                int maxComponents = maxColumns - 1;
-
-                if(contentLayout.getCursorX() < maxComponents || showAll){
-                    contentLayout.addComponent(label);
-                }
-            });
-
 
             //Button management
             if (objectImgs.size() < maxColumns && user.isAdmin() && showAdd) {
@@ -219,6 +202,27 @@ public class GalleryModul<T> extends Modul {
                 });
             }
 
+        }
+    }
+
+    private void createDefaultImage() {
+        if(data != null && data.size() > 0) {
+
+            String className = data.get(0).getClass().getName();
+            className = className.substring(className.indexOf('.') + 1);
+
+            File f = new File(Paths.get("").toAbsolutePath().toString()
+                    + "/Resource/Images/" + className + "/default.png");
+
+            if(f.exists()) {
+                FileResource resource = new FileResource(f);
+                defaultImg = new Image(null, resource);
+                defaultImg.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                defaultImg.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                allObjectsBtn.addClickListener(event -> {
+                    //update();
+                });
+            }
         }
     }
 
