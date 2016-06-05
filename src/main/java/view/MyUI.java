@@ -57,6 +57,7 @@ public class MyUI extends UI {
         menuLayout.addStyleName("menu");
         bottomLayout.addComponent(menuLayout);
 
+        /*
         Button search = new Button("Search");
         search.setSizeFull();
         search.setIcon(FontAwesome.SEARCH);
@@ -66,6 +67,7 @@ public class MyUI extends UI {
         home.setSizeFull();
         home.setIcon(FontAwesome.HOME);
         menuLayout.addComponent(home);
+        */
 
         Button profile = new Button("Profile");
         profile.addClickListener(e -> setProfilePage());
@@ -79,10 +81,12 @@ public class MyUI extends UI {
         course.setIcon(FontAwesome.BOOK);
         menuLayout.addComponent(course);
 
+        /*
         Button schedule = new Button("Schedule");
         schedule.setSizeFull();
         schedule.setIcon(FontAwesome.CALENDAR);
         menuLayout.addComponent(schedule);
+        */
 
         Button achievements = new Button("Achievements");
         achievements.addClickListener( e -> setAchievementPage());
@@ -90,11 +94,12 @@ public class MyUI extends UI {
         achievements.setIcon(FontAwesome.TROPHY);
         menuLayout.addComponent(achievements);
 
+        /*
         Button settings = new Button("Settings");
         settings.setSizeFull();
         settings.setIcon(FontAwesome.COG);
         menuLayout.addComponent(settings);
-
+        */
 
         //Layout for the content
         contentLayout = new VerticalLayout();
@@ -109,6 +114,7 @@ public class MyUI extends UI {
 
         Master.makeTest();
         currentUser = Master.allUser.get(0);
+        setProfilePage();
 
 
 

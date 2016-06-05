@@ -38,23 +38,28 @@ public class Master {
         allAchievements.clear();
 
         //create some users
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+
         allUser.add(new User("Steve","Steve@stud.hs-heilbronn.de","123",false,""));
+        allUser.get(0).setImage(new Image(null, new FileResource(new File(s + "/Resource/Images/ProfilePictures/profile_User.png"))));
         allUser.add(new User("Albus Percival Wulfric Brian Dumbledore", "adumbledore@prof.hs-heilbronn.de", "123456Seven", true, "<div id = \"ip\"><p>Mi 12.30 - 13.30<br>A527</p></div><style type=\"text/css\"> #ip { background-color: #d3d3d3; padding: 1.3em;} </style>"));
+        allUser.get(1).setImage(new Image(null, new FileResource(new File(s + "/Resource/Images/ProfilePictures/profile_Admin.png"))));
 
         //create some courses
-        allCourse.add(new Course("Raketen Wissenschaften",null,"RocketThings","25-10-1995 20:00",10,"200"));
-        allCourse.add(new Course("Mathe",null,"MatheThings","25-10-1995 20:00",10,"200"));
-        allCourse.add(new Course("Englisch",null,"EnglishThings","25-10-1995 20:00",10,"200"));
-        allCourse.add(new Course("Virtual Reality",null,"VRThings","25-10-1995 11:30",10,"200"));
-        allCourse.add(new Course("Spieleentwicklung 1",null,"PMTThings","25-03-2016 09:45",10,"200"));
-        allCourse.add(new Course("Programmieren",null,"ProgrammingThings","25-10-1995 20:00",10,"200"));
-        allCourse.add(new Course("Signalverarbeitung 1",null,"SingalThings","25-03-2016 08:00",10,"200"));
-        allCourse.add(new Course("Projekt Management und Tools",null,"PMTThings","25-03-2016 09:45",10,"200"));
-        allCourse.add(new Course("Personal Productivity",null,"PersonalThings","24-03-2016 17:00",10,"200"));
-        allCourse.add(new Course("Spieleentwicklung 2",null,"PMTThings","25-03-2016 09:45",10,"200"));
-        allCourse.add(new Course("Signalverarbeitung 2",null,"SingalThings","25-10-1995 11:30",10,"200"));
-        allCourse.add(new Course("Verteilte Systeme",null,"SingalThings","25-10-1995 11:30",10,"200"));
-        allCourse.add(new Course("Studium",null,"StudyThings","25-10-1995 11:30",10,"200"));
+        allCourse.add(new Course("Raketen Wissenschaften",allUser.get(1),"RocketThings","25-10-1995 20:00",10,"200"));
+        allCourse.add(new Course("Mathe",allUser.get(1),"MatheThings","25-10-1995 20:00",10,"200"));
+        allCourse.add(new Course("Englisch",allUser.get(1),"EnglishThings","25-10-1995 20:00",10,"200"));
+        allCourse.add(new Course("Virtual Reality",allUser.get(1),"VRThings","25-10-1995 11:30",10,"200"));
+        allCourse.add(new Course("Spieleentwicklung 1",allUser.get(1),"PMTThings","25-03-2016 09:45",10,"200"));
+        allCourse.add(new Course("Programmieren",allUser.get(1),"ProgrammingThings","25-10-1995 20:00",10,"200"));
+        allCourse.add(new Course("Signalverarbeitung 1",allUser.get(1),"SingalThings","25-03-2016 08:00",10,"200"));
+        allCourse.add(new Course("Projekt Management und Tools",allUser.get(1),"PMTThings","25-03-2016 09:45",10,"200"));
+        allCourse.add(new Course("Personal Productivity",allUser.get(1),"PersonalThings","24-03-2016 17:00",10,"200"));
+        allCourse.add(new Course("Spieleentwicklung 2",allUser.get(1),"PMTThings","25-03-2016 09:45",10,"200"));
+        allCourse.add(new Course("Signalverarbeitung 2",allUser.get(1),"SingalThings","25-10-1995 11:30",10,"200"));
+        allCourse.add(new Course("Verteilte Systeme",allUser.get(1),"SingalThings","25-10-1995 11:30",10,"200"));
+        allCourse.add(new Course("Studium",allUser.get(1),"StudyThings","25-10-1995 11:30",10,"200"));
 
 
 

@@ -54,8 +54,7 @@ public class TodoList extends Modul {
         HorizontalLayout hori = new HorizontalLayout();
 
         TextField newTodo = new TextField();
-        newTodo.setValue("new Todo");
-
+        newTodo.setInputPrompt("New ToDo");
         Button submit = new Button("create");
 
         submit.addClickListener(e -> {addTodo(newTodo);});
