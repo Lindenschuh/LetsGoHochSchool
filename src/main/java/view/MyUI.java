@@ -113,7 +113,7 @@ public class MyUI extends UI {
 
 
         Master.makeTest();
-        currentUser = Master.allUser.get(0);
+        currentUser = Master.allUser.get(1);
         setProfilePage();
 
 

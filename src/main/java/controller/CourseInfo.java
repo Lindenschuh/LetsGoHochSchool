@@ -24,7 +24,7 @@ public class CourseInfo extends Modul {
         area.setValue("<h2><u>Kursinfo</u><h2>" +
                 "<br><h2>" + course.getName() + "</h2>" +
                 ////TODO: addd requirements, when available
-                "<br><b>Professor: <b>" + course.getAdmin().getName() +
+                "<br><b>Professor: </b>" + course.getAdmin().getName() +
                 "<br><b>Raum: </b>" + course.getRoom() +
                 "<br><b>Vorlesungsanzahl: </b>" + course.getDates().size() +
                 "<br><b>Vorlesungsbeginn: </b>" + course.getDates().get(0) +
