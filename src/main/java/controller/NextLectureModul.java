@@ -221,25 +221,25 @@ public class NextLectureModul extends Modul {
 
         switch(dayOfWeek.getValue()) {
             case 0:
-                dateBuilder.append("Mo ");
+                dateBuilder.append("So ");
                 break;
             case 1:
-                dateBuilder.append("Di ");
+                dateBuilder.append("Mo ");
                 break;
             case 2:
-                dateBuilder.append("Mi ");
+                dateBuilder.append("Di ");
                 break;
             case 3:
-                dateBuilder.append("Do ");
+                dateBuilder.append("Mi ");
                 break;
             case 4:
-                dateBuilder.append("Fr ");
+                dateBuilder.append("Do ");
                 break;
             case 5:
-                dateBuilder.append("Sa ");
+                dateBuilder.append("Fr ");
                 break;
             case 6:
-                dateBuilder.append("So ");
+                dateBuilder.append("Sa ");
         }
 
         dateBuilder.append(day);
