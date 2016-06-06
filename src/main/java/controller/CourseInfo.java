@@ -29,8 +29,8 @@ public class CourseInfo extends Modul {
                 "<br><b>Vorlesungsanzahl: </b>" + course.getDates().size() +
                 "<br><b>Vorlesungsbeginn: </b>" + course.getDates().get(0) +
                 "<br><b>Vorlesungsende: </b>" + course.getDates().get(course.getDates().size() - 1) +
-                "<br><u>Beschreibung</u>" +
-                "<br>" + course.getBeschreibung()
+                "<br><br><u>Beschreibung</u>" +
+                "<br><br>" + course.getBeschreibung()
         );
     }
 
