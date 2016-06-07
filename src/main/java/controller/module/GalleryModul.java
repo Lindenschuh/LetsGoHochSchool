@@ -1,4 +1,4 @@
-package controller;
+package controller.module;
 
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.Alignment;
@@ -65,12 +65,11 @@ public class GalleryModul extends Modul {
     private void calcLayoutSize() {
         int columnCounter = 0;
         int width = (int) (ui.getPage().getBrowserWindowWidth() * (ui.getContentLayout().getWidth() / 100));
-
-        while(width > 0) {
+        while (width >= (COMPONENT_SIZE + SPACING_SIZE)) {
             width -= COMPONENT_SIZE + SPACING_SIZE;
             columnCounter++;
         }
-        maxColumns = columnCounter - 1;
+        maxColumns = columnCounter;
     }
 
     private void update() {
@@ -116,6 +115,7 @@ public class GalleryModul extends Modul {
     }
 
     private void createLayout() {
+        nameLabel = new Label("");
 
         calcLayoutSize();
         createMaxBtn();
@@ -140,7 +140,7 @@ public class GalleryModul extends Modul {
 
         contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        nameLabel = new Label("");
+
         nameLabel.setStyleName("h3");
         moduleLayout.addComponent(nameLabel);
         moduleLayout.addComponent(contentLayout);

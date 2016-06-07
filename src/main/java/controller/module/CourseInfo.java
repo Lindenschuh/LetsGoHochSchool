@@ -1,4 +1,4 @@
-package controller;
+package controller.module;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
@@ -30,7 +30,7 @@ public class CourseInfo extends Modul {
                 "<br><b>Vorlesungsbeginn: </b>" + course.getDates().get(0) +
                 "<br><b>Vorlesungsende: </b>" + course.getDates().get(course.getDates().size() - 1) +
                 "<br><br><u>Beschreibung</u>" +
-                "<br><br>" + course.getBeschreibung()
+                "<br><br>" + course.getDescription()
         );
     }
 
@@ -47,13 +47,13 @@ public class CourseInfo extends Modul {
                 vertilayout.removeComponent(bttn);
                 RichTextArea rta = new RichTextArea();
                 rta.setCaption("Bearbeiten");
-                rta.setValue(course.getBeschreibung());
+                rta.setValue(course.getDescription());
                 vertilayout.addComponent(rta);
 
                 Button bttn1 = new Button("Submit");
                 bttn1.addClickListener(new Button.ClickListener() {
                     public void buttonClick(Button.ClickEvent event) {
-                        course.setBeschreibung(rta.getValue());
+                        course.setDescription(rta.getValue());
                         vertilayout.removeComponent(rta);
                         vertilayout.removeComponent(bttn1);
                         vertilayout.addComponent(bttn);

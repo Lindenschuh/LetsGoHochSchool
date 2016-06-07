@@ -1,4 +1,4 @@
-package controller;
+package controller.module;
 
 import com.vaadin.server.*;
 import com.vaadin.shared.ui.label.ContentMode;

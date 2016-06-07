@@ -1,4 +1,4 @@
-package controller;
+package controller.module;
 
 import com.vaadin.ui.CssLayout;
 import model.User;

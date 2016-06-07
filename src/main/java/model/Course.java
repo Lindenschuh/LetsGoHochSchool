@@ -16,7 +16,7 @@ public class Course implements DataObject {
     private String name;
     private ArrayList<Achievement> achievements;
     private User admin;
-    private String beschreibung;
+    private String description;
     private ArrayList<File> files;
     private File dir;
     private ArrayList<LocalDateTime> dates;
@@ -24,11 +24,11 @@ public class Course implements DataObject {
     private Image img;
 
 
-    public Course(String name,User admin,String beschreibung,String date, int lessons,String room){
+    public Course(String name, User admin, String description, String date, int lessons, String room){
         String stringPath = Paths.get("").toAbsolutePath().toString();
         this.name = name;
         this.admin = admin;
-        this.beschreibung = beschreibung;
+        this.description = description;
         this.room = room;
         this.dir = new File(stringPath+"/CourseFolder/"+name);
         achievements = new ArrayList<Achievement>();
@@ -97,11 +97,11 @@ public class Course implements DataObject {
         return admin;
     }
 
-    public String getBeschreibung() {
-        return beschreibung;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBeschreibung(String bes) { this.beschreibung = bes; }
+    public void setDescription(String bes) { this.description = bes; }
 
     public ArrayList<File> getFiles() {
         loadFiles();

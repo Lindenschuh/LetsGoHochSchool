@@ -2,6 +2,8 @@ package controller;
 
 import com.vaadin.ui.AbstractLayout;
 import com.vaadin.ui.VerticalLayout;
+import controller.module.GalleryModul;
+import controller.module.Modul;
 import model.Achievement;
 import model.User;
 import util.Master;

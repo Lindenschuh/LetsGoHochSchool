@@ -1,8 +1,9 @@
 package controller;
 
 import com.vaadin.ui.VerticalLayout;
-import javafx.scene.input.ScrollEvent;
-import model.Course;
+import controller.module.GalleryModul;
+import controller.module.Modul;
+import controller.module.NextLectureModul;
 import model.User;
 import view.MyUI;
 

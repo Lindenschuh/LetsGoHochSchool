@@ -25,6 +25,7 @@ import util.Master;
 @Widgetset("com.Demo.MyAppWidgetset")
 public class MyUI extends UI {
 
+    private SearchController searchController;
     private AbstractLayout contentLayout;
     private Label title;
     private User currentUser;
@@ -57,12 +58,13 @@ public class MyUI extends UI {
         menuLayout.addStyleName("menu");
         bottomLayout.addComponent(menuLayout);
 
-        /*
+
         Button search = new Button("Search");
+        search.addClickListener(e -> searchController.show(!searchController.isVisible()));
         search.setSizeFull();
         search.setIcon(FontAwesome.SEARCH);
         menuLayout.addComponent(search);
-        */
+
 
         Button home = new Button("Home");
         home.addClickListener(e -> setHomePage());
@@ -113,12 +115,16 @@ public class MyUI extends UI {
         bottomLayout.setExpandRatio(contentLayout, 85);
 
 
+
         Master.makeTest();
-        currentUser = Master.allUser.get(1);
+        currentUser = Master.allUser.get(0);
+        //DON'T REMOVE or null pointer.
+        searchController = new SearchController(currentUser, this);
+        searchController.show(false);
+
         setHomePage();
-
+        
     }
-
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
@@ -134,18 +140,24 @@ public class MyUI extends UI {
     private void setHomePage() {
         contentLayout.removeAllComponents();
         HomeController h = new HomeController(currentUser, this);
+        searchController.show(false);
+        contentLayout.addComponent(searchController.getContent());
         contentLayout.addComponent(h.getContent());
     }
 
     private void setAchievementPage() {
         contentLayout.removeAllComponents();
         AchievementsController a = new AchievementsController(currentUser, this);
+        searchController.show(false);
+        contentLayout.addComponent(searchController.getContent());
         contentLayout.addComponent(a.getContent());
     }
 
     private void setCoursePage() {
         contentLayout.removeAllComponents();
         CourseController c = new CourseController(currentUser);
+        searchController.show(false);
+        contentLayout.addComponent(searchController.getContent());
         contentLayout.addComponent(c.getContent());
 
     }
@@ -153,6 +165,8 @@ public class MyUI extends UI {
     private void setProfilePage() {
         contentLayout.removeAllComponents();
         ProfileController p = new ProfileController(currentUser, this);
+        searchController.show(false);
+        contentLayout.addComponent(searchController.getContent());
         contentLayout.addComponent(p.getContent());
     }
 

@@ -23,7 +23,6 @@ public class User implements DataObject{
     //TODO: Sprechzeit als LocalDateTime? Könnte dann in NextLecture oder Stundenplan verwendet werden.
     private String times;
     private Image image;
-    //TODO: Default image für jeden Benutzer?
 
 
     public User(String name,String email, String password,boolean admin, String times)
@@ -34,13 +33,7 @@ public class User implements DataObject{
         this.admin = admin;
         this.times= times;
         this.courses = new ArrayList<>();
-        todos = new HashMap<String, ArrayList<String>>();
-
-        Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString();
-
-        FileResource resourceUser = new FileResource(new File(s + "/Resource/Images/ProfilePictures/profile_default.png"));
-        this.image = new Image(null, resourceUser);
+        todos = new HashMap<>();
     }
 
     @Override
@@ -98,6 +91,11 @@ public class User implements DataObject{
 
     public void removeCourse(Course course) {
         courses.remove(course);
+    }
+
+    @Override
+    public String toString() {
+        return email;
     }
 
 }

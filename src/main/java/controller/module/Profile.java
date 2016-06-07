@@ -1,12 +1,10 @@
-package controller;
+package controller.module;
 
 
+import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import model.User;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
 /**
  * Profile class to show the module Profile
@@ -51,6 +49,10 @@ public class Profile extends Modul {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         //set all components in the middle center
         horizontalLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        // set user image size
+        img.setWidth(125, Sizeable.Unit.PIXELS);
+        img.setHeight(125, Sizeable.Unit.PIXELS);
 
         // add user image
         horizontalLayout.addComponent(img);

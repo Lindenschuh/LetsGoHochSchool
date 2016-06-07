@@ -38,15 +38,9 @@ public class Master {
         allAchievements.clear();
 
         //create some users
-        Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString();
-
         allUser.add(new User("Steve","steve@stud.hs-heilbronn.de","123",false,""));
-        allUser.get(0).setImage(new Image(null, new FileResource(new File(s + "/Resource/Images/ProfilePictures/profile_User.png"))));
         allUser.add(new User("Albus Percival Wulfric Brian Dumbledore", "adumbledore@prof.hs-heilbronn.de", "123456Seven", true, "<div id = \"ip\"><p>Mi 12.30 - 13.30<br>A527</p></div><style type=\"text/css\"> #ip { background-color: #d3d3d3; padding: 1.3em;} </style>"));
-        allUser.get(1).setImage(new Image(null, new FileResource(new File(s + "/Resource/Images/ProfilePictures/profile_Admin.png"))));
         allUser.add(new User("Bob Marley","bob@stud.hs-heilbronn.de", "000",false,""));
-        //allUser.get(2).setImage(new Image(null, new FileResource(new File(s + "/Resource/Images/ProfilePictures/bob.png"))));
 
         //create some courses
         allCourse.add(new Course("Raketen Wissenschaften", allUser.get(1),"RocketThings","30-05-2016 11:30",10,"A 200"));
@@ -58,11 +52,9 @@ public class Master {
         allCourse.add(new Course("Signalverarbeitung 1", allUser.get(1),"SingalThings","31-05-2016 14:00",10,"B 318"));
         allCourse.add(new Course("Projekt Management und Tools", allUser.get(1),"PMTThings","01-06-2016 09:45",10,"F 213"));
         allCourse.add(new Course("Personal Productivity", allUser.get(1),"PersonalThings","02-06-2016 11:30",10,"D 101"));
-        allCourse.add(new Course("Spieleentwicklung 2", allUser.get(1),"PMTThings","03-06-2016 13:00",10,"X 001"));
+        allCourse.add(new Course("Spieleentwicklung 2", allUser.get(1),"Gaming Things","03-06-2016 13:00",10,"X 001"));
         allCourse.add(new Course("Signalverarbeitung 2", allUser.get(1),"SingalThings","03-06-2016 11:30",10,"F 203"));
         allCourse.add(new Course("Verteilte Systeme", allUser.get(1),"SingalThings","03-06-2016 09:45",10,"B 200"));
-        //allCourse.add(new Course("Studium",null,"StudyThings","25-10-1995 11:30",10,"200"));
-
 
         //create some achievements
         //Raketen Wissenschaften
@@ -111,12 +103,12 @@ public class Master {
 
 
         //Lade Bilder
+        allUser.forEach(u -> u.setImage(loadImage(u)));
         allCourse.forEach(c -> c.setImage(loadImage(c)));
         allAchievements.forEach(a -> a.setImage(loadImage(a)));
 
         //Put it together
-        allCourse.forEach(c -> allUser.get(0).addCourse(c));
-        allCourse.forEach(c -> allUser.get(1).addCourse(c));
+        allUser.forEach(u -> allCourse.forEach(c -> u.addCourse(c)));
 
         todoTest(Master.allUser.get(0));
     }
@@ -138,10 +130,10 @@ public class Master {
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
 
-        FileResource resourceUser = new FileResource(new File(s + "/Resource/Images/profile_User.png"));
+        FileResource resourceUser = new FileResource(new File(s + "/Resource/Images/steve@stud.hs-heilbronn.de.png"));
         Image imageUser = new Image(null, resourceUser);
 
-        FileResource resourceAdmin = new FileResource(new File(s + "/Resource/Images/profile_Admin.png"));
+        FileResource resourceAdmin = new FileResource(new File(s + "/Resource/Images/adumbledore@prof.hs-heilbronn.de.png"));
         Image imageAdmin = new Image(null, resourceAdmin);
 
 
@@ -153,7 +145,7 @@ public class Master {
 
     private static void todoTest(User user) {
         ArrayList<String> newTodos = new ArrayList<>();
-        newTodos.add("Rechne aufgabe 2");
+        newTodos.add("Mathe Aufgabe 2");
         newTodos.add("Uebe brueche");
         user.setTodos(newTodos,"Mathe");
 
@@ -187,7 +179,7 @@ public class Master {
                 + "/Resource/Images/" + className + "/" + o.toString() +".png");
 
         File jpgFile = new File(Paths.get("").toAbsolutePath().toString()
-                + "/Resource/Images/" + className + "/" + o.toString() +".png");
+                + "/Resource/Images/" + className + "/" + o.toString() +".jpg");
 
         File defaultFile = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/" + className + "/default.png");

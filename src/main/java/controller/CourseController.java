@@ -4,6 +4,10 @@ import com.vaadin.server.Sizeable;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
+import controller.module.CourseInfo;
+import controller.module.FileModul;
+import controller.module.Modul;
+import controller.module.TodoList;
 import model.Course;
 import model.User;
 
@@ -12,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by Lars Assmus on 04.06.2016.
  */
-public class CourseController extends Modul{
+public class CourseController extends Modul {
     ArrayList<Course> courses;
     User user;
     ComboBox comb;

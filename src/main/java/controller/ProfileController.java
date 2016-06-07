@@ -1,7 +1,9 @@
 package controller;
 
 import com.vaadin.ui.VerticalLayout;
-import model.Course;
+import controller.module.GalleryModul;
+import controller.module.Modul;
+import controller.module.Profile;
 import model.User;
 import view.MyUI;
 
