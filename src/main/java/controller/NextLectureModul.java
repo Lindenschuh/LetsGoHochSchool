@@ -202,20 +202,25 @@ public class NextLectureModul extends Modul {
 
     private String createTimeLabel(LocalDateTime date) {
 
-
-        String year = Integer.toString(date.getYear());
         String month = Integer.toString(date.getMonthValue());
-        if(date.getMonthValue() < 10) {
+        if (date.getMonthValue() < 10) {
             month = "0" + month;
         }
         String day = Integer.toString(date.getDayOfMonth());
-        if(date.getDayOfMonth() < 10) {
+        if (date.getDayOfMonth() < 10) {
             day = "0" + day;
         }
         DayOfWeek dayOfWeek = date.getDayOfWeek();
 
         String hour = Integer.toString(date.getHour());
+        if (date.getHour() < 10) {
+            hour = "0" + hour;
+        }
+
         String min = Integer.toString(date.getMinute());
+        if (date.getMinute() < 10) {
+            min = "0" + min;
+        }
 
         StringBuilder dateBuilder = new StringBuilder();
 
