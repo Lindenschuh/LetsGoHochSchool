@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * Created by Lars on 02.06.2016.
  */
-public class User {
+public class User implements DataObject{
 
     private String name;
     private String email;
@@ -20,9 +20,9 @@ public class User {
     private boolean admin;
     private HashMap<String,ArrayList<String>> todos;
     private ArrayList<Course> courses;
+    //TODO: Sprechzeit als LocalDateTime? Könnte dann in NextLecture oder Stundenplan verwendet werden.
     private String times;
     private Image image;
-
     //TODO: Default image für jeden Benutzer?
 
 
@@ -43,6 +43,7 @@ public class User {
         this.image = new Image(null, resourceUser);
     }
 
+    @Override
     public void setImage(Image image)
     {
         this.image = image;
@@ -53,6 +54,7 @@ public class User {
         todos.put(course,todoList);
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -77,6 +79,7 @@ public class User {
         return times;
     }
 
+    @Override
     public Image getImage() {
         return image;
     }
@@ -96,4 +99,5 @@ public class User {
     public void removeCourse(Course course) {
         courses.remove(course);
     }
+
 }

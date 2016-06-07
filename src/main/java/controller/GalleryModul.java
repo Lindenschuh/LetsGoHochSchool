@@ -3,19 +3,17 @@ package controller;
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.server.FileResource;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import controller.Modul;
 import model.User;
+import model.DataObject;
 import view.MyUI;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -23,10 +21,11 @@ import java.util.ArrayList;
  * @author Andreas Reinsch (193790).
  * @version 0.1
  */
-public class GalleryModul<T> extends Modul {
+public class GalleryModul extends Modul {
 
     private final static int SPACING_SIZE = 43;
     private final static int COMPONENT_SIZE = 100;
+    private final static int ICON_SIZE = 25;
 
     private String name;
     private int maxColumns;
@@ -35,16 +34,16 @@ public class GalleryModul<T> extends Modul {
 
     private MyUI ui;
     private Label nameLabel;
-    private Image defaultImg;
-    private Image addObjectBtn;
-    private Image allObjectsBtn;
+    private Image addBtn;
+    private Image maxBtn;
+    private Image minBtn;
+    private Image emptyImg;
 
     private GridLayout contentLayout;
+    private HorizontalLayout btnLayout;
     private VerticalLayout moduleLayout;
 
-    private ArrayList<T> data;
-    private ArrayList<Image> objectImgs;
-
+    private ArrayList<DataObject> data;
 
     /**
      * Shows all courses from the given user.
@@ -58,11 +57,9 @@ public class GalleryModul<T> extends Modul {
         showAdd = false;
         layout = new CssLayout();
         data = new ArrayList<>();
-        objectImgs = new ArrayList<>();
 
         createLayout();
     }
-
 
 
     private void calcLayoutSize() {
@@ -76,82 +73,55 @@ public class GalleryModul<T> extends Modul {
         maxColumns = columnCounter - 1;
     }
 
-
     private void update() {
         if(data != null) {
-            objectImgs.clear();
-            contentLayout.removeAllComponents();
-
-            calcLayoutSize();
-            createDefaultImage();
-            nameLabel.setValue(name);
-
-            data.forEach(dataBean -> {
-
-                String className = dataBean.getClass().getName();
-                className = className.substring(className.indexOf('.') + 1);
-
-                File f = new File(Paths.get("").toAbsolutePath().toString()
-                        + "/Resource/Images/" + className + "/" + dataBean.toString() +".png");
-
-                if (f.exists()) {
-                    FileResource resource = new FileResource(f);
-                    Image tmpImage = new Image(null, resource);
-                    tmpImage.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                    tmpImage.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                    tmpImage.setDescription(dataBean.toString());
-                    objectImgs.add(tmpImage);
-                } else {
-                    defaultImg.setDescription(dataBean.toString());
-                    objectImgs.add(defaultImg);
-                }
-            });
-
-            if(showAll) {
-                contentLayout.setColumns(maxColumns - 1);
+            if (data.size() == 0) {
+                //TODO: Aktion durchführen, wenn Liste leer ist.
             } else {
-                contentLayout.setColumns(maxColumns);
-                contentLayout.setRows(1);
-            }
+                contentLayout.removeAllComponents();
 
-            //Add courses
-            objectImgs.forEach(img -> {
-                int maxComponents = maxColumns - 1;
+                calcLayoutSize();
+                nameLabel.setValue(name);
 
-                if( contentLayout.getCursorX() < maxComponents || showAll){
-                    contentLayout.addComponent(img);
-                }
-            });
-
-            //Button management
-            if (objectImgs.size() < maxColumns && user.isAdmin() && showAdd) {
-                contentLayout.addComponent(addObjectBtn);
-
-            } else if (objectImgs.size() == maxColumns) {
-                if (user.isAdmin()) {
-                    contentLayout.addComponent(allObjectsBtn);
-                    contentLayout.setComponentAlignment(allObjectsBtn, Alignment.BOTTOM_LEFT);
+                if (data.size() < maxColumns) {
+                    contentLayout.setColumns(data.size());
                 } else {
-                    contentLayout.addComponent(objectImgs.get(objectImgs.size() - 1));
+                    contentLayout.setColumns(maxColumns);
                 }
 
-            } else if (objectImgs.size() > maxColumns) {
-                if (showAll && user.isAdmin() && showAdd) {
-                    contentLayout.addComponent(addObjectBtn);
+                data.forEach(dataBean -> {
+                    if (contentLayout.getCursorY() == 0 || showAll) {
+                        Image img = dataBean.getImage();
+                        img.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                        img.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+                        contentLayout.addComponent(img);
+                    }
+                });
+
+                if (!showAll) {
+                    contentLayout.setRows(2);
+                } else {
+                    contentLayout.setRows(contentLayout.getCursorY() + 1);
                 }
-                contentLayout.addComponent(allObjectsBtn);
-                contentLayout.setComponentAlignment(allObjectsBtn, Alignment.BOTTOM_LEFT);
+
+                addBtn.setVisible(showAdd);
+
+                if (data.size() <= maxColumns) {
+                    maxBtn.setVisible(false);
+                } else {
+                    maxBtn.setVisible(!showAll);
+                }
             }
-
         }
     }
-
 
     private void createLayout() {
 
         calcLayoutSize();
-        createAddButton();
-        createShowAllButton();
+        createMaxBtn();
+        createMinBtn();
+        createAddBtn();
+        createEmptyImg();
 
         ui.getPage().addBrowserWindowResizeListener(l -> {
             calcLayoutSize();
@@ -159,71 +129,83 @@ public class GalleryModul<T> extends Modul {
         });
 
         moduleLayout = new VerticalLayout();
-        contentLayout = new GridLayout(maxColumns + 1, 1);
+        contentLayout = new GridLayout(maxColumns + 1, 2);
+        btnLayout = new HorizontalLayout();
+
+        btnLayout.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
+        btnLayout.addComponent(addBtn);
+        btnLayout.addComponent(minBtn);
+        btnLayout.addComponent(maxBtn);
+
+
         contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         nameLabel = new Label("");
         nameLabel.setStyleName("h3");
         moduleLayout.addComponent(nameLabel);
         moduleLayout.addComponent(contentLayout);
+        moduleLayout.addComponent(btnLayout);
+        moduleLayout.setComponentAlignment(btnLayout, Alignment.MIDDLE_RIGHT);
 
         moduleLayout.setMargin(true);
         contentLayout.setSpacing(true);
+        btnLayout.setSpacing(true);
         layout.addComponents(moduleLayout);
     }
 
-    private void createShowAllButton() {
+    private void createMaxBtn() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
-                + "/Resource/Images/Icons/ellipsis-h.png");
-        if(f.exists()) {
+                + "/Resource/Images/Icons/max.png");
+        if (f.exists()) {
             FileResource resource = new FileResource(f);
-            allObjectsBtn = new Image(null, resource);
-            allObjectsBtn.setDescription("Neuen Kurs erstellen.");
-            allObjectsBtn.addClickListener(event -> {
-                showAll = !showAll;
+            maxBtn = new Image(null, resource);
+            maxBtn.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
+            maxBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
+            maxBtn.setDescription("Weitere Kurse anzeigen.");
+            maxBtn.addClickListener(event -> {
+                showAll = true;
+                maxBtn.setVisible(false);
+                minBtn.setVisible(true);
                 update();
             });
         }
     }
 
-    private void createAddButton() {
-        if(user.isAdmin()) {
-            File f = new File(Paths.get("").toAbsolutePath().toString()
-                    + "/Resource/Images/Icons/add.jpg");
-            if(f.exists()) {
-                FileResource resource = new FileResource(f);
-                addObjectBtn = new Image(null, resource);
-                addObjectBtn.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                addObjectBtn.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                addObjectBtn.setDescription("Kurs hinzufÃ¼gen");
-                addObjectBtn.addClickListener(event -> {
-                    //showAll = !showAll;
-                    //update();
-                });
-            }
-
+    private void createMinBtn() {
+        File f = new File(Paths.get("").toAbsolutePath().toString()
+                + "/Resource/Images/Icons/min.png");
+        if(f.exists()) {
+            FileResource resource = new FileResource(f);
+            minBtn = new Image(null, resource);
+            minBtn.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
+            minBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
+            minBtn.setDescription("Weniger Kurse anzeigen.");
+            minBtn.setVisible(false);
+            minBtn.addClickListener(event -> {
+                showAll = false;
+                minBtn.setVisible(false);
+                maxBtn.setVisible(true);
+                update();
+            });
         }
     }
 
-    private void createDefaultImage() {
-        if(data != null && data.size() > 0) {
-
-            String className = data.get(0).getClass().getName();
-            className = className.substring(className.indexOf('.') + 1);
-
-            File f = new File(Paths.get("").toAbsolutePath().toString()
-                    + "/Resource/Images/" + className + "/default.png");
-
-            if(f.exists()) {
-                FileResource resource = new FileResource(f);
-                defaultImg = new Image(null, resource);
-                defaultImg.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                defaultImg.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                allObjectsBtn.addClickListener(event -> {
-                    //update();
-                });
-            }
+    private void createAddBtn() {
+        File f = new File(Paths.get("").toAbsolutePath().toString()
+                + "/Resource/Images/Icons/plus.png");
+        if(f.exists()) {
+            FileResource resource = new FileResource(f);
+            addBtn = new Image(null, resource);
+            addBtn.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
+            addBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
+            addBtn.setDescription("Kurs hinzuf\u00fcgen");
+            addBtn.setVisible(false);
+            /*addtBtn.addClickListener(event -> { });*/
         }
+    }
+
+    private void createEmptyImg() {
+        //TODO: EMPTY LIST
     }
 
     public void setName(String n) {
@@ -231,7 +213,7 @@ public class GalleryModul<T> extends Modul {
        update();
     }
 
-    public void setData(ArrayList<T> data) {
+    public void setData(ArrayList<DataObject> data) {
         this.data.clear();
         this.data.addAll(data);
         update();

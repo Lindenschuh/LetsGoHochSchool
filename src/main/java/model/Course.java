@@ -1,19 +1,18 @@
 package model;
 
+import com.vaadin.ui.Image;
+
 import java.io.File;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Created by Lars on 02.06.2016.
  */
-public class Course {
+public class Course implements DataObject {
     private String name;
     private ArrayList<Achievement> achievements;
     private User admin;
@@ -22,7 +21,7 @@ public class Course {
     private File dir;
     private ArrayList<LocalDateTime> dates;
     private String room;
-    //TODO: Bild ?
+    private Image img;
 
 
     public Course(String name,User admin,String beschreibung,String date, int lessons,String room){
@@ -75,8 +74,19 @@ public class Course {
         achievements.add(achiv);
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void setImage(Image i) {
+        this.img = i;
+    }
+
+    @Override
+    public Image getImage() {
+        return img;
     }
 
     public ArrayList<Achievement> getAchievements() {
@@ -114,4 +124,5 @@ public class Course {
     public String toString() {
         return name;
     }
+
 }

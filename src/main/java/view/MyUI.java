@@ -62,12 +62,13 @@ public class MyUI extends UI {
         search.setSizeFull();
         search.setIcon(FontAwesome.SEARCH);
         menuLayout.addComponent(search);
+        */
 
         Button home = new Button("Home");
+        home.addClickListener(e -> setHomePage());
         home.setSizeFull();
         home.setIcon(FontAwesome.HOME);
         menuLayout.addComponent(home);
-        */
 
         Button profile = new Button("Profile");
         profile.addClickListener(e -> setProfilePage());
@@ -114,9 +115,7 @@ public class MyUI extends UI {
 
         Master.makeTest();
         currentUser = Master.allUser.get(1);
-        setProfilePage();
-
-
+        setHomePage();
 
     }
 
@@ -131,6 +130,12 @@ public class MyUI extends UI {
     }
 
     public void setTitle(String title) { this.title.setValue(title); }
+
+    private void setHomePage() {
+        contentLayout.removeAllComponents();
+        HomeController h = new HomeController(currentUser, this);
+        contentLayout.addComponent(h.getContent());
+    }
 
     private void setAchievementPage() {
         contentLayout.removeAllComponents();

@@ -1,8 +1,11 @@
 package controller;
 
+import com.vaadin.ui.VerticalLayout;
 import model.Course;
 import model.User;
 import view.MyUI;
+
+import java.util.ArrayList;
 
 /**
  * @author Andreas Reinsch (193790).
@@ -11,12 +14,12 @@ import view.MyUI;
 public class ProfileController extends Modul {
 
     private Profile profile;
-    private GalleryModul<Course> coursesOverview;
+    private GalleryModul coursesOverview;
 
     public ProfileController(User user, MyUI ui) {
         super(user);
         profile = new Profile(user);
-        coursesOverview = new GalleryModul<>(user, ui);
+        coursesOverview = new GalleryModul(user, ui);
 
         createLayout();
     }
@@ -24,10 +27,13 @@ public class ProfileController extends Modul {
     private void createLayout() {
         coursesOverview.setName("Kurse");
         coursesOverview.showAddBtn(user.isAdmin());
-        coursesOverview.setData(user.getCourses());
+        coursesOverview.setData((ArrayList) user.getCourses());
 
-        layout.addComponent(profile.getContent());
-        layout.addComponent(coursesOverview.getContent());
+        VerticalLayout contentLayout = new VerticalLayout();
+
+        contentLayout.addComponent(profile.getContent());
+        contentLayout.addComponent(coursesOverview.getContent());
+        layout.addComponent(contentLayout);
     }
 
 }

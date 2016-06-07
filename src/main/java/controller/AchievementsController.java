@@ -50,7 +50,7 @@ public class AchievementsController extends Modul {
                     achievements.add(achievement);
                 }
             });
-            courseAchievementsGallery.setData(achievements);
+            courseAchievementsGallery.setData((ArrayList) achievements);
             moduleLayout.addComponent(courseAchievementsGallery.getContent());
         });
     }
@@ -62,7 +62,6 @@ public class AchievementsController extends Modul {
         GalleryModul openAchievementsGallery = new GalleryModul(user, ui);
         GalleryModul finishedAchievementsGallery = new GalleryModul(user, ui);
 
-
         openAchievementsGallery.setName("Offene Erfolge");
         finishedAchievementsGallery.setName("Abgeschlossene Erfolge");
 
@@ -73,8 +72,8 @@ public class AchievementsController extends Modul {
                 openAchievements.add(achievement);
             }
         });
-        openAchievementsGallery.setData(openAchievements);
-        finishedAchievementsGallery.setData(finishedAchievements);
+        openAchievementsGallery.setData((ArrayList) openAchievements);
+        finishedAchievementsGallery.setData((ArrayList) finishedAchievements);
 
         moduleLayout.addComponent(openAchievementsGallery.getContent());
         moduleLayout.addComponent(finishedAchievementsGallery.getContent());

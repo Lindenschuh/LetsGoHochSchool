@@ -1,14 +1,16 @@
 package model;
 
+import com.vaadin.ui.Image;
+
 /**
  * Created by Lars on 02.06.2016.
  */
-public class Achievement {
+public class Achievement implements DataObject {
 
     private String name;
     private Course course;
     private boolean finished;
-
+    private Image img;
     //TODO: Bedinugen aufbauen (?)
 
 
@@ -18,8 +20,19 @@ public class Achievement {
         this.finished = false;
     }
 
+    @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public void setImage(Image i) {
+        this.img = i;
+    }
+
+    @Override
+    public Image getImage() {
+        return img;
     }
 
     public void setName(String name) {
@@ -46,4 +59,5 @@ public class Achievement {
     public String toString() {
         return name;
     }
+
 }
