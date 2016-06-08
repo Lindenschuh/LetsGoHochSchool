@@ -31,37 +31,41 @@
 
 @import "../valo/valo.scss";
 
+
 @mixin mytheme {
   @include valo;
 
 
-
-  .h1 {
-
+  .top {
+    background: blue;
     padding-left: 10%;
+    width: 100%;
     font: {
 
       weight: bold;
     }
   }
 
-  .v-button {
-    text-align: left;
-    font-size: 20px;
-    font-style: oblique;
-    color: black;
-    border: none;
-    border-radius: 0;
-    background: white;
+
+  .menue {
 
 
-    &:hover {
-      background: black;
-      color: white;
-      .v-icon {
+
+    .v-button {
+      display: block;
+
+
+
+
+      &:hover {
+        background: black;
         color: white;
+        .v-icon {
+          color: white;
+        }
       }
     }
   }
+
 
 }

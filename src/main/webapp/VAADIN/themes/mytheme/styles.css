@@ -12933,26 +12933,22 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
-.mytheme .h1 {
+.mytheme .top {
+	background: blue;
 	padding-left: 10%;
+	width: 100%;
 	font-weight: bold;
 }
 
-.mytheme .v-button {
-	text-align: left;
-	font-size: 20px;
-	font-style: oblique;
-	color: black;
-	border: none;
-	border-radius: 0;
-	background: white;
+.mytheme .menue .v-button {
+	display: block;
 }
 
-.mytheme .v-button:hover {
+.mytheme .menue .v-button:hover {
 	background: black;
 	color: white;
 }
 
-.mytheme .v-button:hover .v-icon {
+.mytheme .menue .v-button:hover .v-icon {
 	color: white;
 }
