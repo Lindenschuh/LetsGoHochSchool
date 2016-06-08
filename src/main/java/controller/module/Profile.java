@@ -32,13 +32,13 @@ public class Profile extends Modul {
 
     public Profile(User user) {
         super(user);
-        this.img = user.getImage();
+        this.img = new Image(null, user.getImage().getSource());
         this.name = user.getName();
         this.email = user.getEmail();
         this.user = user;
 
         if(this.user.isAdmin()) {
-            this.times =user.getTimes();
+            this.times = user.getTimes();
         }
 
         setupLayout();
@@ -50,7 +50,8 @@ public class Profile extends Modul {
         //set all components in the middle center
         horizontalLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        // set user image size
+        //config user image
+        img.setDescription(user.getName());
         img.setWidth(125, Sizeable.Unit.PIXELS);
         img.setHeight(125, Sizeable.Unit.PIXELS);
 

@@ -123,18 +123,12 @@ public class NextLectureModul extends Modul {
             } );
 
             if (nextCourse != null) {
-                File f = new File(Paths.get("").toAbsolutePath().toString()
-                        + "/Resource/Images/Course/" + nextCourse.toString() +".png");
 
-                if (f.exists()) {
-                    FileResource resource = new FileResource(f);
-                    courseImg = new Image(null, resource);
-                    courseImg.setWidth(IMAGE_SIZE, Sizeable.Unit.PIXELS);
-                    courseImg.setHeight(IMAGE_SIZE, Sizeable.Unit.PIXELS);
-                    moduleLayout.addComponent(courseImg);
-                } else {
-                    courseImg = defaultImg;
-                }
+                courseImg = new Image(null, nextCourse.getImage().getSource());
+                courseImg.setWidth(IMAGE_SIZE, Sizeable.Unit.PIXELS);
+                courseImg.setHeight(IMAGE_SIZE, Sizeable.Unit.PIXELS);
+                moduleLayout.addComponent(courseImg);
+
                 nextName.setValue(nextCourse.getName());
                 nextRoom.setValue(nextCourse.getRoom());
                 nextTime.setValue(createTimeLabel(nextLecture));

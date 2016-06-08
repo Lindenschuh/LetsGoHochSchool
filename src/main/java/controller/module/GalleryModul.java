@@ -2,6 +2,7 @@ package controller.module;
 
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -73,45 +74,58 @@ public class GalleryModul extends Modul {
     }
 
     private void update() {
-        if(data != null) {
-            if (data.size() == 0) {
-                //TODO: Aktion durchführen, wenn Liste leer ist.
+        if (data.size() == 0) {
+            //TODO: Aktion durchführen, wenn Liste leer ist.
+        } else {
+            calcLayoutSize();
+            nameLabel.setValue(name);
+            addBtn.setVisible(showAdd);
+
+            ArrayList<Component> tmpComponent = new ArrayList<>();
+            contentLayout.forEach(component -> tmpComponent.add(component));
+            contentLayout.removeAllComponents();
+            contentLayout.setColumns(maxColumns);
+
+            if (data.size() <= maxColumns) {
+                contentLayout.setColumns(data.size());
+                showAll = false;
+                minBtn.setVisible(false);
+                maxBtn.setVisible(false);
+                tmpComponent.forEach(c -> c.setVisible(true));
+
+            } else if (showAll) {
+                minBtn.setVisible(true);
+                maxBtn.setVisible(false);
+                tmpComponent.forEach(c -> c.setVisible(true));
+
             } else {
-                contentLayout.removeAllComponents();
 
-                calcLayoutSize();
-                nameLabel.setValue(name);
+                int counter = 0;
+                minBtn.setVisible(false);
+                maxBtn.setVisible(true);
 
-                if (data.size() < maxColumns) {
-                    contentLayout.setColumns(data.size());
-                } else {
-                    contentLayout.setColumns(maxColumns);
-                }
-
-                data.forEach(dataBean -> {
-                    if (contentLayout.getCursorY() == 0 || showAll) {
-                        Image img = dataBean.getImage();
-                        img.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                        img.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
-                        contentLayout.addComponent(img);
+                for (Component c: tmpComponent) {
+                    if (counter < maxColumns) {
+                        counter++;
+                        c.setVisible(true);
+                    } else {
+                        c.setVisible(false);
                     }
-                });
-
-                if (!showAll) {
-                    contentLayout.setRows(2);
-                } else {
-                    contentLayout.setRows(contentLayout.getCursorY() + 1);
-                }
-
-                addBtn.setVisible(showAdd);
-
-                if (data.size() <= maxColumns) {
-                    maxBtn.setVisible(false);
-                } else {
-                    maxBtn.setVisible(!showAll);
                 }
             }
+            tmpComponent.forEach(component -> contentLayout.addComponent(component));
         }
+    }
+
+
+    private void fillList() {
+        data.forEach(data -> {
+            Image img = new Image(null, data.getImage().getSource());
+            img.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+            img.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+            img.setVisible(false);
+            contentLayout.addComponent(img);
+        });
     }
 
     private void createLayout() {
@@ -140,7 +154,6 @@ public class GalleryModul extends Modul {
 
         contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-
         nameLabel.setStyleName("h3");
         moduleLayout.addComponent(nameLabel);
         moduleLayout.addComponent(contentLayout);
@@ -164,8 +177,6 @@ public class GalleryModul extends Modul {
             maxBtn.setDescription("Weitere Kurse anzeigen.");
             maxBtn.addClickListener(event -> {
                 showAll = true;
-                maxBtn.setVisible(false);
-                minBtn.setVisible(true);
                 update();
             });
         }
@@ -183,8 +194,6 @@ public class GalleryModul extends Modul {
             minBtn.setVisible(false);
             minBtn.addClickListener(event -> {
                 showAll = false;
-                minBtn.setVisible(false);
-                maxBtn.setVisible(true);
                 update();
             });
         }
@@ -216,6 +225,7 @@ public class GalleryModul extends Modul {
     public void setData(ArrayList<DataObject> data) {
         this.data.clear();
         this.data.addAll(data);
+        fillList();
         update();
     }
 
