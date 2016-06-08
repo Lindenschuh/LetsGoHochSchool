@@ -90,7 +90,7 @@ public class SearchResultModul extends Modul {
     private void createUser() {
         User dataUser = (User) data;
 
-        img = dataUser.getImage();
+        img = new Image(null, dataUser.getImage().getSource());
         nameLabel.setValue(dataUser.getName());
         if(dataUser.isAdmin()) {
             //descriptionLabel.setValue(dataUser.getTimes());
@@ -103,7 +103,7 @@ public class SearchResultModul extends Modul {
     private void createCourse() {
         Course course = (Course) data;
 
-        img = course.getImage();
+        img = new Image(null, course.getImage().getSource());
         nameLabel.setValue(course.getName());
 
         descriptionLabel.setValue(course.getDescription());
@@ -113,7 +113,7 @@ public class SearchResultModul extends Modul {
     private void createAchievement() {
         Achievement achievement = (Achievement) data;
 
-        img = achievement.getImage();
+        img = new Image(null, achievement.getImage().getSource());
         nameLabel.setValue(achievement.getName());
     }
 

@@ -26,7 +26,7 @@ import util.Master;
 public class MyUI extends UI {
 
     private SearchController searchController;
-    private AbstractLayout contentLayout;
+    private VerticalLayout contentLayout;
     private Label title;
     private User currentUser;
 
@@ -120,8 +120,6 @@ public class MyUI extends UI {
         currentUser = Master.allUser.get(0);
         //DON'T REMOVE or null pointer.
         searchController = new SearchController(currentUser, this);
-        searchController.show(false);
-
         setHomePage();
         
     }
@@ -131,7 +129,7 @@ public class MyUI extends UI {
     public static class MyUIServlet extends VaadinServlet {
     }
 
-    public AbstractLayout getContentLayout() {
+    public VerticalLayout getContentLayout() {
         return contentLayout;
     }
 
