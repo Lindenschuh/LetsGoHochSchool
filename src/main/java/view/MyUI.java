@@ -84,12 +84,13 @@ public class MyUI extends UI {
         course.setIcon(FontAwesome.BOOK);
         menuLayout.addComponent(course);
 
-        /*
+
         Button schedule = new Button("Schedule");
+        schedule.addClickListener(e -> setCalenderPage());
         schedule.setSizeFull();
         schedule.setIcon(FontAwesome.CALENDAR);
         menuLayout.addComponent(schedule);
-        */
+
 
         Button achievements = new Button("Achievements");
         achievements.addClickListener( e -> setAchievementPage());
@@ -141,6 +142,13 @@ public class MyUI extends UI {
         searchController.show(false);
         contentLayout.addComponent(searchController.getContent());
         contentLayout.addComponent(h.getContent());
+    }
+    private void setCalenderPage() {
+        contentLayout.removeAllComponents();
+        CalenderController cal = new CalenderController(currentUser);
+        searchController.show(false);
+        contentLayout.addComponent(searchController.getContent());
+        contentLayout.addComponent(cal.getContent());
     }
 
     private void setAchievementPage() {
