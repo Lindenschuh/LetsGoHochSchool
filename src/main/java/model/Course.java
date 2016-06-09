@@ -23,6 +23,8 @@ public class Course implements DataObject {
     private String room;
     private Image img;
     private int duration; //in minuten
+    private String code;
+
 
 
 
@@ -36,6 +38,7 @@ public class Course implements DataObject {
         achievements = new ArrayList<Achievement>();
         dates = new ArrayList<LocalDateTime>();
         this.duration = 90;
+        clearCode();
         generateDate(date,lessons);
         creatDir();
         loadFiles();
@@ -66,6 +69,20 @@ public class Course implements DataObject {
 
 
     }
+
+    public void clearCode()
+    {
+        this.code = null;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
     public void addFile(File file)
     {
         files.add(file);

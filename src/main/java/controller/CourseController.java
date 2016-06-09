@@ -4,10 +4,7 @@ import com.vaadin.server.Sizeable;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
-import controller.module.CourseInfo;
-import controller.module.FileModul;
-import controller.module.Modul;
-import controller.module.TodoList;
+import controller.module.*;
 import model.Course;
 import model.User;
 
@@ -31,7 +28,7 @@ public class CourseController extends Modul {
         comb = new ComboBox();
         comb.setWidth(500f, Sizeable.Unit.PIXELS);
         comb.setNullSelectionAllowed(false);
-        comb.addValueChangeListener(e ->{loadNewLayout();});
+        comb.addValueChangeListener(e ->loadNewLayout());
         addToComboBox();
 
     }
@@ -48,6 +45,7 @@ public class CourseController extends Modul {
         ver.addComponent(comb);
         ver.addComponent(new TodoList(user,course).getContent());
         ver.addComponent(new CourseInfo(user,course).getContent());
+        hori.addComponent(new CodeGenModul(user,course).getContent());
         hori.addComponent(new FileModul(user,course).getContent());
         layout.addComponent(hori);
 

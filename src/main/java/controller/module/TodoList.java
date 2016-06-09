@@ -69,7 +69,9 @@ public class TodoList extends Modul {
     }
 
     private void addTodo(TextField tf) {
+        if(!tf.isEmpty())
         todos.add(tf.getValue());
+
         update();
     }
 

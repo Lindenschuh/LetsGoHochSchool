@@ -127,7 +127,7 @@ public class MyUI extends UI {
 
 
 
-            currentUser = Master.allUser.get(0);
+            currentUser = Master.allUser.get(1);
             //DON'T REMOVE or null pointer.
             searchController = new SearchController(currentUser, this);
             setHomePage();
