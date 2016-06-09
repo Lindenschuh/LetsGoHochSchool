@@ -22,6 +22,8 @@ public class Course implements DataObject {
     private ArrayList<LocalDateTime> dates;
     private String room;
     private Image img;
+    private int duration; //in minuten
+
 
 
     public Course(String name, User admin, String description, String date, int lessons, String room){
@@ -33,7 +35,7 @@ public class Course implements DataObject {
         this.dir = new File(stringPath+"/CourseFolder/"+name);
         achievements = new ArrayList<Achievement>();
         dates = new ArrayList<LocalDateTime>();
-
+        this.duration = 90;
         generateDate(date,lessons);
         creatDir();
         loadFiles();
@@ -96,7 +98,9 @@ public class Course implements DataObject {
     public User getAdmin() {
         return admin;
     }
-
+    public int getDuration() {
+        return duration;
+    }
     public String getDescription() {
         return description;
     }
