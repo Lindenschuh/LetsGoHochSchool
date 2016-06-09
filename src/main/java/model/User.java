@@ -79,7 +79,7 @@ public class User implements DataObject{
 
     public boolean validation(String name,String password)
     {
-        if(this.name.toLowerCase() == name.toLowerCase()&& this.password == password)
+        if(this.name.toLowerCase().equals(name.toLowerCase())&& this.password.equals(password))
             return true;
         else
             return false;
