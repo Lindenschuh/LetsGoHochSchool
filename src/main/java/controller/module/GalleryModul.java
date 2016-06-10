@@ -10,6 +10,8 @@ import com.vaadin.ui.Image;
 import com.vaadin.server.FileResource;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import controller.CourseController;
+import model.Course;
 import model.User;
 import model.DataObject;
 import view.MyUI;
@@ -40,10 +42,12 @@ public class GalleryModul extends Modul {
     private Image minBtn;
     private Image emptyImg;
 
+    private HorizontalLayout headLayout;
     private GridLayout contentLayout;
-    private HorizontalLayout btnLayout;
+    private HorizontalLayout footLayout;
     private VerticalLayout moduleLayout;
 
+    private ArrayList<Image> dataImg;
     private ArrayList<DataObject> data;
 
     /**
@@ -63,7 +67,7 @@ public class GalleryModul extends Modul {
     }
 
 
-    private void calcLayoutSize() {
+    private void calcLayout() {
         int columnCounter = 0;
         int width = (int) (ui.getPage().getBrowserWindowWidth() * (ui.getContentLayout().getWidth() / 100));
         while (width >= (COMPONENT_SIZE + SPACING_SIZE)) {
@@ -77,9 +81,8 @@ public class GalleryModul extends Modul {
         if (data.size() == 0) {
             //TODO: Aktion durchführen, wenn Liste leer ist.
         } else {
-            calcLayoutSize();
+            calcLayout();
             nameLabel.setValue(name);
-            addBtn.setVisible(showAdd);
 
             ArrayList<Component> tmpComponent = new ArrayList<>();
             contentLayout.forEach(component -> tmpComponent.add(component));
@@ -88,14 +91,17 @@ public class GalleryModul extends Modul {
 
             if (data.size() <= maxColumns) {
                 contentLayout.setColumns(data.size());
+                //contentLayout.
                 showAll = false;
                 minBtn.setVisible(false);
                 maxBtn.setVisible(false);
+                footLayout.setVisible(false);
                 tmpComponent.forEach(c -> c.setVisible(true));
 
             } else if (showAll) {
                 minBtn.setVisible(true);
                 maxBtn.setVisible(false);
+                footLayout.setVisible(true);
                 tmpComponent.forEach(c -> c.setVisible(true));
 
             } else {
@@ -103,6 +109,7 @@ public class GalleryModul extends Modul {
                 int counter = 0;
                 minBtn.setVisible(false);
                 maxBtn.setVisible(true);
+                footLayout.setVisible(true);
 
                 for (Component c: tmpComponent) {
                     if (counter < maxColumns) {
@@ -113,57 +120,97 @@ public class GalleryModul extends Modul {
                     }
                 }
             }
+            addBtn.setVisible(showAdd);
+            footLayout.setVisible(showAdd || minBtn.isVisible() || maxBtn.isVisible());
             tmpComponent.forEach(component -> contentLayout.addComponent(component));
+
         }
     }
-
 
     private void fillList() {
         data.forEach(data -> {
             Image img = new Image(null, data.getImage().getSource());
             img.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
             img.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
+            img.setDescription(data.getName());
             img.setVisible(false);
+            img.addClickListener(clickEvent -> {
+                System.out.println("CLICK");
+                String className = data.getClass().getName();
+                if (className.contains(".")) {
+                    className = className.substring(className.indexOf('.') + 1, className.length());
+                }
+                switch (className) {
+                    case "Course":
+                        Course course = (Course) data;
+                        System.out.println(course.getName());
+                        CourseController cc = new CourseController(user);
+                        cc.createView(course);
+                        ui.setPage(cc.getContent());
+                        break;
+                }
+            });
             contentLayout.addComponent(img);
         });
     }
 
     private void createLayout() {
-        nameLabel = new Label("");
 
-        calcLayoutSize();
+        calcLayout();
+
+
+        //Create everything.
+        nameLabel = new Label("");
+        moduleLayout = new VerticalLayout();
+        headLayout = new HorizontalLayout();
+        contentLayout = new GridLayout(maxColumns + 1, 2);
+        footLayout = new HorizontalLayout();
+
         createMaxBtn();
         createMinBtn();
         createAddBtn();
         createEmptyImg();
 
+
+
+        //Put the layout together
+        headLayout.addComponent(nameLabel);
+
+        footLayout.addComponent(addBtn);
+        footLayout.addComponent(minBtn);
+        footLayout.addComponent(maxBtn);
+
+        moduleLayout.addComponent(headLayout);
+        moduleLayout.addComponent(contentLayout);
+        moduleLayout.addComponent(footLayout);
+
+        layout.addComponents(moduleLayout);
+
+
+        //Styling.
+        nameLabel.setStyleName("moduleName");
+
+        headLayout.setStyleName("moduleHead");
+        contentLayout.setStyleName("moduleContent");
+        footLayout.setStyleName("moduleFoot");
+
+        moduleLayout.setStyleName("module");
+
+
+        footLayout.setSpacing(true);
+        contentLayout.setSpacing(true);
+
+        footLayout.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
+        moduleLayout.setDefaultComponentAlignment(Alignment.TOP_LEFT);
+        contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        //moduleLayout.setComponentAlignment(footLayout, Alignment.MIDDLE_RIGHT);
+
+
+        //Add a resize listener.
         ui.getPage().addBrowserWindowResizeListener(l -> {
-            calcLayoutSize();
+            calcLayout();
             update();
         });
-
-        moduleLayout = new VerticalLayout();
-        contentLayout = new GridLayout(maxColumns + 1, 2);
-        btnLayout = new HorizontalLayout();
-
-        btnLayout.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
-        btnLayout.addComponent(addBtn);
-        btnLayout.addComponent(minBtn);
-        btnLayout.addComponent(maxBtn);
-
-
-        contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-
-        nameLabel.setStyleName("h3");
-        moduleLayout.addComponent(nameLabel);
-        moduleLayout.addComponent(contentLayout);
-        moduleLayout.addComponent(btnLayout);
-        moduleLayout.setComponentAlignment(btnLayout, Alignment.MIDDLE_RIGHT);
-
-        moduleLayout.setMargin(true);
-        contentLayout.setSpacing(true);
-        btnLayout.setSpacing(true);
-        layout.addComponents(moduleLayout);
     }
 
     private void createMaxBtn() {

@@ -34,11 +34,11 @@ public class CourseController extends Modul {
     }
 
     private void loadNewLayout() {
-        layout.removeAllComponents();
-        creatView(getCourseOutofComboBox());
+        createView(getCourseOutOfComboBox());
     }
 
-    private void creatView(Course course) {
+    public void createView(Course course) {
+        layout.removeAllComponents();
         HorizontalLayout hori = new HorizontalLayout();
         VerticalLayout ver = new VerticalLayout();
         hori.addComponent(ver);
@@ -60,7 +60,7 @@ public class CourseController extends Modul {
         }
 
     }
-    private Course getCourseOutofComboBox()
+    private Course getCourseOutOfComboBox()
     {
         String CorseName =(String) comb.getValue();
         Course searchedCourse = null;
