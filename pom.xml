@@ -19,10 +19,6 @@
 
 	<repositories>
 		<repository>
-			<id>source.db4o</id>
-			<url>http://source.db4o.com/maven</url>
-		</repository>
-		<repository>
 			<id>vaadin-addons</id>
 			<url>http://maven.vaadin.com/vaadin-addons</url>
 		</repository>
@@ -51,11 +47,6 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.db4o</groupId>
-			<artifactId>db4o-full-java5</artifactId>
-			<version>LATEST</version> <!-- latest version -->
-		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
