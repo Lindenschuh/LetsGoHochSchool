@@ -17,7 +17,7 @@ public class CourseController extends Modul {
     ArrayList<Course> courses;
     User user;
     ComboBox comb;
-
+    Course currentCourse;
 
 
     public CourseController(User user) {
@@ -25,6 +25,19 @@ public class CourseController extends Modul {
 
         this.courses = user.getCourses();
         this.user = user;
+        comb = new ComboBox();
+        comb.setWidth(500f, Sizeable.Unit.PIXELS);
+        comb.setNullSelectionAllowed(false);
+        comb.addValueChangeListener(e ->loadNewLayout());
+        addToComboBox();
+
+    }
+    public CourseController(User user,Course course) {
+        super(user);
+
+        this.courses = user.getCourses();
+        this.user = user;
+        this.currentCourse = course;
         comb = new ComboBox();
         comb.setWidth(500f, Sizeable.Unit.PIXELS);
         comb.setNullSelectionAllowed(false);
@@ -55,9 +68,12 @@ public class CourseController extends Modul {
         for(int i=0;i<courses.size();i++)
         {
             comb.addItem(courses.get(i).getName());
-            if(i == 0)
-               comb.setValue(courses.get(i).getName());
+
         }
+        if(currentCourse == null)
+            comb.setValue(courses.get(0).getName());
+        else
+            comb.setValue(currentCourse);
 
     }
     private Course getCourseOutOfComboBox()
