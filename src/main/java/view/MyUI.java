@@ -1,14 +1,13 @@
 package view;
 
 import javax.servlet.annotation.WebServlet;
-
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
+
 import controller.*;
 import model.User;
 import util.Master;
@@ -25,6 +24,9 @@ import util.Master;
 @Widgetset("com.Demo.MyAppWidgetset")
 public class MyUI extends UI {
 
+    //debug flag -> skip login screen.
+    private static final boolean DEBUG = true;
+
     private SearchController searchController;
     private VerticalLayout contentLayout;
     private Label title;
@@ -37,101 +39,61 @@ public class MyUI extends UI {
     }
 
     private void initilize() {
+
         //Wrapper Layout for the whole page
         final VerticalLayout wrapperLayout = new VerticalLayout();
         setContent(wrapperLayout);
+
+        //Create test data.
         Master.makeTest();
-        // Info: if statement wieder einwerfen und currentUser = master.blabla aus kommentieren zum einloggen
-        //if(currentUser == null)
-        //{
-        //   LoginPage(wrapperLayout);
-        //}else {
 
+        //DEBUG -> Set a currentUser to skip the login screen.
+        if(DEBUG) {
+            currentUser = Master.allUser.get(1);
+        }
 
-            //Top Layout for the head
+        //Login page?
+        if(currentUser == null)
+        {
+           LoginPage(wrapperLayout);
+        }else {
+
+            //Top Layout for the head.
             CssLayout topLayout = new CssLayout();
             topLayout.addStyleName("top");
             wrapperLayout.addComponent(topLayout);
 
+            //Create title.
             title = new Label("Let's GO HochSCHOOL");
             title.addStyleName("h1");
             topLayout.addComponent(title);
 
-            //Bottom Layout for the menu and content
+            //Bottom Layout for the menu and content.
             HorizontalLayout bottomLayout = new HorizontalLayout();
             bottomLayout.setSizeFull();
             wrapperLayout.addComponent(bottomLayout);
-
-
-            //menue layout for all buttons in the menu
-            CssLayout menuLayout = new CssLayout();
-            menuLayout.addStyleName("menu");
-            bottomLayout.addComponent(menuLayout);
-
-
-            Button search = new Button("Search");
-            search.addClickListener(e -> searchController.show(!searchController.isVisible()));
-            search.setSizeFull();
-            search.setIcon(FontAwesome.SEARCH);
-            menuLayout.addComponent(search);
-
-
-            Button home = new Button("Home");
-            home.addClickListener(e -> setHomePage());
-            home.setSizeFull();
-            home.setIcon(FontAwesome.HOME);
-            menuLayout.addComponent(home);
-
-            Button profile = new Button("Profile");
-            profile.addClickListener(e -> setProfilePage());
-            profile.setSizeFull();
-            profile.setIcon(FontAwesome.USER);
-            menuLayout.addComponent(profile);
-
-            Button course = new Button("Course");
-            course.addClickListener(e -> setCoursePage());
-            course.setSizeFull();
-            course.setIcon(FontAwesome.BOOK);
-            menuLayout.addComponent(course);
-
-
-            Button schedule = new Button("Schedule");
-            schedule.addClickListener(e -> setCalenderPage());
-            schedule.setSizeFull();
-            schedule.setIcon(FontAwesome.CALENDAR);
-            menuLayout.addComponent(schedule);
-
-
-            Button achievements = new Button("Achievements");
-            achievements.addClickListener(e -> setAchievementPage());
-            achievements.setSizeFull();
-            achievements.setIcon(FontAwesome.TROPHY);
-            menuLayout.addComponent(achievements);
-
-        /*
-        Button settings = new Button("Settings");
-        settings.setSizeFull();
-        settings.setIcon(FontAwesome.COG);
-        menuLayout.addComponent(settings);
-        */
 
             //Layout for the content
             contentLayout = new VerticalLayout();
             contentLayout.setSizeFull();
             contentLayout.addStyleName("contend");
             contentLayout.setHeight("100%");
+
+            //Create navigation and search bar.
+            searchController = new SearchController(currentUser, this);
+            NavigationBarController navi = new NavigationBarController(currentUser, this);
+
+            //Add navi and content layout
+            bottomLayout.addComponent(navi.getContent());
             bottomLayout.addComponent(contentLayout);
 
-            bottomLayout.setExpandRatio(menuLayout, 15);
+            //Set layout behavior.
+            bottomLayout.setExpandRatio(navi.getContent(), 15);
             bottomLayout.setExpandRatio(contentLayout, 85);
 
-
-
-            currentUser = Master.allUser.get(1);
-            //DON'T REMOVE or null pointer.
-            searchController = new SearchController(currentUser, this);
-            setHomePage();
-        //}
+            //Set the start page.
+            setPage(new HomeController(currentUser, this).getContent());
+        }
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
@@ -145,44 +107,15 @@ public class MyUI extends UI {
 
     public void setTitle(String title) { this.title.setValue(title); }
 
-    private void setHomePage() {
+    public void setPage(CssLayout pageContent) {
         contentLayout.removeAllComponents();
-        HomeController h = new HomeController(currentUser, this);
         searchController.show(false);
         contentLayout.addComponent(searchController.getContent());
-        contentLayout.addComponent(h.getContent());
-    }
-    private void setCalenderPage() {
-        contentLayout.removeAllComponents();
-        CalenderController cal = new CalenderController(currentUser);
-        searchController.show(false);
-        contentLayout.addComponent(searchController.getContent());
-        contentLayout.addComponent(cal.getContent());
+        contentLayout.addComponent(pageContent);
     }
 
-    private void setAchievementPage() {
-        contentLayout.removeAllComponents();
-        AchievementsController a = new AchievementsController(currentUser, this);
-        searchController.show(false);
-        contentLayout.addComponent(searchController.getContent());
-        contentLayout.addComponent(a.getContent());
-    }
-
-    private void setCoursePage() {
-        contentLayout.removeAllComponents();
-        CourseController c = new CourseController(currentUser);
-        searchController.show(false);
-        contentLayout.addComponent(searchController.getContent());
-        contentLayout.addComponent(c.getContent());
-
-    }
-
-    private void setProfilePage() {
-        contentLayout.removeAllComponents();
-        ProfileController p = new ProfileController(currentUser, this);
-        searchController.show(false);
-        contentLayout.addComponent(searchController.getContent());
-        contentLayout.addComponent(p.getContent());
+    public SearchController getSearch() {
+        return searchController;
     }
 
     private void LoginPage(Layout layout)
