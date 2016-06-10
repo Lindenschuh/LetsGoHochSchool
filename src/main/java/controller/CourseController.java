@@ -73,7 +73,7 @@ public class CourseController extends Modul {
         if(currentCourse == null)
             comb.setValue(courses.get(0).getName());
         else
-            comb.setValue(currentCourse);
+            comb.setValue(currentCourse.getName());
 
     }
     private Course getCourseOutOfComboBox()
