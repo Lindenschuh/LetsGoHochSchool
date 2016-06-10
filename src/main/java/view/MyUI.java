@@ -4,8 +4,11 @@ import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
+
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.*;
 
 import controller.*;
@@ -24,7 +27,9 @@ import util.Master;
 @Widgetset("com.Demo.MyAppWidgetset")
 public class MyUI extends UI {
 
-    //debug flag -> skip login screen.
+    /*
+     * Debug flag -> Set true skip login screen.
+     */
     private static final boolean DEBUG = true;
 
     private SearchController searchController;
@@ -123,17 +128,16 @@ public class MyUI extends UI {
         VerticalLayout vert = new VerticalLayout();
         TextField login = new TextField();
         PasswordField pass = new PasswordField();
-        Label message = new Label();
         Button sub = new Button("Submit");
-        sub.addClickListener(e -> checkLogin(login,pass,message));
-        vert.addComponents(message,login,pass,sub);
+        sub.addClickListener(e -> checkLogin(login,pass));
+        vert.addComponents(login,pass,sub);
         layout.addComponent(vert);
 
 
     }
 
-    private void checkLogin(TextField login, PasswordField pass,Label message) {
-        message.setValue("");
+    private void checkLogin(TextField login, PasswordField pass ) {
+
         for(User user: Master.allUser)
         {
             if(user.validation(login.getValue(),pass.getValue()))
@@ -147,9 +151,18 @@ public class MyUI extends UI {
 
         if(currentUser == null)
         {
-            message.setValue("error username or Password is wrong");
+            Notification notify = new Notification("error" ,"username or Password is wrong", Notification.Type.ERROR_MESSAGE);
+            notify.setDelayMsec(1000);
+            notify.setPosition(Position.TOP_RIGHT);
+            notify.show(Page.getCurrent());
+
 
         }else {
+
+            Notification notify = new Notification("Loggin" ,"Hallo "+ currentUser.getName(), Notification.Type.ASSISTIVE_NOTIFICATION);
+            notify.setDelayMsec(1000);
+            notify.setPosition(Position.TOP_RIGHT);
+            notify.show(Page.getCurrent());
 
             setContent(null);
             initilize();
