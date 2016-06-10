@@ -136,7 +136,6 @@ public class SearchController extends Modul {
         moduleLayout.addComponent(searchLayout);
         moduleLayout.addComponent(searchResultLayout);
 
-        layout.setDescription("SearchController");
         layout.addComponent(moduleLayout);
     }
 

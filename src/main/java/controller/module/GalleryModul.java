@@ -91,7 +91,6 @@ public class GalleryModul extends Modul {
 
             if (data.size() <= maxColumns) {
                 contentLayout.setColumns(data.size());
-                //contentLayout.
                 showAll = false;
                 minBtn.setVisible(false);
                 maxBtn.setVisible(false);
@@ -128,26 +127,32 @@ public class GalleryModul extends Modul {
     }
 
     private void fillList() {
+
         data.forEach(data -> {
+
+            //create images for the data
             Image img = new Image(null, data.getImage().getSource());
             img.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
             img.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
             img.setDescription(data.getName());
             img.setVisible(false);
-            img.addClickListener(clickEvent -> {
-                System.out.println("CLICK");
-                String className = data.getClass().getName();
-                if (className.contains(".")) {
-                    className = className.substring(className.indexOf('.') + 1, className.length());
-                }
-                switch (className) {
-                    case "Course":
-                        Course course = (Course) data;
-                        CourseController cc = new CourseController(user, course);
-                        ui.setPage(cc.getContent());
-                        break;
-                }
-            });
+
+            //Format class name.
+            String className = data.getClass().getName();
+            if (className.contains(".")) {
+                className = className.substring(className.indexOf('.') + 1, className.length());
+            }
+
+            //Which kind of listener do we need?
+            switch (className) {
+                case "Course":
+                    img.addClickListener(clickEvent -> {
+                        ui.setPage(new CourseController(user, (Course) data));
+                    });
+                    break;
+            }
+
+            //Add the image.
             contentLayout.addComponent(img);
         });
     }

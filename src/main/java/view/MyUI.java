@@ -12,6 +12,7 @@ import com.vaadin.shared.Position;
 import com.vaadin.ui.*;
 
 import controller.*;
+import controller.module.Modul;
 import model.User;
 import util.Master;
 
@@ -32,7 +33,8 @@ public class MyUI extends UI {
      */
     private static final boolean DEBUG = true;
 
-    private SearchController searchController;
+    private NavigationBarController naviBar;
+    private SearchController searchBar;
     private VerticalLayout contentLayout;
     private Label title;
     private User currentUser = null;
@@ -85,19 +87,19 @@ public class MyUI extends UI {
             contentLayout.setHeight("100%");
 
             //Create navigation and search bar.
-            searchController = new SearchController(currentUser, this);
-            NavigationBarController navi = new NavigationBarController(currentUser, this);
+            searchBar = new SearchController(currentUser, this);
+            naviBar = new NavigationBarController(currentUser, this);
 
             //Add navi and content layout
-            bottomLayout.addComponent(navi.getContent());
+            bottomLayout.addComponent(naviBar.getContent());
             bottomLayout.addComponent(contentLayout);
 
             //Set layout behavior.
-            bottomLayout.setExpandRatio(navi.getContent(), 15);
+            bottomLayout.setExpandRatio(naviBar.getContent(), 15);
             bottomLayout.setExpandRatio(contentLayout, 85);
 
             //Set the start page.
-            setPage(new HomeController(currentUser, this).getContent());
+            setPage(new HomeController(currentUser, this));
         }
     }
 
@@ -112,15 +114,18 @@ public class MyUI extends UI {
 
     public void setTitle(String title) { this.title.setValue(title); }
 
-    public void setPage(CssLayout pageContent) {
+    public void setPage(Modul module) {
         contentLayout.removeAllComponents();
-        searchController.show(false);
-        contentLayout.addComponent(searchController.getContent());
-        contentLayout.addComponent(pageContent);
+
+        searchBar.show(false);
+        naviBar.setPage(module);
+
+        contentLayout.addComponent(searchBar.getContent());
+        contentLayout.addComponent(module.getContent());
     }
 
     public SearchController getSearch() {
-        return searchController;
+        return searchBar;
     }
 
     private void LoginPage(Layout layout)

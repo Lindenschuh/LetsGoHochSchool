@@ -8,29 +8,16 @@ import view.MyUI;
 
 /**
  * Created by AnAnd on 10.06.2016.
+ *
  */
 public class NavigationBarController extends Modul {
 
     private MyUI ui;
-
-    //TODO: Muss noch optimiert werden, aber erfüllt erstmal seinen Zweck.
-    private boolean searchSelected;
-    private boolean homeSelected;
-    private boolean profileSelected;
-    private boolean courseSelected;
-    private boolean scheduleSelected;
-    private boolean achievementSelected;
+    private Modul page;
 
     public NavigationBarController(User user, MyUI ui) {
         super(user);
         this.ui = ui;
-
-        searchSelected = false;
-        homeSelected = true;
-        profileSelected = false;
-        courseSelected = false;
-        scheduleSelected = false;
-        achievementSelected = false;
 
         createLayout();
     }
@@ -50,11 +37,8 @@ public class NavigationBarController extends Modul {
 
         Button home = new Button("Home");
         home.addClickListener(e -> {
-            if(ui.getContentLayout().getComponentCount() > 1) {
-                String pageName = ui.getContentLayout().getComponent(1).getDescription();
-                if (!pageName.equals("HomeController")) {
-                    ui.setPage(new HomeController(user, ui).getContent());
-                }
+            if(!(page instanceof HomeController)) {
+                ui.setPage(new HomeController(user, ui));
             }
         });
         home.setSizeFull();
@@ -64,11 +48,8 @@ public class NavigationBarController extends Modul {
 
         Button profile = new Button("Profile");
         profile.addClickListener(e -> {
-            if(ui.getContentLayout().getComponentCount() > 1) {
-                String pageName = ui.getContentLayout().getComponent(1).getDescription();
-                if (!pageName.equals("ProfileController")) {
-                    ui.setPage(new ProfileController(user, ui).getContent());
-                }
+            if(!(page instanceof ProfileController)) {
+                ui.setPage(new ProfileController(user, ui));
             }
         });
         profile.setSizeFull();
@@ -78,11 +59,8 @@ public class NavigationBarController extends Modul {
 
         Button course = new Button("Course");
         course.addClickListener(e -> {
-            if (ui.getContentLayout().getComponentCount() > 1) {
-                String pageName = ui.getContentLayout().getComponent(1).getDescription();
-                if (!pageName.equals("CourseController")) {
-                    ui.setPage(new CourseController(user).getContent());
-                }
+            if (!(page instanceof CourseController)) {
+                ui.setPage(new CourseController(user));
             }
         });
         course.setSizeFull();
@@ -92,11 +70,8 @@ public class NavigationBarController extends Modul {
 
         Button schedule = new Button("Schedule");
         schedule.addClickListener(e -> {
-            if (ui.getContentLayout().getComponentCount() > 1) {
-                String pageName = ui.getContentLayout().getComponent(1).getDescription();
-                if (!pageName.equals("CalenderController")) {
-                    ui.setPage(new CalenderController(user).getContent());
-                }
+            if (!(page instanceof CalenderController)) {
+                ui.setPage(new CalenderController(user));
             }
         });
         schedule.setSizeFull();
@@ -106,11 +81,8 @@ public class NavigationBarController extends Modul {
 
         Button achievements = new Button("Achievements");
         achievements.addClickListener(e -> {
-            if (ui.getContentLayout().getComponentCount() >1) {
-                String pageName = ui.getContentLayout().getComponent(1).getDescription();
-                if (!pageName.equals("AchievementsController")) {
-                    ui.setPage(new AchievementsController(user, ui).getContent());
-                }
+            if (!(page instanceof AchievementsController)) {
+                ui.setPage(new AchievementsController(user, ui));
             }
         });
         achievements.setSizeFull();
@@ -118,4 +90,7 @@ public class NavigationBarController extends Modul {
         layout.addComponent(achievements);
     }
 
+    public void setPage(Modul page) {
+        this.page = page;
+    }
 }

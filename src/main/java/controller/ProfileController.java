@@ -35,7 +35,6 @@ public class ProfileController extends Modul {
 
         contentLayout.addComponent(profile.getContent());
         contentLayout.addComponent(coursesOverview.getContent());
-        layout.setDescription("ProfileController");
         layout.addComponent(contentLayout);
     }
 

@@ -33,7 +33,6 @@ public class HomeController extends Modul {
 
         contentLayout.addComponent(nlModule.getContent());
         contentLayout.addComponent(allCourses.getContent());
-        layout.setDescription("HomeController");
         layout.addComponent(contentLayout);
     }
 }
