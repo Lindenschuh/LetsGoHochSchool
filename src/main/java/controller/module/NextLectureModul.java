@@ -34,6 +34,7 @@ public class NextLectureModul extends Modul {
     private HorizontalLayout dateLayout;
     private HorizontalLayout locationLayout;
     private HorizontalLayout contentLayout;
+    private HorizontalLayout headLayout;
 
     private MyUI ui;
     private Course nextCourse;
@@ -54,34 +55,38 @@ public class NextLectureModul extends Modul {
         super(user);
         this.ui = ui;
 
-        moduleLayout = new VerticalLayout();
-        contentLayout = new HorizontalLayout();
-        descriptionLayout = new VerticalLayout();
-        dateLayout = new HorizontalLayout();
-        locationLayout = new HorizontalLayout();
-
-        nextName = new Label("");
-        nextTime = new Label("");
-        nextRoom = new Label("");
-
         createLayout();
 
     }
 
     private void createLayout() {
 
+        //Create the GUI components.
+        nextName = new Label("");
+        nextTime = new Label("");
+        nextRoom = new Label("");
         Label moduleName = new Label(MODULE_NAME);
 
         moduleName.setStyleName("h2");
         nextName.setStyleName("h3");
 
+        headLayout = new HorizontalLayout();
+        moduleLayout = new VerticalLayout();
+        contentLayout = new HorizontalLayout();
+        descriptionLayout = new VerticalLayout();
+        dateLayout = new HorizontalLayout();
+        locationLayout = new HorizontalLayout();
+
+        //Bilder laden
         createFreeImage();
         createDefaultImage();
         createDateIcon();
         createLocationIcon();
 
+        //Elemente füllen.
         update();
 
+        //Zusammen setzen.
         dateLayout.addComponent(dateIcon);
         dateLayout.addComponent(nextTime);
         locationLayout.addComponent(locationIcon);
@@ -97,10 +102,10 @@ public class NextLectureModul extends Modul {
         contentLayout.addComponent(descriptionLayout);
         contentLayout.setSpacing(true);
 
-        moduleLayout.addComponent(moduleName);
+        headLayout.addComponent(moduleName);
+        moduleLayout.addComponent(headLayout);
         moduleLayout.addComponent(contentLayout);
 
-        moduleLayout.setMargin(true);
         layout.addComponent(moduleLayout);
     }
 

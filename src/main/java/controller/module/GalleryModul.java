@@ -143,9 +143,7 @@ public class GalleryModul extends Modul {
                 switch (className) {
                     case "Course":
                         Course course = (Course) data;
-                        System.out.println(course.getName());
-                        CourseController cc = new CourseController(user);
-                        cc.createView(course);
+                        CourseController cc = new CourseController(user, course);
                         ui.setPage(cc.getContent());
                         break;
                 }

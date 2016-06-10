@@ -37,6 +37,7 @@ public class CalenderController extends Modul {
         cal.setLastVisibleHourOfDay(20);
         cal.setHandler((CalendarComponentEvents.DateClickHandler)null);
         setEvents();
+        layout.setDescription("CalenderController");
         this.layout.addComponent(cal);
 
     }

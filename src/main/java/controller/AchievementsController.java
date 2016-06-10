@@ -21,7 +21,7 @@ public class AchievementsController extends Modul {
     private static final int COMPONENT_SIZE = 100;
 
     private File f;
-    private AbstractLayout moduleLayout;
+    private VerticalLayout moduleLayout;
 
     public AchievementsController(User user, MyUI ui) {
         super(user);
@@ -35,6 +35,7 @@ public class AchievementsController extends Modul {
         } else {
             createUserLayout(user, ui);
         }
+        layout.setDescription("AchievementsController");
         layout.addComponent(moduleLayout);
     }
 

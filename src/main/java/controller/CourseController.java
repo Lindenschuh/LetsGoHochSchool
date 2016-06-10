@@ -60,6 +60,7 @@ public class CourseController extends Modul {
         ver.addComponent(new CourseInfo(user,course).getContent());
         hori.addComponent(new CodeGenModul(user,course).getContent());
         hori.addComponent(new FileModul(user,course).getContent());
+        layout.setDescription("CourseController");
         layout.addComponent(hori);
 
     }

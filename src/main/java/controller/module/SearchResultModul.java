@@ -28,7 +28,8 @@ public class SearchResultModul extends Modul {
     private Label nameLabel;
     private Label descriptionLabel;
 
-    private HorizontalLayout moduleLayout;
+    private VerticalLayout moduleLayout;
+    private HorizontalLayout contentLayout;
     private VerticalLayout descriptionLayout;
 
 
@@ -45,11 +46,13 @@ public class SearchResultModul extends Modul {
 
         nameLabel = new Label("");
         descriptionLabel = new Label("");
+        moduleLayout = new VerticalLayout();
+        contentLayout = new HorizontalLayout();
+        descriptionLayout = new VerticalLayout();
 
         nameLabel.setStyleName("h3");
 
-        moduleLayout = new HorizontalLayout();
-        descriptionLayout = new VerticalLayout();
+        contentLayout.setSpacing(true);
 
         update();
 
@@ -59,9 +62,10 @@ public class SearchResultModul extends Modul {
         descriptionLayout.addComponent(nameLabel);
         descriptionLayout.addComponent(descriptionLabel);
 
-        moduleLayout.addComponent(img);
-        moduleLayout.addComponent(descriptionLayout);
+        contentLayout.addComponent(img);
+        contentLayout.addComponent(descriptionLayout);
 
+        moduleLayout.addComponent(contentLayout);
         layout.addComponent(moduleLayout);
     }
 

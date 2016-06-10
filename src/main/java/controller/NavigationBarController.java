@@ -40,54 +40,49 @@ public class NavigationBarController extends Modul {
         layout.setStyleName("menu");
         layout.setSizeFull();
 
+
         Button search = new Button("Search");
         search.addClickListener(e -> ui.getSearch().show(!ui.getSearch().isVisible()));
         search.setSizeFull();
         search.setIcon(FontAwesome.SEARCH);
         layout.addComponent(search);
 
+
         Button home = new Button("Home");
         home.addClickListener(e -> {
-            if (!homeSelected) {
-                searchSelected = false;
-                homeSelected = true;
-                profileSelected = false;
-                courseSelected = false;
-                scheduleSelected = false;
-                achievementSelected = false;
-                ui.setPage(new HomeController(user, ui).getContent());
+            if(ui.getContentLayout().getComponentCount() > 1) {
+                String pageName = ui.getContentLayout().getComponent(1).getDescription();
+                if (!pageName.equals("HomeController")) {
+                    ui.setPage(new HomeController(user, ui).getContent());
+                }
             }
         });
         home.setSizeFull();
         home.setIcon(FontAwesome.HOME);
         layout.addComponent(home);
 
+
         Button profile = new Button("Profile");
         profile.addClickListener(e -> {
-            if (!profileSelected) {
-                searchSelected = false;
-                homeSelected = false;
-                profileSelected = true;
-                courseSelected = false;
-                scheduleSelected = false;
-                achievementSelected = false;
-                ui.setPage(new ProfileController(user, ui).getContent());
+            if(ui.getContentLayout().getComponentCount() > 1) {
+                String pageName = ui.getContentLayout().getComponent(1).getDescription();
+                if (!pageName.equals("ProfileController")) {
+                    ui.setPage(new ProfileController(user, ui).getContent());
+                }
             }
         });
         profile.setSizeFull();
         profile.setIcon(FontAwesome.USER);
         layout.addComponent(profile);
 
+
         Button course = new Button("Course");
         course.addClickListener(e -> {
-            if (!courseSelected) {
-                searchSelected = false;
-                homeSelected = false;
-                profileSelected = false;
-                courseSelected = true;
-                scheduleSelected = false;
-                achievementSelected = false;
-                ui.setPage(new CourseController(user).getContent());
+            if (ui.getContentLayout().getComponentCount() > 1) {
+                String pageName = ui.getContentLayout().getComponent(1).getDescription();
+                if (!pageName.equals("CourseController")) {
+                    ui.setPage(new CourseController(user).getContent());
+                }
             }
         });
         course.setSizeFull();
@@ -97,14 +92,11 @@ public class NavigationBarController extends Modul {
 
         Button schedule = new Button("Schedule");
         schedule.addClickListener(e -> {
-            if (!scheduleSelected) {
-                searchSelected = false;
-                homeSelected = false;
-                profileSelected = false;
-                courseSelected = false;
-                scheduleSelected = true;
-                achievementSelected = false;
-                ui.setPage(new CalenderController(user).getContent());
+            if (ui.getContentLayout().getComponentCount() > 1) {
+                String pageName = ui.getContentLayout().getComponent(1).getDescription();
+                if (!pageName.equals("CalenderController")) {
+                    ui.setPage(new CalenderController(user).getContent());
+                }
             }
         });
         schedule.setSizeFull();
@@ -114,14 +106,11 @@ public class NavigationBarController extends Modul {
 
         Button achievements = new Button("Achievements");
         achievements.addClickListener(e -> {
-            if (!achievementSelected) {
-                searchSelected = false;
-                homeSelected = false;
-                profileSelected = false;
-                courseSelected = false;
-                scheduleSelected = false;
-                achievementSelected = true;
-                ui.setPage(new AchievementsController(user, ui).getContent());
+            if (ui.getContentLayout().getComponentCount() >1) {
+                String pageName = ui.getContentLayout().getComponent(1).getDescription();
+                if (!pageName.equals("AchievementsController")) {
+                    ui.setPage(new AchievementsController(user, ui).getContent());
+                }
             }
         });
         achievements.setSizeFull();
