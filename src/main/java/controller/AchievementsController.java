@@ -48,6 +48,7 @@ public class AchievementsController extends Modul {
 
             courseAchievementsGallery.setName(c.getName());
             courseAchievementsGallery.showAddBtn(true);
+            courseAchievementsGallery.setMaxWidth(true);
 
             Master.allAchievements.forEach(achievement -> {
                 if(achievement.getCourse() == c) {

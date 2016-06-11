@@ -26,25 +26,28 @@ import java.util.ArrayList;
  */
 public class GalleryModul extends Modul {
 
-    private final static int SPACING_SIZE = 10;
+    private final static int SPACING_SIZE = 12;
     private final static int COMPONENT_SIZE = 100;
     private final static int ICON_SIZE = 25;
 
     private String name;
     private int maxColumns;
+    private int moduleWidth;
     private boolean showAll;
     private boolean showAdd;
+    private boolean maxWidth;
 
     private MyUI ui;
     private Label nameLabel;
     private Image addBtn;
     private Image maxBtn;
     private Image minBtn;
-    private Image emptyImg;
+    //private Image emptyImg;
 
     private HorizontalLayout headLayout;
     private GridLayout contentLayout;
     private HorizontalLayout footLayout;
+    private HorizontalLayout placeholder;
     private VerticalLayout moduleLayout;
 
     private ArrayList<Image> dataImg;
@@ -60,6 +63,7 @@ public class GalleryModul extends Modul {
         this.ui = ui;
         showAll = false;
         showAdd = false;
+        maxWidth = false;
         data = new ArrayList<>();
         dataImg = new ArrayList();
 
@@ -68,28 +72,35 @@ public class GalleryModul extends Modul {
 
 
     private void calcLayout() {
-        int columnCounter = 0;
-        int browserWidth = ui.getPage().getBrowserWindowWidth();
+        maxColumns = 0;
 
-        int contentWidth = browserWidth - 180 - 40 - 15 - 15;
+        int naviWidth = 180;
+        int pageSpace = 40;
+        int paddingBig = 15;
+        int browserWidth = ui.getPage().getBrowserWindowWidth();
+        int contentWidth = browserWidth - naviWidth - pageSpace - 2 * paddingBig;
 
         while (contentWidth >= (COMPONENT_SIZE + SPACING_SIZE)) {
             contentWidth -= COMPONENT_SIZE + SPACING_SIZE;
-            columnCounter++;
+            maxColumns++;
         }
-        maxColumns = columnCounter;
+        moduleWidth = maxColumns * (COMPONENT_SIZE + SPACING_SIZE) + 2 * paddingBig;
     }
 
     private void update() {
         if (data.size() == 0) {
             //TODO: Aktion durchführen, wenn Liste leer ist.
+            //Wird bist zum fix mal ausgeblendet.
+            layout.setVisible(false);
         } else {
+
             calcLayout();
             nameLabel.setValue(name);
-
-            ArrayList<Component> tmpComponent = new ArrayList<>();
-            contentLayout.forEach(component -> tmpComponent.add(component));
             contentLayout.removeAllComponents();
+            if (maxWidth) {
+                footLayout.setWidth(Integer.toString(moduleWidth) + "px");
+            }
+
             if (maxColumns < 1) {
                 layout.setVisible(false);
             } else {
@@ -103,14 +114,12 @@ public class GalleryModul extends Modul {
                 minBtn.setVisible(false);
                 maxBtn.setVisible(false);
                 footLayout.setVisible(false);
-                //tmpComponent.forEach(c -> c.setVisible(true));
                 dataImg.forEach(img -> contentLayout.addComponent(img));
 
             } else if (showAll) {
                 minBtn.setVisible(true);
                 maxBtn.setVisible(false);
                 footLayout.setVisible(true);
-                //tmpComponent.forEach(c -> c.setVisible(true));
                 dataImg.forEach(img -> contentLayout.addComponent(img));
 
             } else {
@@ -124,14 +133,11 @@ public class GalleryModul extends Modul {
                     if (counter < maxColumns) {
                         counter++;
                         contentLayout.addComponent(img);
-                    /*} else {
-                        c.setVisible(false);*/
                     }
                 }
             }
             addBtn.setVisible(showAdd);
             footLayout.setVisible(showAdd || minBtn.isVisible() || maxBtn.isVisible());
-            //tmpComponent.forEach(component -> contentLayout.addComponent(component));
 
         }
     }
@@ -169,14 +175,13 @@ public class GalleryModul extends Modul {
 
     private void createLayout() {
 
-        calcLayout();
-
         //Create everything.
         nameLabel = new Label("");
         moduleLayout = new VerticalLayout();
         headLayout = new HorizontalLayout();
-        contentLayout = new GridLayout(maxColumns + 1, 2);
+        contentLayout = new GridLayout(1, 1);
         footLayout = new HorizontalLayout();
+        placeholder = new HorizontalLayout();
 
         createMaxBtn();
         createMinBtn();
@@ -187,6 +192,7 @@ public class GalleryModul extends Modul {
         //Put the layout together
         headLayout.addComponent(nameLabel);
 
+        footLayout.addComponent(placeholder);
         footLayout.addComponent(addBtn);
         footLayout.addComponent(minBtn);
         footLayout.addComponent(maxBtn);
@@ -200,22 +206,19 @@ public class GalleryModul extends Modul {
 
         //Styling.
         nameLabel.setStyleName("moduleName");
-
         headLayout.setStyleName("moduleHead");
+        headLayout.setWidth("100%");
         contentLayout.setStyleName("moduleContent");
         footLayout.setStyleName("moduleFoot");
-
+        footLayout.setWidth("100%");
         moduleLayout.setStyleName("module");
 
         contentLayout.setHideEmptyRowsAndColumns(true);
-
-        footLayout.setSpacing(true);
         contentLayout.setSpacing(true);
 
+        footLayout.setExpandRatio(placeholder, 1);
         footLayout.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
-        moduleLayout.setDefaultComponentAlignment(Alignment.TOP_LEFT);
-        contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-        //moduleLayout.setComponentAlignment(footLayout, Alignment.MIDDLE_RIGHT);
+        moduleLayout.setComponentAlignment(footLayout, Alignment.TOP_RIGHT);
 
 
         //Add a resize listener.
@@ -231,6 +234,7 @@ public class GalleryModul extends Modul {
         if (f.exists()) {
             FileResource resource = new FileResource(f);
             maxBtn = new Image(null, resource);
+            maxBtn.setStyleName("moduleIcon");
             maxBtn.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
             maxBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
             maxBtn.setDescription("Weitere Kurse anzeigen.");
@@ -247,6 +251,7 @@ public class GalleryModul extends Modul {
         if(f.exists()) {
             FileResource resource = new FileResource(f);
             minBtn = new Image(null, resource);
+            minBtn.setStyleName("moduleIcon");
             minBtn.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
             minBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
             minBtn.setDescription("Weniger Kurse anzeigen.");
@@ -264,6 +269,7 @@ public class GalleryModul extends Modul {
         if(f.exists()) {
             FileResource resource = new FileResource(f);
             addBtn = new Image(null, resource);
+            addBtn.setStyleName("moduleIcon");
             addBtn.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
             addBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
             addBtn.setDescription("Kurs hinzuf\u00fcgen");
@@ -291,6 +297,10 @@ public class GalleryModul extends Modul {
     public void showAddBtn(boolean addBtn) {
         this.showAdd = addBtn;
         update();
+    }
+
+    public void setMaxWidth(boolean maxWidth) {
+        this.maxWidth = maxWidth;
     }
 
 }

@@ -1,8 +1,10 @@
 @import "colortheme.scss";
 @import "sizetheme";
+@import "../valo/valo.scss";
 
 
 @mixin mymodule {
+  @include valo;
 
 
   .moduleName {
@@ -11,31 +13,43 @@
     color: $colorFont;
   }
 
+  .moduleIcon {
+    width: 100px;
+    height: 100px;
+    margin-right: $modulePaddingMiddle;
+    padding: $modulePaddingSmall $modulePaddingSmall $modulePaddingSmall $modulePaddingSmall;
+  }
+
   .moduleFoot {
-    width: 100%;
-    align-self: flex-end;
     padding: $modulePaddingSmall $modulePaddingBig $modulePaddingSmall $modulePaddingBig;
     border-top: $colorBorder $borderSize solid;
+    .v-spacing {
+      height: $modulePaddingSmall;
+      width: $modulePaddingSmall;
+    }
   }
 
   .moduleContent {
-    //border: $colorBorder $borderSize solid;
+    width: 100%;
+    height: 100%;
     padding: $modulePaddingBig $modulePaddingBig $modulePaddingBig $modulePaddingBig;
     .v-spacing {
       height: $modulePaddingBig;
-      width: $modulePaddingBig
+      width: $modulePaddingBig;
     }
   }
 
   .moduleHead {
     //background: $colorBrand;
+    width: 100%;
     padding: $modulePaddingSmall $modulePaddingBig $modulePaddingSmall $modulePaddingBig;
     border-bottom: $colorBorder $borderSize solid;
-    width: 100%;
 
   }
 
   .module {
+    height: 100%;
+    width: 100%;
     background: $colorModule;
     border: $colorBorder $borderSize solid;
     border-radius: $borderRadius;

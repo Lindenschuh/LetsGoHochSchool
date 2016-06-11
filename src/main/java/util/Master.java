@@ -44,12 +44,12 @@ public class Master {
 
         //create some courses
         allCourse.add(new Course("Raketen Wissenschaften", allUser.get(1),"RocketThings","30-05-2016 11:30",10,"A 200"));
-        allCourse.add(new Course("Mathe", allUser.get(1),"MatheThings","02-06-2016 08:00",10,"A 201"));
+        allCourse.add(new Course("Signalverarbeitung 1", allUser.get(1),"SingalThings","31-05-2016 14:00",10,"B 318"));
         allCourse.add(new Course("Englisch", allUser.get(1),"EnglishThings","02-06-2016 09:45",10,"B 120"));
         allCourse.add(new Course("Virtual Reality", allUser.get(1),"VRThings","01-06-2016 11:30",10,"F 335"));
         allCourse.add(new Course("Spieleentwicklung 1", allUser.get(1),"PMTThings","31-05-2016 09:45",10,"A 210"));
         allCourse.add(new Course("Programmieren", allUser.get(1),"ProgrammingThings","31-05-2016 11:30",10,"B 212"));
-        allCourse.add(new Course("Signalverarbeitung 1", allUser.get(1),"SingalThings","31-05-2016 14:00",10,"B 318"));
+        allCourse.add(new Course("Mathe", allUser.get(1),"MatheThings","02-06-2016 08:00",10,"A 201"));
         allCourse.add(new Course("Projekt Management und Tools", allUser.get(1),"PMTThings","01-06-2016 09:45",10,"F 213"));
         allCourse.add(new Course("Personal Productivity", allUser.get(1),"PersonalThings","02-06-2016 11:30",10,"D 101"));
         allCourse.add(new Course("Spieleentwicklung 2", allUser.get(1),"Gaming Things","03-06-2016 13:00",10,"X 001"));
@@ -64,10 +64,11 @@ public class Master {
         allAchievements.add(new Achievement("Programmier Ass", allCourse.get(0)));
         allAchievements.add(new Achievement("Raketen start", allCourse.get(0)));
 
-        //Mathe
-        Achievement a1 = new Achievement("Math King", allCourse.get(1));
-        a1.setFinished(true);
-        allAchievements.add(a1);
+        //Signalverarbeitung 1
+        allAchievements.add(new Achievement("Elektronik", allCourse.get(1)));
+        allAchievements.add(new Achievement("Microcontroller", allCourse.get(1)));
+        allAchievements.add(new Achievement("Signalverarbeiter", allCourse.get(1)));
+        allAchievements.add(new Achievement("Funkmast", allCourse.get(1)));
 
         //Englisch
         allAchievements.add(new Achievement("Erstes Buch", allCourse.get(2)));
@@ -85,11 +86,10 @@ public class Master {
         allAchievements.add(a3);
         allAchievements.add(a4);
 
-        //Signalverarbeitung 1
-        allAchievements.add(new Achievement("Elektronik", allCourse.get(6)));
-        allAchievements.add(new Achievement("Microcontroller", allCourse.get(6)));
-        allAchievements.add(new Achievement("Signalverarbeiter", allCourse.get(6)));
-        allAchievements.add(new Achievement("Funkmast", allCourse.get(6)));
+        //Mathe
+        Achievement a1 = new Achievement("Math King", allCourse.get(6));
+        a1.setFinished(true);
+        allAchievements.add(a1);
 
         //Projekt Management und Tools
         allAchievements.add(new Achievement("Scrum", allCourse.get(7)));
