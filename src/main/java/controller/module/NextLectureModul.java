@@ -85,15 +85,13 @@ public class NextLectureModul extends Modul {
 
         //Styling
         moduleName.setStyleName("moduleName");
+        headLayout.setStyleName("moduleHead");
+        contentLayout.setStyleName("moduleContent");
+        descriptionLayout.setStyleName("descriptionLayout");
         nextName.setStyleName("descriptionLecture");
         nextRoom.setStyleName("descriptionDetail");
         nextTime.setStyleName("descriptionDetail");
-
-        courseImg.setStyleName("nextLectureImg");
-
         moduleLayout.setStyleName("module");
-        headLayout.setStyleName("moduleHead");
-        contentLayout.setStyleName("moduleContent");
 
         //Zusammen setzen.
         dateLayout.addComponent(dateIcon);
@@ -109,7 +107,6 @@ public class NextLectureModul extends Modul {
         //contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         contentLayout.addComponent(courseImg);
         contentLayout.addComponent(descriptionLayout);
-        contentLayout.setSpacing(true);
 
         headLayout.addComponent(moduleName);
         moduleLayout.addComponent(headLayout);

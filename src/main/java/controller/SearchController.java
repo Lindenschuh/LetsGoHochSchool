@@ -46,7 +46,8 @@ public class SearchController extends Modul {
 
     private void createLayout () {
 
-        moduleLayout.setStyleName("searchLayout");
+        moduleLayout.setStyleName("content");
+        searchLayout.setStyleName("searchLayout");
         searchField.setStyleName("searchField");
         searchResultLayout.setStyleName("page");
 
@@ -76,34 +77,35 @@ public class SearchController extends Modul {
                 searchResultLayout.removeAllComponents();
 
                 //Search for achievements
+                Master.allCourse.forEach(course -> {
+
+                    String lowerName = course.getName().toLowerCase();
+                    String lowerInput = event.getText().toLowerCase();
+
+                    if(lowerName.contains(lowerInput)) {
+                        searchResultLayout.addComponent(new SearchResultModul(user, ui, course).getContent());
+                    }
+                });
+
+                //Search for courses
+                Master.allUser.forEach(u -> {
+                    String lowerName = u.getName().toLowerCase();
+                    String lowerInput = event.getText().toLowerCase();
+
+                    if(lowerName.contains(lowerInput)) {
+                        searchResultLayout.addComponent(new SearchResultModul(user, ui, u).getContent());
+                    }
+                });
+
+                //Search for users
                 Master.allAchievements.forEach(achievement -> {
 
                     String lowerName = achievement.getName().toLowerCase();
                     String lowerInput = event.getText().toLowerCase();
 
                     if(lowerName.contains(lowerInput)) {
-                        searchResultLayout.addComponent(new SearchResultModul(user, achievement).getContent());
-                    }
-                });
-
-                //Search for courses
-                Master.allCourse.forEach(course -> {
-                    String lowerName = course.getName().toLowerCase();
-                    String lowerInput = event.getText().toLowerCase();
-
-                    if(lowerName.contains(lowerInput)) {
-                        searchResultLayout.addComponent(new SearchResultModul(user, course).getContent());
-                    }
-                });
-
-                //Search for users
-                Master.allUser.forEach(u -> {
-
-                    String lowerName = u.getName().toLowerCase();
-                    String lowerInput = event.getText().toLowerCase();
-
-                    if(lowerName.contains(lowerInput)) {
-                        searchResultLayout.addComponent(new SearchResultModul(user, u).getContent());
+                        searchResultLayout.addComponent(
+                                new SearchResultModul(user, ui, achievement).getContent());
                     }
                 });
 
@@ -114,7 +116,7 @@ public class SearchController extends Modul {
                         String lowerInput = event.getText().toLowerCase();
 
                         if(lowerName.contains(lowerInput)) {
-                            searchResultLayout.addComponent(new SearchResultModul(user, todo).getContent());
+                            searchResultLayout.addComponent(new SearchResultModul(user, ui, todo).getContent());
                         }
                     });
                 });
@@ -149,7 +151,7 @@ public class SearchController extends Modul {
         if (f.exists()) {
             FileResource r = new FileResource(f);
             searchIcon = new Image(null, r);
-            searchIcon.setDescription("ToDo");
+            searchIcon.setDescription("Search");
             searchIcon.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
             searchIcon.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
         }
@@ -161,14 +163,9 @@ public class SearchController extends Modul {
         if (f.exists()) {
             FileResource r = new FileResource(f);
             placeholder = new Image(null, r);
-            placeholder.setDescription("ToDo");
             placeholder.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
             placeholder.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
         }
-    }
-
-    private void update() {
-
     }
 
     public void show(boolean show) {

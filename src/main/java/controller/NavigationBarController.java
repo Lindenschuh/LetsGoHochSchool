@@ -29,7 +29,7 @@ public class NavigationBarController extends Modul {
         naviBar.setStyleName("menu");
 
         Button search = new Button("Search");
-        //search.addClickListener(e -> ui.getSearch().show(!ui.getSearch().isVisible()));
+        search.addClickListener(e -> ui.getSearch().show(!ui.getSearch().isVisible()));
         search.setIcon(FontAwesome.SEARCH);
         naviBar.addComponent(search);
 

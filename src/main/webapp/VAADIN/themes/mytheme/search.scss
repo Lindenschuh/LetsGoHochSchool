@@ -1,21 +1,19 @@
 
 @import "mymodule";
 
+@mixin search {
 
-@mixin nextlecture {
-
-  .descriptionDetail {
+  .searchResultDetail {
     padding-left: $modulePaddingSmall;
   }
 
-  .descriptionLecture {
+  .searchResultName {
     padding-top: $modulePaddingSmall;
     padding-bottom: 12px;
     font-size: $moduleNameSize;
   }
 
-  .descriptionLayout {
+  .searchResultDescriptionLayout {
     margin-left: $modulePaddingBig;
   }
-
 }

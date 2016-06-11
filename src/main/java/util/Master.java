@@ -49,8 +49,8 @@ public class Master {
         allCourse.add(new Course("Virtual Reality", allUser.get(1),"VRThings","01-06-2016 11:30",10,"F 335"));
         allCourse.add(new Course("Spieleentwicklung 1", allUser.get(1),"PMTThings","31-05-2016 09:45",10,"A 210"));
         allCourse.add(new Course("Programmieren", allUser.get(1),"ProgrammingThings","31-05-2016 11:30",10,"B 212"));
-        allCourse.add(new Course("Mathe", allUser.get(1),"MatheThings","02-06-2016 08:00",10,"A 201"));
-        allCourse.add(new Course("Projekt Management und Tools", allUser.get(1),"PMTThings","01-06-2016 09:45",10,"F 213"));
+        allCourse.add(new Course("Mathematik", allUser.get(1), "Malen nach Zahlen f\u00fcr Fortgeschrittene.","02-06-2016 08:00",10,"A 201"));
+        allCourse.add(new Course("Projekt Management und Tools", allUser.get(1),"Werde zum Scrum Master und mache Scrum Sachen.","01-06-2016 09:45",10,"F 213"));
         allCourse.add(new Course("Personal Productivity", allUser.get(1),"PersonalThings","02-06-2016 11:30",10,"D 101"));
         allCourse.add(new Course("Spieleentwicklung 2", allUser.get(1),"Gaming Things","03-06-2016 13:00",10,"X 001"));
         allCourse.add(new Course("Signalverarbeitung 2", allUser.get(1),"SingalThings","03-06-2016 11:30",10,"F 203"));

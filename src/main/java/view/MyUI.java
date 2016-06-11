@@ -114,7 +114,7 @@ public class MyUI extends UI {
         searchBar.show(false);
         naviBar.setPage(module);
 
-        //contentLayout.addComponent(searchBar.getContent());
+        contentLayout.addComponent(searchBar.getContent());
         contentLayout.addComponent(module.getContent());
     }
 

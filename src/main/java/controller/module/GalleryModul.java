@@ -222,10 +222,7 @@ public class GalleryModul extends Modul {
 
 
         //Add a resize listener.
-        ui.getPage().addBrowserWindowResizeListener(l -> {
-            calcLayout();
-            update();
-        });
+        ui.getPage().addBrowserWindowResizeListener(l -> update());
     }
 
     private void createMaxBtn() {

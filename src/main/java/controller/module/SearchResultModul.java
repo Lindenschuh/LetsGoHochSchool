@@ -2,13 +2,11 @@ package controller.module;
 
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import model.Achievement;
 import model.Course;
 import model.User;
+import view.MyUI;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -21,6 +19,7 @@ public class SearchResultModul extends Modul {
 
     private final static int IMAGE_SIZE = 75;
 
+    private MyUI ui;
     private Object data;
 
     private Image img;
@@ -31,18 +30,29 @@ public class SearchResultModul extends Modul {
     private VerticalLayout moduleLayout;
     private HorizontalLayout contentLayout;
     private VerticalLayout descriptionLayout;
+    private int moduleWidth;
 
 
-
-    public SearchResultModul(User user, Object o) {
+    public SearchResultModul(User user, MyUI ui, Object o) {
         super(user);
         data = o;
+        this.ui = ui;
         createLayout();
     }
 
+    private void calcLayout() {
+
+        int naviWidth = 180;
+        int pageSpace = 40;
+        int browserWidth = ui.getPage().getBrowserWindowWidth();
+
+        moduleWidth = browserWidth - naviWidth - 2 * pageSpace ;
+    }
+
+
     private void createLayout() {
 
-        createToDoImg();
+        loadToDoImg();
 
         nameLabel = new Label("");
         descriptionLabel = new Label("");
@@ -50,14 +60,12 @@ public class SearchResultModul extends Modul {
         contentLayout = new HorizontalLayout();
         descriptionLayout = new VerticalLayout();
 
-        nameLabel.setStyleName("h3");
-        moduleLayout.setStyleName("module");
+        nameLabel.setStyleName("searchResultName");
+        descriptionLayout.setStyleName("searchResultDescriptionLayout");
         contentLayout.setStyleName("moduleContent");
-
-        contentLayout.setSpacing(true);
+        moduleLayout.setStyleName("module");
 
         update();
-
 
         descriptionLayout.addComponent(nameLabel);
         descriptionLayout.addComponent(descriptionLabel);
@@ -67,9 +75,15 @@ public class SearchResultModul extends Modul {
 
         moduleLayout.addComponent(contentLayout);
         layout.addComponent(moduleLayout);
+
+        ui.getPage().addBrowserWindowResizeListener(browserWindowResizeEvent -> update() );
     }
 
+
     private void update() {
+        calcLayout();
+        moduleLayout.setWidth(moduleWidth, Sizeable.Unit.PIXELS);
+
         if (data instanceof String) {
             createToDo();
         } else if (data instanceof User) {
@@ -84,6 +98,7 @@ public class SearchResultModul extends Modul {
         img.setWidth(IMAGE_SIZE, Sizeable.Unit.PIXELS);
         img.setHeight(IMAGE_SIZE, Sizeable.Unit.PIXELS);
     }
+
 
     private void createToDo(){
         img = toDoImg;
@@ -119,9 +134,10 @@ public class SearchResultModul extends Modul {
 
         img = new Image(null, achievement.getImage().getSource());
         nameLabel.setValue(achievement.getName());
+        descriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
     }
 
-    private void createToDoImg() {
+    private void loadToDoImg() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Icons/search_todo.png");
         if (f.exists()) {

@@ -33,8 +33,8 @@
     width: 100%;
     height: 100%;
     padding: $modulePaddingBig $modulePaddingBig $modulePaddingBig $modulePaddingBig;
-    .v-spacing {
-      height: $modulePaddingBig;
+    .v-horizontal .v-spacing {
+      //height: $modulePaddingBig;
       width: $modulePaddingBig;
     }
   }
@@ -59,7 +59,7 @@
     width: 100%;
     height: 100%;
     background: $colorPage;
-    padding: $pageSpacing $pageSpacing $pageSpacing $pageSpacing;
+    padding: 0 $pageSpacing $pageSpacing $pageSpacing;
     .v-spacing {
       height: $pageSpacing;
       width: $pageSpacing;
@@ -67,7 +67,7 @@
   }
 
   .content {
-    //background: $colorPage;
+    background: $colorPage;
     height: 100%;
     width: 100%;
   }
