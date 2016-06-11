@@ -1,0 +1,61 @@
+@import "colortheme.scss";
+@import "sizetheme";
+
+
+@mixin mymodule {
+
+
+  .moduleName {
+    font-size: $moduleNameSize;
+    font-weight: bold;
+    color: $colorFont;
+  }
+
+  .moduleFoot {
+    width: 100%;
+    align-self: flex-end;
+    padding: $modulePaddingSmall $modulePaddingBig $modulePaddingSmall $modulePaddingBig;
+    border-top: $colorBorder $borderSize solid;
+  }
+
+  .moduleContent {
+    //border: $colorBorder $borderSize solid;
+    padding: $modulePaddingBig $modulePaddingBig $modulePaddingBig $modulePaddingBig;
+    .v-spacing {
+      height: $modulePaddingBig;
+      width: $modulePaddingBig
+    }
+  }
+
+  .moduleHead {
+    //background: $colorBrand;
+    padding: $modulePaddingSmall $modulePaddingBig $modulePaddingSmall $modulePaddingBig;
+    border-bottom: $colorBorder $borderSize solid;
+    width: 100%;
+
+  }
+
+  .module {
+    background: $colorModule;
+    border: $colorBorder $borderSize solid;
+    border-radius: $borderRadius;
+  }
+
+  .page {
+    width: 100%;
+    height: 100%;
+    background: $colorPage;
+    padding: $pageSpacing $pageSpacing $pageSpacing $pageSpacing;
+    .v-spacing {
+      height: $pageSpacing;
+      width: $pageSpacing;
+    }
+  }
+
+  .content {
+    //background: $colorPage;
+    height: 100%;
+    width: 100%;
+  }
+
+}

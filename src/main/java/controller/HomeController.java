@@ -31,8 +31,14 @@ public class HomeController extends Modul {
 
         VerticalLayout contentLayout = new VerticalLayout();
 
+        contentLayout.setStyleName("page");
         contentLayout.addComponent(nlModule.getContent());
         contentLayout.addComponent(allCourses.getContent());
+        contentLayout.setSpacing(true);
+
         layout.addComponent(contentLayout);
     }
+
+
+
 }

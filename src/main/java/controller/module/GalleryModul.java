@@ -26,7 +26,7 @@ import java.util.ArrayList;
  */
 public class GalleryModul extends Modul {
 
-    private final static int SPACING_SIZE = 43;
+    private final static int SPACING_SIZE = 10;
     private final static int COMPONENT_SIZE = 100;
     private final static int ICON_SIZE = 25;
 
@@ -60,8 +60,8 @@ public class GalleryModul extends Modul {
         this.ui = ui;
         showAll = false;
         showAdd = false;
-        layout = new CssLayout();
         data = new ArrayList<>();
+        dataImg = new ArrayList();
 
         createLayout();
     }
@@ -69,9 +69,12 @@ public class GalleryModul extends Modul {
 
     private void calcLayout() {
         int columnCounter = 0;
-        int width = (int) (ui.getPage().getBrowserWindowWidth() * (ui.getContentLayout().getWidth() / 100));
-        while (width >= (COMPONENT_SIZE + SPACING_SIZE)) {
-            width -= COMPONENT_SIZE + SPACING_SIZE;
+        int browserWidth = ui.getPage().getBrowserWindowWidth();
+
+        int contentWidth = browserWidth - 180 - 40 - 15 - 15;
+
+        while (contentWidth >= (COMPONENT_SIZE + SPACING_SIZE)) {
+            contentWidth -= COMPONENT_SIZE + SPACING_SIZE;
             columnCounter++;
         }
         maxColumns = columnCounter;
@@ -87,7 +90,12 @@ public class GalleryModul extends Modul {
             ArrayList<Component> tmpComponent = new ArrayList<>();
             contentLayout.forEach(component -> tmpComponent.add(component));
             contentLayout.removeAllComponents();
-            contentLayout.setColumns(maxColumns);
+            if (maxColumns < 1) {
+                layout.setVisible(false);
+            } else {
+                layout.setVisible(true);
+                contentLayout.setColumns(maxColumns);
+            }
 
             if (data.size() <= maxColumns) {
                 contentLayout.setColumns(data.size());
@@ -95,13 +103,15 @@ public class GalleryModul extends Modul {
                 minBtn.setVisible(false);
                 maxBtn.setVisible(false);
                 footLayout.setVisible(false);
-                tmpComponent.forEach(c -> c.setVisible(true));
+                //tmpComponent.forEach(c -> c.setVisible(true));
+                dataImg.forEach(img -> contentLayout.addComponent(img));
 
             } else if (showAll) {
                 minBtn.setVisible(true);
                 maxBtn.setVisible(false);
                 footLayout.setVisible(true);
-                tmpComponent.forEach(c -> c.setVisible(true));
+                //tmpComponent.forEach(c -> c.setVisible(true));
+                dataImg.forEach(img -> contentLayout.addComponent(img));
 
             } else {
 
@@ -110,24 +120,24 @@ public class GalleryModul extends Modul {
                 maxBtn.setVisible(true);
                 footLayout.setVisible(true);
 
-                for (Component c: tmpComponent) {
+                for (Image img: dataImg) {
                     if (counter < maxColumns) {
                         counter++;
-                        c.setVisible(true);
-                    } else {
-                        c.setVisible(false);
+                        contentLayout.addComponent(img);
+                    /*} else {
+                        c.setVisible(false);*/
                     }
                 }
             }
             addBtn.setVisible(showAdd);
             footLayout.setVisible(showAdd || minBtn.isVisible() || maxBtn.isVisible());
-            tmpComponent.forEach(component -> contentLayout.addComponent(component));
+            //tmpComponent.forEach(component -> contentLayout.addComponent(component));
 
         }
     }
 
     private void fillList() {
-
+        dataImg.clear();
         data.forEach(data -> {
 
             //create images for the data
@@ -135,7 +145,7 @@ public class GalleryModul extends Modul {
             img.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
             img.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
             img.setDescription(data.getName());
-            img.setVisible(false);
+            //img.setVisible(false);
 
             //Format class name.
             String className = data.getClass().getName();
@@ -153,14 +163,13 @@ public class GalleryModul extends Modul {
             }
 
             //Add the image.
-            contentLayout.addComponent(img);
+            dataImg.add(img);
         });
     }
 
     private void createLayout() {
 
         calcLayout();
-
 
         //Create everything.
         nameLabel = new Label("");
@@ -173,7 +182,6 @@ public class GalleryModul extends Modul {
         createMinBtn();
         createAddBtn();
         createEmptyImg();
-
 
 
         //Put the layout together
@@ -199,6 +207,7 @@ public class GalleryModul extends Modul {
 
         moduleLayout.setStyleName("module");
 
+        contentLayout.setHideEmptyRowsAndColumns(true);
 
         footLayout.setSpacing(true);
         contentLayout.setSpacing(true);

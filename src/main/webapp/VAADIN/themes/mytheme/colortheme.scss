@@ -1,0 +1,32 @@
+//Set the used colors.
+$colorBrand: $colorBrand1;
+$colorFont: $colorFontLight2;
+$colorPage: $colorPageLight2;
+$colorBorder: $colorBorderLight2;
+$colorModule: $colorModuleLight2;
+
+
+/*
+ * Define your color themes here.
+ */
+
+//brand
+$colorBrand1: #1abc9c;
+
+//Light theme.
+$colorFontLight: #555555;
+$colorPageLight: #f5f5f5;
+$colorBorderLight: #e0e0e0;
+$colorModuleLight: #ffffff;
+
+//Light2 theme.
+$colorFontLight2: #555555;
+$colorPageLight2: #ffffff;
+$colorBorderLight2: #e0e0e0;
+$colorModuleLight2: #f5f5f5;
+
+//Dark theme. Need proper colors. Looks shitty.
+$colorFontDark: $colorFontLight;
+$colorPageDark: #505050;
+$colorBorderDark: #303030;
+$colorModuleDark: #808080;

@@ -1,0 +1,21 @@
+
+@import "mymodule";
+
+
+@mixin nextlecture {
+
+  .descriptionDetail {
+    padding-left: $modulePaddingSmall;
+  }
+
+  .descriptionLecture {
+    padding-top: $modulePaddingSmall;
+    padding-bottom: 12px;
+    font-size: $moduleNameSize;
+  }
+
+  .nextLectureImg {
+    //border-radius: 3px;
+  }
+
+}

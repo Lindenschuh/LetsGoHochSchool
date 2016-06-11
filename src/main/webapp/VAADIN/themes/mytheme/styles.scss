@@ -1,3 +1,5 @@
+@import "mymodule";
+@import "nextlecture.scss";
 @import "mytheme.scss";
 @import "addons.scss";
 
@@ -7,5 +9,7 @@
 .mytheme {
   @include addons;
   @include mytheme;
+  @include mymodule;
+  @include nextlecture;
 
 }

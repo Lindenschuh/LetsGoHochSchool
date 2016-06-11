@@ -34,6 +34,9 @@ public class AchievementsController extends Modul {
         } else {
             createUserLayout(user, ui);
         }
+        moduleLayout.setStyleName("page");
+        moduleLayout.setSpacing(true);
+
         layout.addComponent(moduleLayout);
     }
 

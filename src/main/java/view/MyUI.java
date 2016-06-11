@@ -66,7 +66,7 @@ public class MyUI extends UI {
         }else {
 
             //Top Layout for the head.
-            CssLayout topLayout = new CssLayout();
+            HorizontalLayout topLayout = new HorizontalLayout(  );
             topLayout.addStyleName("top");
             wrapperLayout.addComponent(topLayout);
 
@@ -77,14 +77,11 @@ public class MyUI extends UI {
 
             //Bottom Layout for the menu and content.
             HorizontalLayout bottomLayout = new HorizontalLayout();
-            bottomLayout.setSizeFull();
+            bottomLayout.setStyleName("content");
             wrapperLayout.addComponent(bottomLayout);
 
             //Layout for the content
             contentLayout = new VerticalLayout();
-            contentLayout.setSizeFull();
-            contentLayout.addStyleName("contend");
-            contentLayout.setHeight("100%");
 
             //Create navigation and search bar.
             searchBar = new SearchController(currentUser, this);
@@ -94,9 +91,6 @@ public class MyUI extends UI {
             bottomLayout.addComponent(naviBar.getContent());
             bottomLayout.addComponent(contentLayout);
 
-            //Set layout behavior.
-            bottomLayout.setExpandRatio(naviBar.getContent(), 15);
-            bottomLayout.setExpandRatio(contentLayout, 85);
 
             //Set the start page.
             setPage(new HomeController(currentUser, this));
@@ -120,7 +114,7 @@ public class MyUI extends UI {
         searchBar.show(false);
         naviBar.setPage(module);
 
-        contentLayout.addComponent(searchBar.getContent());
+        //contentLayout.addComponent(searchBar.getContent());
         contentLayout.addComponent(module.getContent());
     }
 

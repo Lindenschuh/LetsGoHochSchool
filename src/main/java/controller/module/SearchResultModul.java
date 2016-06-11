@@ -51,13 +51,13 @@ public class SearchResultModul extends Modul {
         descriptionLayout = new VerticalLayout();
 
         nameLabel.setStyleName("h3");
+        moduleLayout.setStyleName("module");
+        contentLayout.setStyleName("moduleContent");
 
         contentLayout.setSpacing(true);
 
         update();
 
-        moduleLayout.setSpacing(true);
-        moduleLayout.setMargin(true);
 
         descriptionLayout.addComponent(nameLabel);
         descriptionLayout.addComponent(descriptionLabel);

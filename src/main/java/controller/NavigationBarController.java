@@ -2,6 +2,7 @@ package controller;
 
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.VerticalLayout;
 import controller.module.Modul;
 import model.User;
 import view.MyUI;
@@ -24,15 +25,13 @@ public class NavigationBarController extends Modul {
 
     private void createLayout() {
 
-        layout.setStyleName("menu");
-        layout.setSizeFull();
-
+        VerticalLayout naviBar = new VerticalLayout();
+        naviBar.setStyleName("menu");
 
         Button search = new Button("Search");
-        search.addClickListener(e -> ui.getSearch().show(!ui.getSearch().isVisible()));
-        search.setSizeFull();
+        //search.addClickListener(e -> ui.getSearch().show(!ui.getSearch().isVisible()));
         search.setIcon(FontAwesome.SEARCH);
-        layout.addComponent(search);
+        naviBar.addComponent(search);
 
 
         Button home = new Button("Home");
@@ -41,9 +40,8 @@ public class NavigationBarController extends Modul {
                 ui.setPage(new HomeController(user, ui));
             }
         });
-        home.setSizeFull();
         home.setIcon(FontAwesome.HOME);
-        layout.addComponent(home);
+        naviBar.addComponent(home);
 
 
         Button profile = new Button("Profile");
@@ -52,9 +50,8 @@ public class NavigationBarController extends Modul {
                 ui.setPage(new ProfileController(user, ui));
             }
         });
-        profile.setSizeFull();
         profile.setIcon(FontAwesome.USER);
-        layout.addComponent(profile);
+        naviBar.addComponent(profile);
 
 
         Button course = new Button("Course");
@@ -63,9 +60,8 @@ public class NavigationBarController extends Modul {
                 ui.setPage(new CourseController(user));
             }
         });
-        course.setSizeFull();
         course.setIcon(FontAwesome.BOOK);
-        layout.addComponent(course);
+        naviBar.addComponent(course);
 
 
         Button schedule = new Button("Schedule");
@@ -74,9 +70,8 @@ public class NavigationBarController extends Modul {
                 ui.setPage(new CalenderController(user));
             }
         });
-        schedule.setSizeFull();
         schedule.setIcon(FontAwesome.CALENDAR);
-        layout.addComponent(schedule);
+        naviBar.addComponent(schedule);
 
 
         Button achievements = new Button("Achievements");
@@ -85,9 +80,10 @@ public class NavigationBarController extends Modul {
                 ui.setPage(new AchievementsController(user, ui));
             }
         });
-        achievements.setSizeFull();
         achievements.setIcon(FontAwesome.TROPHY);
-        layout.addComponent(achievements);
+        naviBar.addComponent(achievements);
+
+        layout.addComponent(naviBar);
     }
 
     public void setPage(Modul page) {

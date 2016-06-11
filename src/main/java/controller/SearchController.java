@@ -46,6 +46,10 @@ public class SearchController extends Modul {
 
     private void createLayout () {
 
+        moduleLayout.setStyleName("searchLayout");
+        searchField.setStyleName("searchField");
+        searchResultLayout.setStyleName("page");
+
         //The search is hidden by default.
         searchLayout.setVisible(false);
 

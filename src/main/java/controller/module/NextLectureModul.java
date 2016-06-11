@@ -67,9 +67,6 @@ public class NextLectureModul extends Modul {
         nextRoom = new Label("");
         Label moduleName = new Label(MODULE_NAME);
 
-        moduleName.setStyleName("h2");
-        nextName.setStyleName("h3");
-
         headLayout = new HorizontalLayout();
         moduleLayout = new VerticalLayout();
         contentLayout = new HorizontalLayout();
@@ -85,6 +82,18 @@ public class NextLectureModul extends Modul {
 
         //Elemente füllen.
         update();
+
+        //Styling
+        moduleName.setStyleName("moduleName");
+        nextName.setStyleName("descriptionLecture");
+        nextRoom.setStyleName("descriptionDetail");
+        nextTime.setStyleName("descriptionDetail");
+
+        courseImg.setStyleName("nextLectureImg");
+
+        moduleLayout.setStyleName("module");
+        headLayout.setStyleName("moduleHead");
+        contentLayout.setStyleName("moduleContent");
 
         //Zusammen setzen.
         dateLayout.addComponent(dateIcon);
