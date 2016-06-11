@@ -24,12 +24,14 @@ public class Course implements DataObject {
     private Image img;
     private int duration; //in minuten
     private String code;
+    private  ArrayList<User> userList;
 
 
 
 
     public Course(String name, User admin, String description, String date, int lessons, String room){
         String stringPath = Paths.get("").toAbsolutePath().toString();
+        userList = new ArrayList<>();
         this.name = name;
         this.admin = admin;
         this.description = description;
@@ -139,6 +141,16 @@ public class Course implements DataObject {
 
     public String getRoom() {
         return room;
+    }
+
+    public ArrayList<User> getUserList()
+    {
+        return userList;
+    }
+
+    public void setUserList(User user)
+    {
+        userList.add(user);
     }
 
     @Override

@@ -86,7 +86,10 @@ public class User implements DataObject{
     }
 
     public void addCourse(Course course) {
+
         courses.add(course);
+
+        course.setUserList(User.this);
     }
 
     public void removeCourse(Course course) {
