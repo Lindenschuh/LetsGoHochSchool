@@ -1,5 +1,7 @@
 package controller.module;
 
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import model.Course;
@@ -22,7 +24,7 @@ public class CourseInfo extends Modul {
     private void updateText()
     {
         area.setValue("<h2><u>Kursinfo</u><h2>" +
-                "<br><h2>" + course.getName() + "</h2>" +
+                "<h2>" + course.getName() + "</h2>" +
                 ////TODO: addd requirements, when available
                 "<br><b>Professor: </b>" + course.getAdmin().getName() +
                 "<br><b>Raum: </b>" + course.getRoom() +
@@ -68,6 +70,24 @@ public class CourseInfo extends Modul {
             vertilayout.addComponent(bttn);
         }
 
+        if(!usr.getCourses().contains(course))
+        {
+            Button addCourse = new Button("Einschreiben");
+            addCourse.addClickListener(clickEvent -> {
+                usr.addCourse(course);
+
+                Notification notify = new Notification("Erfolgreich eingeschrieben", Notification.Type.ASSISTIVE_NOTIFICATION);
+                notify.setDelayMsec(1000);
+                notify.setPosition(Position.TOP_RIGHT);
+                notify.show(Page.getCurrent());
+
+                vertilayout.removeAllComponents();
+                setupLayout();
+
+            });
+
+            vertilayout.addComponent(addCourse);
+        }
 
         layout.addComponent(vertilayout);
     }
