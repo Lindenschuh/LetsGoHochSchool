@@ -62,6 +62,7 @@ public class SearchController extends Modul {
     private void createLayoutSearchResult() {
         searchResultLayout = new VerticalLayout();
         searchResultLayout.setStyleName("page");
+        searchResultLayout.setSpacing(true);
         layout.addComponent(searchResultLayout);
     }
 
