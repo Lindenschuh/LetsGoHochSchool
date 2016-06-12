@@ -2,8 +2,6 @@ package controller.module;
 
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
@@ -163,7 +161,7 @@ public class GalleryModul extends Modul {
             switch (className) {
                 case "Course":
                     img.addClickListener(clickEvent -> {
-                        ui.setPage(new CourseController(user, (Course) data));
+                        ui.setContentPage(new CourseController(user, (Course) data));
                     });
                     break;
             }

@@ -33,8 +33,9 @@ public class MyUI extends UI {
      */
     private static final boolean DEBUG = true;
 
+    private Modul currentPage;
     private NavigationBarController naviBar;
-    private SearchController searchBar;
+    private SearchController searchController;
     private VerticalLayout contentLayout;
     private Label title;
     private User currentUser = null;
@@ -84,8 +85,10 @@ public class MyUI extends UI {
             contentLayout = new VerticalLayout();
 
             //Create navigation and search bar.
-            searchBar = new SearchController(currentUser, this);
+            searchController = new SearchController(currentUser, this);
             naviBar = new NavigationBarController(currentUser, this);
+
+            contentLayout.addComponent(searchController.getSearchBar());
 
             //Add navi and content layout
             bottomLayout.addComponent(naviBar.getContent());
@@ -93,7 +96,7 @@ public class MyUI extends UI {
 
 
             //Set the start page.
-            setPage(new HomeController(currentUser, this));
+            setContentPage(new HomeController(currentUser, this));
         }
     }
 
@@ -108,18 +111,21 @@ public class MyUI extends UI {
 
     public void setTitle(String title) { this.title.setValue(title); }
 
-    public void setPage(Modul module) {
-        contentLayout.removeAllComponents();
-
-        searchBar.show(false);
+    public void setContentPage(Modul module) {
+        if(currentPage != null) {
+            contentLayout.removeComponent(currentPage.getContent());
+        }
+        currentPage = module;
         naviBar.setPage(module);
-
-        contentLayout.addComponent(searchBar.getContent());
         contentLayout.addComponent(module.getContent());
     }
 
+    public Modul getContentPage() {
+        return currentPage;
+    }
+
     public SearchController getSearch() {
-        return searchBar;
+        return searchController;
     }
 
     private void LoginPage(Layout layout)

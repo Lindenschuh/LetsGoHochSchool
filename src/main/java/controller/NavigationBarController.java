@@ -37,7 +37,7 @@ public class NavigationBarController extends Modul {
         Button home = new Button("Home");
         home.addClickListener(e -> {
             if(!(page instanceof HomeController)) {
-                ui.setPage(new HomeController(user, ui));
+                ui.setContentPage(new HomeController(user, ui));
             }
         });
         home.setIcon(FontAwesome.HOME);
@@ -47,7 +47,7 @@ public class NavigationBarController extends Modul {
         Button profile = new Button("Profile");
         profile.addClickListener(e -> {
             if(!(page instanceof ProfileController)) {
-                ui.setPage(new ProfileController(user, ui));
+                ui.setContentPage(new ProfileController(user, ui));
             }
         });
         profile.setIcon(FontAwesome.USER);
@@ -57,7 +57,7 @@ public class NavigationBarController extends Modul {
         Button course = new Button("Course");
         course.addClickListener(e -> {
             if (!(page instanceof CourseController)) {
-                ui.setPage(new CourseController(user));
+                ui.setContentPage(new CourseController(user));
             }
         });
         course.setIcon(FontAwesome.BOOK);
@@ -67,7 +67,7 @@ public class NavigationBarController extends Modul {
         Button schedule = new Button("Schedule");
         schedule.addClickListener(e -> {
             if (!(page instanceof CalenderController)) {
-                ui.setPage(new CalenderController(user));
+                ui.setContentPage(new CalenderController(user));
             }
         });
         schedule.setIcon(FontAwesome.CALENDAR);
@@ -77,7 +77,7 @@ public class NavigationBarController extends Modul {
         Button achievements = new Button("Achievements");
         achievements.addClickListener(e -> {
             if (!(page instanceof AchievementsController)) {
-                ui.setPage(new AchievementsController(user, ui));
+                ui.setContentPage(new AchievementsController(user, ui));
             }
         });
         achievements.setIcon(FontAwesome.TROPHY);

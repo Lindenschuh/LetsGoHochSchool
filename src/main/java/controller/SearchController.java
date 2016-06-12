@@ -2,11 +2,7 @@ package controller;
 
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
-import com.vaadin.ui.AbstractLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import controller.module.Modul;
 import controller.module.SearchResultModul;
 import model.User;
@@ -28,124 +24,71 @@ public class SearchController extends Modul {
     private Image placeholder;
     private Image searchIcon;
     private TextField searchField;
-    private VerticalLayout moduleLayout;
     private HorizontalLayout searchLayout;
     private VerticalLayout searchResultLayout;
-    private AbstractLayout page;
+    private CssLayout searchBar;
+    private Modul previousPage;
 
     public SearchController(User user, MyUI ui) {
         super(user);
         this.ui = ui;
 
+        searchBar = new CssLayout();
         searchField = new TextField();
-        moduleLayout = new VerticalLayout();
         searchLayout = new HorizontalLayout();
         searchResultLayout = new VerticalLayout();
+
         createLayout();
     }
 
-    private void createLayout () {
+    private void createLayout() {
 
-        moduleLayout.setStyleName("content");
-        searchLayout.setStyleName("searchLayout");
-        searchField.setStyleName("searchField");
+        createLayoutSearchBar();
+        createLayoutSearchResult();
+
+        //Text changed Listener. Do something.
+        searchField.addTextChangeListener(event -> update(event.getText()));
+
+        //Listener gets called, when the page get switched.
+        ui.getContentLayout().addComponentAttachListener(event -> {
+            if(ui.getContentPage() != null) {
+                if(ui.getContentPage() != previousPage && ui.getContentPage() != this) {
+                    show(false);
+                }
+            }
+        });
+    }
+
+    private void createLayoutSearchResult() {
+        searchResultLayout = new VerticalLayout();
         searchResultLayout.setStyleName("page");
+        layout.addComponent(searchResultLayout);
+    }
+
+
+    private void createLayoutSearchBar() {
 
         //The search is hidden by default.
         searchLayout.setVisible(false);
 
-        //load the search icon
-        createSearchIcon();
-        createPlaceholderIcon();
+        //Styling.
+        searchLayout.setStyleName("content");
+        searchField.setStyleName("searchField");
 
-        //Text changed. Do something.
-        searchField.addTextChangeListener(event -> {
-
-            //Get the current page, if we have one.
-            if (ui.getComponentCount() >= 1) {
-                page = (AbstractLayout) ui.getContentLayout().getComponent(1);
-            }
-
-            //Is the search field empty?
-            if (event.getText().equals("")) {
-
-                //hide the search and bring back the page.
-                searchResultLayout.setVisible(false);
-                page.setVisible(true);
-            } else {
-                //Clean up.
-                searchResultLayout.removeAllComponents();
-
-                //Search for achievements
-                Master.allCourse.forEach(course -> {
-
-                    String lowerName = course.getName().toLowerCase();
-                    String lowerInput = event.getText().toLowerCase();
-
-                    if(lowerName.contains(lowerInput)) {
-                        searchResultLayout.addComponent(new SearchResultModul(user, ui, course).getContent());
-                    }
-                });
-
-                //Search for courses
-                Master.allUser.forEach(u -> {
-                    String lowerName = u.getName().toLowerCase();
-                    String lowerInput = event.getText().toLowerCase();
-
-                    if(lowerName.contains(lowerInput)) {
-                        searchResultLayout.addComponent(new SearchResultModul(user, ui, u).getContent());
-                    }
-                });
-
-                //Search for users
-                Master.allAchievements.forEach(achievement -> {
-
-                    String lowerName = achievement.getName().toLowerCase();
-                    String lowerInput = event.getText().toLowerCase();
-
-                    if(lowerName.contains(lowerInput)) {
-                        searchResultLayout.addComponent(
-                                new SearchResultModul(user, ui, achievement).getContent());
-                    }
-                });
-
-                //Search for to do's
-                user.getCourses().forEach(course -> {
-                    user.getTodos(course.getName()).forEach(todo -> {
-                        String lowerName = todo.toLowerCase();
-                        String lowerInput = event.getText().toLowerCase();
-
-                        if(lowerName.contains(lowerInput)) {
-                            searchResultLayout.addComponent(new SearchResultModul(user, ui, todo).getContent());
-                        }
-                    });
-                });
-
-                //we find something?
-                if (searchResultLayout.getComponentCount() > 0) {
-                    //hide the page and show the search results.
-                    searchResultLayout.setVisible(true);
-                    page.setVisible(false);
-                }
-            }
-        });
+        //load the icons.
+        loadSearchIcon();
+        loadPlaceholderIcon();
 
         //add everything to the layout
         searchLayout.addComponent(searchField);
         searchLayout.addComponent(searchIcon);
 
-        searchLayout.setSpacing(true);
-        searchResultLayout.setMargin(true);
-        searchResultLayout.setSpacing(true);
-
-        moduleLayout.addComponent(placeholder);
-        moduleLayout.addComponent(searchLayout);
-        moduleLayout.addComponent(searchResultLayout);
-
-        layout.addComponent(moduleLayout);
+        searchBar.addComponent(placeholder);
+        searchBar.addComponent(searchLayout);
     }
 
-    private void createSearchIcon() {
+
+    private void loadSearchIcon() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Icons/search.png");
         if (f.exists()) {
@@ -157,7 +100,7 @@ public class SearchController extends Modul {
         }
     }
 
-    private void createPlaceholderIcon() {
+    private void loadPlaceholderIcon() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Icons/search_placeholder.png");
         if (f.exists()) {
@@ -168,24 +111,121 @@ public class SearchController extends Modul {
         }
     }
 
+
     public void show(boolean show) {
+
+        //Show placeholder or searchfield.
         searchLayout.setVisible(show);
         placeholder.setVisible(!show);
 
-        if(show) {
+        if (show) {
+            //Search pops up. Set focus.
             searchField.focus();
         } else {
             //Search got hide. Reset it.
             searchField.setValue("");
-            searchResultLayout.removeAllComponents();
-            searchResultLayout.setVisible(false);
-            if(page != null) {
-                page.setVisible(true);
-            }
+            update("");
         }
     }
 
     public boolean isVisible() {
         return searchLayout.isVisible();
     }
+
+    public CssLayout getSearchBar() {
+        return searchBar;
+    }
+
+    public void update(String search) {
+
+        //Clean up.
+        searchResultLayout.removeAllComponents();
+
+        //Get the current page.
+        if (ui.getContentPage() != null) {
+            if (!(ui.getContentPage() instanceof SearchController)) {
+                previousPage = ui.getContentPage();
+            }
+        }
+
+        if (search.equals("")) {
+
+            //Turn search off.
+            if (layout.isVisible()) {
+                if (previousPage != null) {
+                    ui.setContentPage(previousPage);
+                }
+                layout.setVisible(false);
+            }
+
+        } else {
+
+            //Search for achievements
+            Master.allCourse.forEach(course -> {
+
+                //Everything to lowercase.
+                String lowerName = course.getName().toLowerCase();
+                String lowerInput = search.toLowerCase();
+
+                //Compare.
+                if (lowerName.contains(lowerInput)) {
+                    searchResultLayout.addComponent(new SearchResultModul(user, ui, course).getContent());
+                }
+            });
+
+            //Search for courses
+            Master.allUser.forEach(u -> {
+                //Everything to lowercase.
+                String lowerName = u.getName().toLowerCase();
+                String lowerInput = search.toLowerCase();
+
+                //Compare.
+                if (lowerName.contains(lowerInput)) {
+                    searchResultLayout.addComponent(new SearchResultModul(user, ui, u).getContent());
+                }
+            });
+
+            //Search for users
+            Master.allAchievements.forEach(achievement -> {
+
+                //Everything to lowercase.
+                String lowerName = achievement.getName().toLowerCase();
+                String lowerInput = search.toLowerCase();
+
+                //Compare.
+                if (lowerName.contains(lowerInput)) {
+                    searchResultLayout.addComponent(
+                            new SearchResultModul(user, ui, achievement).getContent());
+                }
+            });
+
+            //Search for to do's
+            user.getCourses().forEach(course ->
+                user.getTodos(course.getName()).forEach(todo -> {
+
+                    //Everything to lower case.
+                    String lowerName = todo.toLowerCase();
+                    String lowerInput = search.toLowerCase();
+
+                    //Compare.
+                    if (lowerName.contains(lowerInput)) {
+                        searchResultLayout.addComponent(new SearchResultModul(user, ui, todo).getContent());
+                    }
+                })
+            );
+
+            //we find something?
+            if (searchResultLayout.getComponentCount() > 0) {
+
+                //Make the layout visible and set the page.
+                layout.setVisible(true);
+                ui.setContentPage(this);
+            } else if (layout.isVisible() && previousPage != null) {
+
+                //Return to the old page
+                ui.setContentPage(previousPage);
+            }
+        }
+    }
+
 }
