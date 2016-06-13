@@ -47,7 +47,7 @@ public class AchievementsController extends Modul {
             GalleryModul courseAchievementsGallery = new GalleryModul(user, ui);
 
             courseAchievementsGallery.setName(c.getName());
-            courseAchievementsGallery.showAddBtn(true);
+            courseAchievementsGallery.addButtonClickedListener(() -> System.out.println("Add button clicked."));
             courseAchievementsGallery.setMaxWidth(true);
 
             Master.allAchievements.forEach(achievement -> {

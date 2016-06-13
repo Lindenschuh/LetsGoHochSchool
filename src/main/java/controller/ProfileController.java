@@ -4,6 +4,7 @@ import com.vaadin.ui.VerticalLayout;
 import controller.module.GalleryModul;
 import controller.module.Modul;
 import controller.module.Profile;
+import model.Course;
 import model.User;
 import view.MyUI;
 
@@ -15,30 +16,27 @@ import java.util.ArrayList;
  */
 public class ProfileController extends Modul {
 
-    private Profile profile;
-    private GalleryModul coursesOverview;
 
     public ProfileController(User user, MyUI ui) {
         super(user);
-        profile = new Profile(user);
-        coursesOverview = new GalleryModul(user, ui);
 
-        createLayout();
-    }
+        //Create the modules.
+        Profile profile = new Profile(user);
+        GalleryModul courseGallery = new GalleryModul(user, ui);
 
-    private void createLayout() {
-        coursesOverview.setName("Kurse");
-        coursesOverview.showAddBtn(user.isAdmin());
-        coursesOverview.setData((ArrayList) user.getCourses());
+        //Setup the gallery module.
+        courseGallery.setName("Kurse");
+        courseGallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
+        courseGallery.addButtonClickedListener(() -> System.out.println("Gallery add button clicked."));
+        courseGallery.setData((ArrayList) user.getCourses());
 
         VerticalLayout contentLayout = new VerticalLayout();
 
         contentLayout.addComponent(profile.getContent());
-        contentLayout.addComponent(coursesOverview.getContent());
+        contentLayout.addComponent(courseGallery.getContent());
         contentLayout.setStyleName("page");
         contentLayout.setSpacing(true);
 
         layout.addComponent(contentLayout);
     }
-
 }

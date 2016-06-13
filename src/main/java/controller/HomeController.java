@@ -4,6 +4,7 @@ import com.vaadin.ui.VerticalLayout;
 import controller.module.GalleryModul;
 import controller.module.Modul;
 import controller.module.NextLectureModul;
+import model.Course;
 import model.User;
 import view.MyUI;
 
@@ -17,23 +18,27 @@ public class HomeController extends Modul {
 
     //TODO: Noch andere Module einfügen.
 
-    private NextLectureModul nlModule;
-    private GalleryModul allCourses;
+    private NextLectureModul nextLecture;
+    private GalleryModul courseGallery;
 
     public HomeController(User user, MyUI ui) {
         super(user);
 
-        nlModule = new NextLectureModul(user, ui);
-        allCourses = new GalleryModul(user, ui);
+        //Create the modules.
+        nextLecture = new NextLectureModul(user, ui);
+        courseGallery = new GalleryModul(user, ui);
 
-        allCourses.setName("Kurse");
-        allCourses.setData((ArrayList) user.getCourses());
+        //Setup the gallery module.
+        courseGallery.setName("Kurse");
+        courseGallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
+        courseGallery.addButtonClickedListener(() -> System.out.println("Gallery add button clicked."));
+        courseGallery.setData((ArrayList) user.getCourses());
 
         VerticalLayout contentLayout = new VerticalLayout();
 
         contentLayout.setStyleName("page");
-        contentLayout.addComponent(nlModule.getContent());
-        contentLayout.addComponent(allCourses.getContent());
+        contentLayout.addComponent(nextLecture.getContent());
+        contentLayout.addComponent(courseGallery.getContent());
         contentLayout.setSpacing(true);
 
         layout.addComponent(contentLayout);

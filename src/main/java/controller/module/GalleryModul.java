@@ -1,5 +1,9 @@
 package controller.module;
 
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.GridLayout;
@@ -8,15 +12,13 @@ import com.vaadin.ui.Image;
 import com.vaadin.server.FileResource;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import controller.CourseController;
-import model.Course;
+
+import util.GalleryButtonListener;
+import view.MyUI;
 import model.User;
 import model.DataObject;
-import view.MyUI;
+import util.GalleryItemListener;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 
 /**
  * @author Andreas Reinsch (193790).
@@ -24,32 +26,103 @@ import java.util.ArrayList;
  */
 public class GalleryModul extends Modul {
 
+    /**
+     * Spacing between the items in pixel.
+     */
     private final static int SPACING_SIZE = 12;
+
+    /**
+     * Size of the items in pixel.
+     */
     private final static int COMPONENT_SIZE = 100;
+
+    /**
+     * Size of the icons/buttons at the bottom right corner in pixel.
+     */
     private final static int ICON_SIZE = 25;
 
+    /**
+     * Gallery name.
+     */
     private String name;
+
+    /**
+     * Max amount of items that can be shown in one column with the current view size.
+     */
     private int maxColumns;
+
+    /**
+     * Width of the module in pixel.
+     */
     private int moduleWidth;
+
+    /**
+     * Show all items flag.
+     */
     private boolean showAll;
+
+    /**
+     * Show add button flag.
+     */
     private boolean showAdd;
+
+    /**
+     * Max module width.
+     */
     private boolean maxWidth;
 
+    /**
+     * The ui.
+     */
     private MyUI ui;
+
+    /**
+     * Label for the gallery name.
+     */
     private Label nameLabel;
+
+    /**
+     * Icon buttons.
+     */
     private Image addBtn;
     private Image maxBtn;
     private Image minBtn;
-    //private Image emptyImg;
 
+    /**
+     * Module head with the gallery name.
+     */
     private HorizontalLayout headLayout;
+
+    /**
+     * Contains the images.
+     */
     private GridLayout contentLayout;
+
+    /**
+     * Conteints the add, min and max button.
+     */
     private HorizontalLayout footLayout;
-    private HorizontalLayout placeholder;
+
+    /**
+     * The Module.
+     */
     private VerticalLayout moduleLayout;
 
+    /**
+     * Images from the data objects for the gallery.
+     */
     private ArrayList<Image> dataImg;
+
+    /**
+     * Data objects.
+     */
     private ArrayList<DataObject> data;
+
+    /**
+     * Item clicked itemListeners.
+     */
+    private ArrayList<GalleryItemListener> itemListeners;
+    private ArrayList<GalleryButtonListener> buttonListener;
 
     /**
      * Shows all courses from the given user.
@@ -63,12 +136,18 @@ public class GalleryModul extends Modul {
         showAdd = false;
         maxWidth = false;
         data = new ArrayList<>();
-        dataImg = new ArrayList();
+        dataImg = new ArrayList<>();
+        itemListeners = new ArrayList<>();
+        buttonListener = new ArrayList<>();
 
         createLayout();
     }
 
 
+    /**
+     * Calculate the amount of items that can be
+     * shown and the module width.
+     */
     private void calcLayout() {
         maxColumns = 0;
 
@@ -85,16 +164,23 @@ public class GalleryModul extends Modul {
         moduleWidth = maxColumns * (COMPONENT_SIZE + SPACING_SIZE) + 2 * paddingBig;
     }
 
+
+    /**
+     * Update the gallery.
+     */
     private void update() {
         if (data.size() == 0) {
             //TODO: Aktion durchführen, wenn Liste leer ist.
             //Wird bist zum fix mal ausgeblendet.
             layout.setVisible(false);
         } else {
-
+            //calc the new layout size.
             calcLayout();
+
+            //Refresh.
             nameLabel.setValue(name);
             contentLayout.removeAllComponents();
+
             if (maxWidth) {
                 footLayout.setWidth(Integer.toString(moduleWidth) + "px");
             }
@@ -113,11 +199,14 @@ public class GalleryModul extends Modul {
                 maxBtn.setVisible(false);
                 footLayout.setVisible(false);
                 dataImg.forEach(img -> contentLayout.addComponent(img));
-
             } else if (showAll) {
+
+                //Manage buttons.
                 minBtn.setVisible(true);
                 maxBtn.setVisible(false);
                 footLayout.setVisible(true);
+
+                //Add all images.
                 dataImg.forEach(img -> contentLayout.addComponent(img));
 
             } else {
@@ -134,12 +223,19 @@ public class GalleryModul extends Modul {
                     }
                 }
             }
+
+            //Add button need?
             addBtn.setVisible(showAdd);
+
+            //Hide the foot layout, if it's not need.
             footLayout.setVisible(showAdd || minBtn.isVisible() || maxBtn.isVisible());
 
         }
     }
 
+    /**
+     * Create the images for the data
+     */
     private void fillList() {
         dataImg.clear();
         data.forEach(data -> {
@@ -149,28 +245,20 @@ public class GalleryModul extends Modul {
             img.setWidth(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
             img.setHeight(COMPONENT_SIZE, Sizeable.Unit.PIXELS);
             img.setDescription(data.getName());
-            //img.setVisible(false);
 
-            //Format class name.
-            String className = data.getClass().getName();
-            if (className.contains(".")) {
-                className = className.substring(className.indexOf('.') + 1, className.length());
-            }
-
-            //Which kind of listener do we need?
-            switch (className) {
-                case "Course":
-                    img.addClickListener(clickEvent -> {
-                        ui.setContentPage(new CourseController(user, (Course) data));
-                    });
-                    break;
-            }
+            //Image click listener.
+            img.addClickListener(clickEvent ->
+                //Call the itemListeners.
+                itemListeners.forEach(galleryLister -> galleryLister.itemClicked(data)));
 
             //Add the image.
             dataImg.add(img);
         });
     }
 
+    /**
+     * Create the layout.
+     */
     private void createLayout() {
 
         //Create everything.
@@ -179,13 +267,11 @@ public class GalleryModul extends Modul {
         headLayout = new HorizontalLayout();
         contentLayout = new GridLayout(1, 1);
         footLayout = new HorizontalLayout();
-        placeholder = new HorizontalLayout();
+        HorizontalLayout placeholder = new HorizontalLayout();
 
-        createMaxBtn();
-        createMinBtn();
-        createAddBtn();
-        createEmptyImg();
-
+        loadMaxBtn();
+        loadMinBtn();
+        loadAddBtn();
 
         //Put the layout together
         headLayout.addComponent(nameLabel);
@@ -219,11 +305,11 @@ public class GalleryModul extends Modul {
         moduleLayout.setComponentAlignment(footLayout, Alignment.TOP_RIGHT);
 
 
-        //Add a resize listener.
-        ui.getPage().addBrowserWindowResizeListener(l -> update());
+        //Add a resize listener to update the gallery.
+        ui.getPage().addBrowserWindowResizeListener(event -> update());
     }
 
-    private void createMaxBtn() {
+    private void loadMaxBtn() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Icons/max.png");
         if (f.exists()) {
@@ -240,7 +326,7 @@ public class GalleryModul extends Modul {
         }
     }
 
-    private void createMinBtn() {
+    private void loadMinBtn() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Icons/min.png");
         if(f.exists()) {
@@ -258,10 +344,10 @@ public class GalleryModul extends Modul {
         }
     }
 
-    private void createAddBtn() {
+    private void loadAddBtn() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Icons/plus.png");
-        if(f.exists()) {
+        if (f.exists()) {
             FileResource resource = new FileResource(f);
             addBtn = new Image(null, resource);
             addBtn.setStyleName("moduleIcon");
@@ -269,19 +355,24 @@ public class GalleryModul extends Modul {
             addBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
             addBtn.setDescription("Kurs hinzuf\u00fcgen");
             addBtn.setVisible(false);
-            /*addtBtn.addClickListener(event -> { });*/
+            addBtn.addClickListener(event -> buttonListener.forEach(listener -> listener.addButtonClicked()));
         }
     }
 
-    private void createEmptyImg() {
-        //TODO: EMPTY LIST
-    }
-
+    /**
+     * Set the gallery name.
+     * @param n Name of the gallery.
+     */
     public void setName(String n) {
        name = n;
        update();
     }
 
+    /**
+     * Set the date to show in the gallery.
+     * Users, Courses and Achievements supported.
+     * @param data Data to show.
+     */
     public void setData(ArrayList<DataObject> data) {
         this.data.clear();
         this.data.addAll(data);
@@ -289,13 +380,30 @@ public class GalleryModul extends Modul {
         update();
     }
 
-    public void showAddBtn(boolean addBtn) {
-        this.showAdd = addBtn;
-        update();
-    }
-
+    /**
+     * Max the width of the gallery no matter, how many items are in the gallery.
+     * @param maxWidth Max width flag.
+     */
     public void setMaxWidth(boolean maxWidth) {
         this.maxWidth = maxWidth;
+    }
+
+    /**
+     * Add a listener to the gallery that get called, when a gallery item is clicked.
+     * Lambda Supported. Returns the DataObject of the clicked Item.
+     * @param listener Add a listener or use lambda.
+     */
+    public void addItemClickedListener(GalleryItemListener listener) {
+        itemListeners.add(listener);
+    }
+
+    /**
+     * Add a button clicked listener.
+     * @param listener Add button listener.
+     */
+    public void addButtonClickedListener(GalleryButtonListener listener){
+        showAdd = true;
+        buttonListener.add(listener);
     }
 
 }
