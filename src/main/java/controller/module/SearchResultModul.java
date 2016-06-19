@@ -61,6 +61,7 @@ public class SearchResultModul extends Modul {
         descriptionLayout = new VerticalLayout();
 
         nameLabel.setStyleName("searchResultName");
+        descriptionLabel.setStyleName("searchResultDetail");
         descriptionLayout.setStyleName("searchResultDescriptionLayout");
         contentLayout.setStyleName("moduleContent");
         moduleLayout.setStyleName("module");

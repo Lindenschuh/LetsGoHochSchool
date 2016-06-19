@@ -211,7 +211,7 @@ public class SearchController extends Modul {
                 //Get the current page and set the search results
                 previousPage = ui.getContentPage();
                 ui.setContentPage(this);
-            } else if (layout.isAttached()) {
+            } else if (layout.isAttached() && searchResultLayout.getComponentCount() == 0) {
                 //Find nothing and search result is set. Return to the old page.
                 ui.setContentPage(previousPage);
                 previousPage = null;
