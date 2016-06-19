@@ -176,12 +176,13 @@ public class NextLectureModul extends Modul {
             freeImg = new Image(null, resource);
             freeImg.setWidth(IMAGE_SIZE, Sizeable.Unit.PIXELS);
             freeImg.setHeight(IMAGE_SIZE, Sizeable.Unit.PIXELS);
+            freeImg.setDescription("Ferien!");
         }
     }
 
     private void createDateIcon() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
-                + "/Resource/Images/Icons/date.png");
+                + "/Resource/Images/Icons/dateLight.png");
 
         if(f.exists()) {
             FileResource resource = new FileResource(f);
@@ -194,7 +195,7 @@ public class NextLectureModul extends Modul {
     
     private void createLocationIcon() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
-                + "/Resource/Images/Icons/location.png");
+                + "/Resource/Images/Icons/locationLight.png");
 
         if(f.exists()) {
             FileResource resource = new FileResource(f);

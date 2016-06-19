@@ -14,11 +14,13 @@ import view.MyUI;
 public class NavigationBarController extends Modul {
 
     private MyUI ui;
-    private Modul page;
+    private Modul currentPage;
+    private SearchController search;
 
     public NavigationBarController(User user, MyUI ui) {
         super(user);
         this.ui = ui;
+        search = ui.getSearch();
 
         createLayout();
     }
@@ -28,65 +30,82 @@ public class NavigationBarController extends Modul {
         VerticalLayout naviBar = new VerticalLayout();
         naviBar.setStyleName("menu");
 
-        Button search = new Button("Search");
-        search.addClickListener(e -> ui.getSearch().show(!ui.getSearch().isVisible()));
-        search.setIcon(FontAwesome.SEARCH);
-        naviBar.addComponent(search);
+        //Create and add search button.
+        Button searchBtn = new Button("Search");
+        searchBtn.addClickListener(e ->
+                //Toggle the search.
+                search.show(!search.isVisible()));
+        searchBtn.setIcon(FontAwesome.SEARCH);
+        naviBar.addComponent(searchBtn);
 
-
-        Button home = new Button("Home");
-        home.addClickListener(e -> {
-            if(!(page instanceof HomeController)) {
+        //Create and add home button.
+        Button homeBtn = new Button("Home");
+        homeBtn.addClickListener(e -> {
+            //Hide the search and check, if a page change is needed.
+            search.show(false);
+            if(!(currentPage instanceof HomeController)) {
                 ui.setContentPage(new HomeController(user, ui));
             }
         });
-        home.setIcon(FontAwesome.HOME);
-        naviBar.addComponent(home);
+        homeBtn.setIcon(FontAwesome.HOME);
+        naviBar.addComponent(homeBtn);
 
-
-        Button profile = new Button("Profile");
-        profile.addClickListener(e -> {
-            if(!(page instanceof ProfileController)) {
+        //Create and add profile button.
+        Button profileBtn = new Button("Profile");
+        profileBtn.addClickListener(e -> {
+            //Hide the search and check, if a page change is needed.
+            search.show(false);
+            if(!(currentPage instanceof ProfileController)) {
                 ui.setContentPage(new ProfileController(user, ui));
             }
         });
-        profile.setIcon(FontAwesome.USER);
-        naviBar.addComponent(profile);
+        profileBtn.setIcon(FontAwesome.USER);
+        naviBar.addComponent(profileBtn);
 
-
-        Button course = new Button("Course");
-        course.addClickListener(e -> {
-            if (!(page instanceof CourseController)) {
+        //Create and add Course button.
+        Button courseBtn = new Button("Course");
+        courseBtn.addClickListener(e -> {
+            //Hide the search and check, if a page change is needed.
+            search.show(false);
+            if (!(currentPage instanceof CourseController)) {
                 ui.setContentPage(new CourseController(user));
             }
         });
-        course.setIcon(FontAwesome.BOOK);
-        naviBar.addComponent(course);
+        courseBtn.setIcon(FontAwesome.BOOK);
+        naviBar.addComponent(courseBtn);
 
-
-        Button schedule = new Button("Schedule");
-        schedule.addClickListener(e -> {
-            if (!(page instanceof CalenderController)) {
+        //Create and add calender button.
+        Button scheduleBtn = new Button("Schedule");
+        scheduleBtn.addClickListener(e -> {
+            //Hide the search and check, if a page change is needed.
+            search.show(false);
+            if (!(currentPage instanceof CalenderController)) {
                 ui.setContentPage(new CalenderController(user));
             }
         });
-        schedule.setIcon(FontAwesome.CALENDAR);
-        naviBar.addComponent(schedule);
+        scheduleBtn.setIcon(FontAwesome.CALENDAR);
+        naviBar.addComponent(scheduleBtn);
 
-
-        Button achievements = new Button("Achievements");
-        achievements.addClickListener(e -> {
-            if (!(page instanceof AchievementsController)) {
+        //Create and add achievements button.
+        Button achievementsBtn = new Button("Achievements");
+        achievementsBtn.addClickListener(e -> {
+            //Hide the search and check, if a page change is needed.
+            search.show(false);
+            if (!(currentPage instanceof AchievementsController)) {
                 ui.setContentPage(new AchievementsController(user, ui));
             }
         });
-        achievements.setIcon(FontAwesome.TROPHY);
-        naviBar.addComponent(achievements);
+        achievementsBtn.setIcon(FontAwesome.TROPHY);
+        naviBar.addComponent(achievementsBtn);
 
         layout.addComponent(naviBar);
+
+        //Add a page changed listener, that the navigation bar always knows what the current page is.
+        ui.getContentLayout().addComponentAttachListener(listener -> {
+            if (ui.getContentPage() != null) {
+                currentPage = ui.getContentPage();
+            }
+        });
     }
 
-    public void setPage(Modul page) {
-        this.page = page;
-    }
 }

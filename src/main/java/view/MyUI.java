@@ -116,7 +116,6 @@ public class MyUI extends UI {
             contentLayout.removeComponent(currentPage.getContent());
         }
         currentPage = module;
-        naviBar.setPage(module);
         contentLayout.addComponent(module.getContent());
     }
 

@@ -6,12 +6,14 @@
 
   .descriptionDetail {
     padding-left: $modulePaddingSmall;
+    color: $colorFont;
   }
 
   .descriptionLecture {
     padding-top: $modulePaddingSmall;
     padding-bottom: 12px;
     font-size: $moduleNameSize;
+    color: $colorFont;
   }
 
   .descriptionLayout {

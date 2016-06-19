@@ -52,7 +52,7 @@ public class SearchController extends Modul {
         //Listener gets called, when the page get switched.
         ui.getContentLayout().addComponentAttachListener(event -> {
             if(ui.getContentPage() != null) {
-                if(ui.getContentPage() != previousPage && ui.getContentPage() != this) {
+                if(ui.getContentPage() != previousPage && !layout.isAttached()) {
                     show(false);
                 }
             }
@@ -91,7 +91,7 @@ public class SearchController extends Modul {
 
     private void loadSearchIcon() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
-                + "/Resource/Images/Icons/search.png");
+                + "/Resource/Images/Icons/searchLight.png");
         if (f.exists()) {
             FileResource r = new FileResource(f);
             searchIcon = new Image(null, r);
@@ -142,21 +142,11 @@ public class SearchController extends Modul {
         //Clean up.
         searchResultLayout.removeAllComponents();
 
-        //Get the current page.
-        if (ui.getContentPage() != null) {
-            if (!(ui.getContentPage() instanceof SearchController)) {
-                previousPage = ui.getContentPage();
-            }
-        }
-
         if (search.equals("")) {
-
-            //Turn search off.
-            if (layout.isVisible()) {
-                if (previousPage != null) {
-                    ui.setContentPage(previousPage);
-                }
-                layout.setVisible(false);
+            if (layout.isAttached()) {
+                //Go back to the old page.
+                ui.setContentPage(previousPage);
+                previousPage = null;
             }
 
         } else {
@@ -176,6 +166,7 @@ public class SearchController extends Modul {
 
             //Search for courses
             Master.allUser.forEach(u -> {
+
                 //Everything to lowercase.
                 String lowerName = u.getName().toLowerCase();
                 String lowerInput = search.toLowerCase();
@@ -215,16 +206,15 @@ public class SearchController extends Modul {
                 })
             );
 
-            //we find something?
-            if (searchResultLayout.getComponentCount() > 0) {
-
-                //Make the layout visible and set the page.
-                layout.setVisible(true);
+            //Find something and search result is not already set as page?
+            if (searchResultLayout.getComponentCount() > 0 && !layout.isAttached()) {
+                //Get the current page and set the search results
+                previousPage = ui.getContentPage();
                 ui.setContentPage(this);
-            } else if (layout.isVisible() && previousPage != null) {
-
-                //Return to the old page
+            } else if (layout.isAttached()) {
+                //Find nothing and search result is set. Return to the old page.
                 ui.setContentPage(previousPage);
+                previousPage = null;
             }
         }
     }

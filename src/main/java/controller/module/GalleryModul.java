@@ -311,7 +311,7 @@ public class GalleryModul extends Modul {
 
     private void loadMaxBtn() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
-                + "/Resource/Images/Icons/max.png");
+                + "/Resource/Images/Icons/maxLight.png");
         if (f.exists()) {
             FileResource resource = new FileResource(f);
             maxBtn = new Image(null, resource);
@@ -328,7 +328,7 @@ public class GalleryModul extends Modul {
 
     private void loadMinBtn() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
-                + "/Resource/Images/Icons/min.png");
+                + "/Resource/Images/Icons/minLight.png");
         if(f.exists()) {
             FileResource resource = new FileResource(f);
             minBtn = new Image(null, resource);
@@ -346,7 +346,7 @@ public class GalleryModul extends Modul {
 
     private void loadAddBtn() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
-                + "/Resource/Images/Icons/plus.png");
+                + "/Resource/Images/Icons/plusLight.png");
         if (f.exists()) {
             FileResource resource = new FileResource(f);
             addBtn = new Image(null, resource);
@@ -398,7 +398,7 @@ public class GalleryModul extends Modul {
     }
 
     /**
-     * Add a button clicked listener.
+     * Add a button clicked listener and show the add button.
      * @param listener Add button listener.
      */
     public void addButtonClickedListener(GalleryButtonListener listener){

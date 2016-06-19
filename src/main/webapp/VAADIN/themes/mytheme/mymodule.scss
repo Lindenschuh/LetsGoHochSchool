@@ -51,7 +51,7 @@
     height: 100%;
     width: 100%;
     background: $colorModule;
-    border: $colorBorder $borderSize solid;
+    border: $borderAndroidDark $borderSize solid;
     border-radius: $borderRadius;
   }
 
@@ -66,10 +66,37 @@
     }
   }
 
+  .pageHeader {
+    background: $colorModule;
+    border-bottom: $borderAndroidDark 3px solid;
+    padding-left: 10%;
+    width: 100%;
+    height: 70px;
+    .v-label {
+      color: $colorFont;
+      font-weight: bold;
+      font-size: 40px;
+    }
+  }
+
+  .pageNavi {
+    .v-button {
+      display: block;
+      &:hover {
+        background: black;
+        color: white;
+        .v-icon {
+          color: white;
+        }
+      }
+    }
+  }
+
   .content {
     background: $colorPage;
     height: 100%;
     width: 100%;
   }
+
 
 }
