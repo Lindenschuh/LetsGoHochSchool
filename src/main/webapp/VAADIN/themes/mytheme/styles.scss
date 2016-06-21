@@ -3,6 +3,7 @@
 @import "mytheme.scss";
 @import "addons.scss";
 @import "search.scss";
+@import "calender";
 
 // This file prefixes all rules with the theme name to avoid causing conflicts with other themes.
 // The actual styles should be defined in mytheme.scss
@@ -13,5 +14,6 @@
   @include mymodule;
   @include nextlecture;
   @include search;
+  @include calender;
 
 }

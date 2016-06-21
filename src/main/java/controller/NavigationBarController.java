@@ -81,7 +81,7 @@ public class NavigationBarController extends Modul {
             //Hide the search and check, if a page change is needed.
             search.show(false);
             if (!(currentPage instanceof CalenderController)) {
-                ui.setContentPage(new CalenderController(user));
+                ui.setContentPage(new CalenderController(user, ui));
             }
         });
         scheduleBtn.setIcon(FontAwesome.CALENDAR);

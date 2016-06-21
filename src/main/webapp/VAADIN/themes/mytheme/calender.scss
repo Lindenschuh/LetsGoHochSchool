@@ -1,0 +1,31 @@
+@import "mymodule";
+@import "../valo/valo";
+
+
+@mixin calender {
+
+  .calender {
+
+    .v-calendar-header-day {
+      color: $colorFont;
+    }
+
+    .v-calendar-back {
+      color: $colorFont;
+    }
+
+    .v-calendar-next {
+      color: $colorFont;
+    }
+
+    .v-calendar-event {
+      color: $colorPage;
+    }
+
+    .v-calendar-times {
+      color: $colorFont;
+    }
+
+  }
+
+}
