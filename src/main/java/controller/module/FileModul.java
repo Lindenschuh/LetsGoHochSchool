@@ -31,19 +31,23 @@ public class FileModul extends Modul {
 
 
         creatView();
+        layout.setWidth("100%");
     }
 
 
     private void creatView() {
         files = course.getFiles();
+
+        Label nameLbl = new Label("Dokumente");
         VerticalLayout vert = new VerticalLayout();
-        vert.addComponent(new Label("<h2>Dokumente<h2>", ContentMode.HTML));
+        VerticalLayout moduleLayout = new VerticalLayout();
+        HorizontalLayout moduleFoot = new HorizontalLayout();
 
         for(int i = 0; i<files.size();i++)
         {
-            Button butt = new Button(files.get(i).getName());
+            Button butt = new NativeButton(files.get(i).getName());
             butt.setIcon(FontAwesome.FILE);
-            butt.addStyleName(ValoTheme.BUTTON_BORDERLESS);
+            butt.addStyleName("borderlessButton");
             vert.addComponent(butt);
             Resource res = new FileResource(files.get(i));
             FileDownloader fd = new FileDownloader(res);
@@ -53,11 +57,19 @@ public class FileModul extends Modul {
         if(user.isAdmin()) {
             Button bEdit = new Button("Bearbeiten");
             bEdit.addClickListener(e -> startEdit());
-            vert.addComponent(bEdit);
+            moduleFoot.addComponent(bEdit);
         }
-        layout.addComponent(vert);
 
+        nameLbl.setStyleName("moduleHead");
+        vert.setStyleName("moduleContent");
+        moduleFoot.setStyleName("moduleFoot");
+        moduleLayout.setStyleName("module");
 
+        moduleLayout.addComponent(nameLbl);
+        moduleLayout.addComponent(vert);
+        moduleLayout.addComponent(moduleFoot);
+
+        layout.addComponent(moduleLayout);
 
     }
 
@@ -69,8 +81,11 @@ public class FileModul extends Modul {
 
     private void creatEditView() {
         files = course.getFiles();
+
+        Label nameLbl = new Label("Dokumente");
+        VerticalLayout moduleLayout = new VerticalLayout();
+        HorizontalLayout moduleFoot = new HorizontalLayout();
         VerticalLayout vert = new VerticalLayout();
-        vert.addComponent(new Label("<h2>Dokumente<h2>", ContentMode.HTML));
 
         for(int i = 0; i<files.size();i++)
         {
@@ -78,12 +93,12 @@ public class FileModul extends Modul {
             HorizontalLayout hori = new HorizontalLayout();
 
             Label lFiles = new Label(FontAwesome.FILE.getHtml() + " "+files.get(i).getName(),ContentMode.HTML);
-            lFiles.addStyleName(ValoTheme.BUTTON_BORDERLESS);
+            lFiles.addStyleName("borderlessButton");
             hori.addComponent(lFiles);
-            Button bDelete = new Button();
+            Button bDelete = new NativeButton();
             bDelete.setIcon(FontAwesome.TRASH);
             bDelete.setSizeFull();
-            bDelete.setStyleName(ValoTheme.BUTTON_BORDERLESS);
+            bDelete.setStyleName("borderlessButton");
             bDelete.addClickListener(e -> deleteFile(aktFile));
             hori.addComponent(bDelete);
             vert.addComponent(hori);
@@ -95,7 +110,7 @@ public class FileModul extends Modul {
 
 
 
-        Upload up = new Upload("Upload File", new Upload.Receiver() {
+        Upload up = new Upload("Upload file", new Upload.Receiver() {
             @Override
             public OutputStream receiveUpload(String filename, String s1) {
                 FileOutputStream fos = null; // Stream to write to
@@ -116,12 +131,21 @@ public class FileModul extends Modul {
         });
 
         up.addFinishedListener(e -> updateAfter());
+
+        nameLbl.setStyleName("moduleHead");
+        vert.setStyleName("moduleContent");
+        moduleFoot.setStyleName("moduleFoot");
+        moduleLayout.setStyleName("module");
+
+
         vert .addComponent(up);
-        vert.addComponent(bDone);
+        moduleFoot.addComponent(bDone);
 
+        moduleLayout.addComponent(nameLbl);
+        moduleLayout.addComponent(vert);
+        moduleLayout.addComponent(moduleFoot);
 
-
-        layout.addComponent(vert);
+        layout.addComponent(moduleLayout);
     }
 
     private void updateAfter() {

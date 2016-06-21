@@ -27,7 +27,6 @@ public class SearchResultModul extends Modul {
     private Label nameLabel;
     private Label descriptionLabel;
 
-    private VerticalLayout moduleLayout;
     private HorizontalLayout contentLayout;
     private VerticalLayout descriptionLayout;
     private int moduleWidth;
@@ -56,15 +55,13 @@ public class SearchResultModul extends Modul {
 
         nameLabel = new Label("");
         descriptionLabel = new Label("");
-        moduleLayout = new VerticalLayout();
         contentLayout = new HorizontalLayout();
         descriptionLayout = new VerticalLayout();
 
         nameLabel.setStyleName("searchResultName");
         descriptionLabel.setStyleName("searchResultDetail");
         descriptionLayout.setStyleName("searchResultDescriptionLayout");
-        contentLayout.setStyleName("moduleContent");
-        moduleLayout.setStyleName("module");
+        contentLayout.setStyleName("moduleSimple");
 
         update();
 
@@ -74,8 +71,9 @@ public class SearchResultModul extends Modul {
         contentLayout.addComponent(img);
         contentLayout.addComponent(descriptionLayout);
 
-        moduleLayout.addComponent(contentLayout);
-        layout.addComponent(moduleLayout);
+        contentLayout.setExpandRatio(descriptionLayout, 1);
+
+        layout.addComponent(contentLayout);
 
         ui.getPage().addBrowserWindowResizeListener(browserWindowResizeEvent -> update() );
     }
@@ -83,7 +81,7 @@ public class SearchResultModul extends Modul {
 
     private void update() {
         calcLayout();
-        moduleLayout.setWidth(moduleWidth, Sizeable.Unit.PIXELS);
+        contentLayout.setWidth(moduleWidth, Sizeable.Unit.PIXELS);
 
         if (data instanceof String) {
             createToDo();

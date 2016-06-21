@@ -40,7 +40,7 @@ public class HomeController extends Modul {
         contentLayout.addComponent(nextLecture.getContent());
         contentLayout.addComponent(courseGallery.getContent());
         contentLayout.setSpacing(true);
-
+        layout.setWidth("100%");
         layout.addComponent(contentLayout);
     }
 

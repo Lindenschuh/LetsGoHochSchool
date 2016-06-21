@@ -1,9 +1,7 @@
 package controller;
 
 import com.vaadin.server.Sizeable;
-import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import controller.module.TodoList;
 import controller.module.CodeGenModul;
 import controller.module.CourseInfo;
@@ -56,14 +54,40 @@ public class CourseController extends Modul {
 
     public void createView(Course course) {
         layout.removeAllComponents();
+        layout.setStyleName("page");
+
+        layout.setWidth("100%");
+
+        CssLayout combLayout = new CssLayout();
+        combLayout.setStyleName("moduleSimple");
+        combLayout.addComponent(comb);
+
+        CssLayout codeGenLayout = new CodeGenModul(user,course).getContent();
+        codeGenLayout.setStyleName("moduleSimple");
+
         HorizontalLayout hori = new HorizontalLayout();
-        VerticalLayout ver = new VerticalLayout();
-        hori.addComponent(ver);
-        ver.addComponent(comb);
-        ver.addComponent(new TodoList(user,course).getContent());
-        ver.addComponent(new CourseInfo(user,course).getContent());
-        hori.addComponent(new CodeGenModul(user,course).getContent());
-        hori.addComponent(new FileModul(user,course).getContent());
+        VerticalLayout rowOne = new VerticalLayout();
+        VerticalLayout rowTwo = new VerticalLayout();
+
+        hori.setSpacing(true);
+        hori.setWidth("100%");
+        hori.addComponent(rowOne);
+        hori.addComponent(rowTwo);
+        hori.setExpandRatio(rowOne, 1.0f);
+        hori.setComponentAlignment(rowTwo, Alignment.TOP_RIGHT);
+
+        rowOne.setSpacing(true);
+        rowOne.setWidthUndefined();
+        rowOne.addComponent(combLayout);
+        rowOne.addComponent(new TodoList(user,course).getContent());
+        rowOne.addComponent(new CourseInfo(user,course).getContent());
+
+        rowTwo.setSpacing(true);
+        rowTwo.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
+        rowTwo.setWidthUndefined();
+        rowTwo.addComponent(codeGenLayout);
+        rowTwo.addComponent(new FileModul(user,course).getContent());
+
         layout.addComponent(hori);
 
     }

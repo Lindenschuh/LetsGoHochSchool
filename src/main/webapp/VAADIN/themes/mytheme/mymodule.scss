@@ -21,7 +21,8 @@
   }
 
   .moduleFoot {
-    padding: $modulePaddingSmall $modulePaddingBig $modulePaddingSmall $modulePaddingBig;
+    width: 100%;
+    padding: $modulePaddingMiddle $modulePaddingBig $modulePaddingMiddle $modulePaddingBig;
     border-top: $colorBorder $borderSize solid;
     .v-spacing {
       height: $modulePaddingSmall;
@@ -29,8 +30,13 @@
     }
   }
 
+  .moduleSimple{
+    @extend .module;
+    @extend .moduleContent;
+  }
+
   .moduleContent {
-    width: 100%;
+    //width: 100%;
     height: 100%;
     padding: $modulePaddingBig $modulePaddingBig $modulePaddingBig $modulePaddingBig;
     .v-horizontal .v-spacing {
@@ -44,25 +50,31 @@
     width: 100%;
     padding: $modulePaddingSmall $modulePaddingBig $modulePaddingSmall $modulePaddingBig;
     border-bottom: $colorBorder $borderSize solid;
+    font-size: $moduleNameSize;
+    font-weight: bold;
+    color: $colorFont;
 
   }
 
   .module {
-    height: 100%;
-    width: 100%;
+    //height: 100%;
+    //width: 100%;
     background: $colorModule;
     border: $borderAndroidDark $borderSize solid;
     border-radius: $borderRadius;
+    .v-label {
+      color: $colorFont;
+    }
   }
 
   .page {
-    width: 100%;
+    //width: 100%;
     height: 100%;
     background: $colorPage;
     padding: 0 $pageSpacing $pageSpacing $pageSpacing;
     .v-spacing {
-      height: $pageSpacing;
-      width: $pageSpacing;
+      height: $modulePaddingBig;
+      width: $modulePaddingBig;
     }
   }
 
@@ -80,13 +92,35 @@
   }
 
   .pageNavi {
+    background: $colorModule;
+    height: 100%;
+
+    .v-nativebutton {
+      width: 180px;
+      font-size: 18px;
+      color: $colorFont;
+      border: $borderAndroidDark $borderSize solid;
+      background: transparent;
+      display: block;
+      .v-icon {
+        margin: $modulePaddingSmall $modulePaddingSmall $modulePaddingSmall $modulePaddingSmall;
+      }
+      &:hover {
+        background: $colorFont;
+        color: $colorModule;
+        .v-icon {
+          color: $colorModule;
+        }
+      }
+    }
+
     .v-button {
       display: block;
       &:hover {
-        background: black;
-        color: white;
+        background: $colorPage;
+        color: $colorFont;
         .v-icon {
-          color: white;
+          color: $colorFont;
         }
       }
     }
@@ -94,9 +128,28 @@
 
   .content {
     background: $colorPage;
-    height: 100%;
-    width: 100%;
   }
 
+  .borderlessButton {
+    border: none;
+    background: transparent;
+    color: $colorFont;
+  }
+
+  .testBorder {
+    border: $colorBrand 3px solid;
+  }
+
+  .upload {
+    .v-label {
+      color: $colorFont;
+    }
+
+    .v-nativebutton {
+      background: $colorFont;
+      color: $colorModule;
+      font-size: 30px;
+    }
+  }
 
 }

@@ -50,6 +50,7 @@ public class MyUI extends UI {
 
         //Wrapper Layout for the whole page
         final VerticalLayout wrapperLayout = new VerticalLayout();
+        wrapperLayout.setWidth("100%");
         setContent(wrapperLayout);
 
         //Create test data.
@@ -68,17 +69,15 @@ public class MyUI extends UI {
 
             //Top Layout for the head.
             HorizontalLayout topLayout = new HorizontalLayout(  );
-            topLayout.addStyleName("top");
+            topLayout.addStyleName("pageHeader");
             wrapperLayout.addComponent(topLayout);
 
             //Create title.
             title = new Label("Let's GO HochSCHOOL");
-            title.addStyleName("h1");
             topLayout.addComponent(title);
 
             //Bottom Layout for the menu and content.
             HorizontalLayout bottomLayout = new HorizontalLayout();
-            bottomLayout.setStyleName("content");
             wrapperLayout.addComponent(bottomLayout);
 
             //Layout for the content
@@ -88,11 +87,16 @@ public class MyUI extends UI {
             searchController = new SearchController(currentUser, this);
             naviBar = new NavigationBarController(currentUser, this);
 
+            contentLayout.setWidth("100%");
             contentLayout.addComponent(searchController.getSearchBar());
 
             //Add navi and content layout
             bottomLayout.addComponent(naviBar.getContent());
             bottomLayout.addComponent(contentLayout);
+
+            bottomLayout.setStyleName("content");
+            bottomLayout.setWidth("100%");
+            bottomLayout.setExpandRatio(contentLayout, 1.0f);
 
 
             //Set the start page.

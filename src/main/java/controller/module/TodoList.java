@@ -32,16 +32,18 @@ public class TodoList extends Modul {
 
     private void createComponent() {
 
-
+        Label nameLbl = new Label("Todos");
+        VerticalLayout module = new VerticalLayout();
         VerticalLayout vert = new VerticalLayout();
-        vert.addComponent(new Label("<h2>Todos<h2>", ContentMode.HTML));
+        vert.setWidth("530px");
         for(int i = 0;i<todos.size();i++)
         {
             final int aktIndex = i;
             HorizontalLayout hori = new HorizontalLayout();
-            Button butt = new Button(FontAwesome.TRASH);
-            butt.addStyleName(ValoTheme.BUTTON_BORDERLESS);
-            butt.addClickListener(e ->{deletToDo(aktIndex);});
+            Button butt = new NativeButton();
+            butt.setIcon(FontAwesome.TRASH);
+            butt.addStyleName("borderlessButton");
+            butt.addClickListener(e -> deletToDo(aktIndex));
             butt.setSizeFull();
 
 
@@ -57,14 +59,22 @@ public class TodoList extends Modul {
         newTodo.setInputPrompt("New ToDo");
         Button submit = new Button("create");
 
-        submit.addClickListener(e -> {addTodo(newTodo);});
+        submit.addClickListener(e -> addTodo(newTodo));
+
+
+        module.setStyleName("module");
+        nameLbl.setStyleName("moduleHead");
+        vert.setStyleName("moduleContent");
+        hori.setStyleName("moduleFoot");
 
         hori.addComponent(newTodo);
         hori.addComponent(submit);
-        vert.addComponent(hori);
 
+        module.addComponent(nameLbl);
+        module.addComponent(vert);
+        module.addComponent(hori);
 
-        layout.addComponent(vert);
+        layout.addComponent(module);
 
     }
 

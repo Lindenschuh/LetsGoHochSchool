@@ -2,6 +2,7 @@ package controller;
 
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.VerticalLayout;
 import controller.module.Modul;
 import model.User;
@@ -28,10 +29,10 @@ public class NavigationBarController extends Modul {
     private void createLayout() {
 
         VerticalLayout naviBar = new VerticalLayout();
-        naviBar.setStyleName("menu");
+        naviBar.setStyleName("pageNavi");
 
         //Create and add search button.
-        Button searchBtn = new Button("Search");
+        Button searchBtn = new NativeButton("Search");
         searchBtn.addClickListener(e ->
                 //Toggle the search.
                 search.show(!search.isVisible()));
@@ -39,7 +40,7 @@ public class NavigationBarController extends Modul {
         naviBar.addComponent(searchBtn);
 
         //Create and add home button.
-        Button homeBtn = new Button("Home");
+        Button homeBtn = new NativeButton("Home");
         homeBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
@@ -51,7 +52,7 @@ public class NavigationBarController extends Modul {
         naviBar.addComponent(homeBtn);
 
         //Create and add profile button.
-        Button profileBtn = new Button("Profile");
+        Button profileBtn = new NativeButton("Profile");
         profileBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
