@@ -166,7 +166,7 @@ public class NewUser extends Modul {
             return;
         }
 
-        Master.allUser.add(new User(username.getValue(), email.getValue(), password.getValue(), admin.getValue(), getTimeForm()));
+        //Master.allUser.add(new User(username.getValue(), email.getValue(), password.getValue(), admin.getValue(), getTimeForm()));
 
         Notification success = new Notification("Benutzer erfolgreich erstellt", Notification.Type.HUMANIZED_MESSAGE);
         success.setDelayMsec(1000);

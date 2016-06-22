@@ -6,6 +6,10 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import model.User;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 /**
  * Profile class to show the module Profile
  *
@@ -18,7 +22,10 @@ public class Profile extends Modul {
 
     private User user;
 
-    private String times;
+    private ArrayList<LocalDateTime> times;
+    private LocalDateTime nextTime;
+
+    private String room;
 
     /**
      * Constructor for the Profile page. Calls a User and puts information
@@ -39,6 +46,8 @@ public class Profile extends Modul {
 
         if(this.user.isAdmin()) {
             this.times = user.getTimes();
+            this.room = user.getRoom();
+
         }
 
         setupLayout();
@@ -54,6 +63,10 @@ public class Profile extends Modul {
         img.setDescription(user.getName());
         img.setWidth(125, Sizeable.Unit.PIXELS);
         img.setHeight(125, Sizeable.Unit.PIXELS);
+
+        //fill times if user is admin
+        update(times);
+
 
         // add user image
         horizontalLayout.addComponent(img);
@@ -79,9 +92,15 @@ public class Profile extends Modul {
         //if the user has admin rights, add the custom layout with the times String
         //from the user.
         if(this.user.isAdmin()) {
+            VerticalLayout timesLayout = new VerticalLayout();
+            horizontalLayout.addComponent(timesLayout);
+            Label nextTimesHeader = new Label("Nächste Sprechzeit:");
+            timesLayout.addComponent(nextTimesHeader);
+            Label nextTimes = new Label(createTimeLabel(this.nextTime));
+            timesLayout.addComponent(nextTimes);
+            Label nextRoom = new Label(this.room);
+            timesLayout.addComponent(nextRoom);
 
-                Label lable = new Label(this.times, ContentMode.HTML);
-                horizontalLayout.addComponent(lable);
 
         }
 
@@ -91,5 +110,78 @@ public class Profile extends Modul {
         horizontalLayout.setMargin(true);
         layout.addComponent(horizontalLayout);
 
+    }
+
+
+    private void update(ArrayList<LocalDateTime> times) {
+        times.forEach(time -> {
+            if(!time.isBefore(LocalDateTime.now())) {
+                if(this.nextTime == null) {
+                    nextTime = time;
+                } else if(time.isBefore(nextTime)) {
+                    nextTime = time;
+                }
+            }
+        });
+    }
+
+    private String createTimeLabel(LocalDateTime date) {
+
+        String month = Integer.toString(date.getMonthValue());
+        if (date.getMonthValue() < 10) {
+            month = "0" + month;
+        }
+        String day = Integer.toString(date.getDayOfMonth());
+        if (date.getDayOfMonth() < 10) {
+            day = "0" + day;
+        }
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+
+        String hour = Integer.toString(date.getHour());
+        if (date.getHour() < 10) {
+            hour = "0" + hour;
+        }
+
+        String min = Integer.toString(date.getMinute());
+        if (date.getMinute() < 10) {
+            min = "0" + min;
+        }
+
+        StringBuilder dateBuilder = new StringBuilder();
+
+        switch(dayOfWeek.getValue()) {
+            case 0:
+                dateBuilder.append("So ");
+                break;
+            case 1:
+                dateBuilder.append("Mo ");
+                break;
+            case 2:
+                dateBuilder.append("Di ");
+                break;
+            case 3:
+                dateBuilder.append("Mi ");
+                break;
+            case 4:
+                dateBuilder.append("Do ");
+                break;
+            case 5:
+                dateBuilder.append("Fr ");
+                break;
+            case 6:
+                dateBuilder.append("Sa ");
+        }
+
+        dateBuilder.append(day);
+        dateBuilder.append(".");
+        dateBuilder.append(month);
+        dateBuilder.append(", ");
+
+        dateBuilder.append(hour);
+        dateBuilder.append(":");
+        dateBuilder.append(min);
+        dateBuilder.append(" ");
+
+        return dateBuilder.toString();
     }
 }

@@ -6,6 +6,8 @@ import com.vaadin.ui.Image;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,19 +23,24 @@ public class User implements DataObject{
     private HashMap<String,ArrayList<String>> todos;
     private ArrayList<Course> courses;
     //TODO: Sprechzeit als LocalDateTime? Könnte dann in NextLecture oder Stundenplan verwendet werden.
-    private String times;
+    private ArrayList<LocalDateTime> times;
+    private String room;
     private Image image;
 
 
-    public User(String name,String email, String password,boolean admin, String times)
+    public User(String name,String email, String password,boolean admin, String times, int semesterLength, String room)
     {
         this.name = name;
         this.email= email;
         this.password = password;
         this.admin = admin;
-        this.times= times;
+        this.room = room;
         this.courses = new ArrayList<>();
         todos = new HashMap<>();
+
+        this.times = new ArrayList<>();
+        if(this.admin)
+            generateDate(times, semesterLength);
     }
 
     @Override
@@ -68,9 +75,11 @@ public class User implements DataObject{
         return courses;
     }
 
-    public String getTimes() {
+    public ArrayList<LocalDateTime> getTimes() {
         return times;
     }
+
+    public String getRoom() { return room; }
 
     @Override
     public Image getImage() {
@@ -90,6 +99,19 @@ public class User implements DataObject{
         courses.add(course);
 
         course.setUserList(User.this);
+    }
+
+    private void generateDate(String date,int lessons) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime firstLesson = LocalDateTime.parse(date,formatter);
+
+
+        for(int i = 0; i<lessons;i++)
+        {
+            times.add(firstLesson.plusDays(i*7));
+        }
+
+
     }
 
     public void removeCourse(Course course) {
