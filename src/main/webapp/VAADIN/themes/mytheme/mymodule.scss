@@ -6,13 +6,6 @@
 @mixin mymodule {
   @include valo;
 
-
-  .moduleName {
-    font-size: $moduleNameSize;
-    font-weight: bold;
-    color: $colorFont;
-  }
-
   .moduleIcon {
     width: 100px;
     height: 100px;
@@ -63,6 +56,15 @@
     border: $borderAndroidDark $borderSize solid;
     border-radius: $borderRadius;
     .v-label {
+      color: $colorFont;
+    }
+
+    .v-caption {
+      padding-top: $modulePaddingBig;
+      color: $colorFont;
+    }
+
+    .gwt-FileUpload {
       color: $colorFont;
     }
   }
@@ -133,23 +135,12 @@
   .borderlessButton {
     border: none;
     background: transparent;
+    font-weight: bold;
     color: $colorFont;
   }
 
   .testBorder {
     border: $colorBrand 3px solid;
-  }
-
-  .upload {
-    .v-label {
-      color: $colorFont;
-    }
-
-    .v-nativebutton {
-      background: $colorFont;
-      color: $colorModule;
-      font-size: 30px;
-    }
   }
 
 }

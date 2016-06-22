@@ -107,8 +107,18 @@ public class Master {
         allCourse.forEach(c -> c.setImage(loadImage(c)));
         allAchievements.forEach(a -> a.setImage(loadImage(a)));
 
+        //Erstelle To do's
+        ArrayList<String> todos = new ArrayList<>();
+        todos.add("Das letzte Übungsblatt bearbeiten, um Erfolg zu erhalten.");
+        todos.add("Eine andere wirklich tolle und anspruchsvolle Arbeit erledigen.");
+        todos.add("Lorem ipsum iwas Textum omine Lambda lasgom.");
+        todos.add("Muuuuh.");
+
         //Put it together
-        allUser.forEach(u -> allCourse.forEach(c -> u.addCourse(c)));
+        allUser.forEach(u -> allCourse.forEach(c -> {
+            u.addCourse(c);
+            u.setTodos(todos, c.getName());
+        }));
 
         todoTest(Master.allUser.get(0));
     }
