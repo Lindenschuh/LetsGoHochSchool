@@ -64,7 +64,7 @@ public class NavigationBarController extends Modul {
         naviBar.addComponent(profileBtn);
 
         //Create and add Course button.
-        Button courseBtn = new Button("Course");
+        Button courseBtn = new NativeButton("Course");
         courseBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
@@ -76,7 +76,7 @@ public class NavigationBarController extends Modul {
         naviBar.addComponent(courseBtn);
 
         //Create and add calender button.
-        Button scheduleBtn = new Button("Schedule");
+        Button scheduleBtn = new NativeButton("Schedule");
         scheduleBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
@@ -88,7 +88,7 @@ public class NavigationBarController extends Modul {
         naviBar.addComponent(scheduleBtn);
 
         //Create and add achievements button.
-        Button achievementsBtn = new Button("Achievements");
+        Button achievementsBtn = new NativeButton("Achievements");
         achievementsBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
