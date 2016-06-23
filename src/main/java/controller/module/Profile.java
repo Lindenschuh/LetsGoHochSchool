@@ -107,7 +107,7 @@ public class Profile extends Modul {
 
         // adds the horizontal layout to the css layout from module, so it can be
         // displayed in the MyUI Class
-        horizontalLayout.setMargin(true);
+        layout.setStyleName("moduleSimple");
         layout.addComponent(horizontalLayout);
 
     }
