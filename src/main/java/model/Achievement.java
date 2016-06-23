@@ -16,13 +16,15 @@ public class Achievement implements DataObject {
     private int maxValue;
     private HashMap<User, Integer> userProgress;
     private ArrayList<User> userFinished;
+    private String description;
     //TODO: Bedinugen aufbauen (?)
 
 
-    public Achievement(String name, Course course, int maxValue) {
+    public Achievement(String name, Course course, int maxValue, String description) {
         this.name = name;
         this.course = course;
         this.maxValue = maxValue;
+        this.description = description;
         this.userProgress = new HashMap<>();
         this.userFinished = new ArrayList<>();
     }
@@ -57,6 +59,22 @@ public class Achievement implements DataObject {
     @Override
     public String toString() {
         return name;
+    }
+
+    public int getMaxValue() {
+        return maxValue;
+    }
+
+    public void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void addUser(User user) {
