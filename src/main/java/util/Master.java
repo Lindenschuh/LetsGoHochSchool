@@ -34,6 +34,8 @@ public class Master {
      * Create some test data.
      */
     public static void makeCourseModulTestData() {
+        //TODO: there must be a rework for the testdata!
+
         allUser.clear();
         allCourse.clear();
         allAchievements.clear();
@@ -57,10 +59,11 @@ public class Master {
         allCourse.add(new Course("Signalverarbeitung 2", allUser.get(1),"SingalThings","03-06-2016 11:30",10,"F 203"));
         allCourse.add(new Course("Verteilte Systeme", allUser.get(1),"SingalThings","03-06-2016 09:45",10,"B 200"));
 
+
+        /*
         //create some achievements
         //Raketen Wissenschaften
         Achievement a2 = new Achievement("Astronaut", allCourse.get(0));
-        a2.setFinished(true);
         allAchievements.add(a2);
         allAchievements.add(new Achievement("Programmier Ass", allCourse.get(0)));
         allAchievements.add(new Achievement("Raketen start", allCourse.get(0)));
@@ -82,14 +85,12 @@ public class Master {
         //Programmieren
         Achievement a3 = new Achievement("HTML Fabrik", allCourse.get(5));
         Achievement a4 = new Achievement("UI Designer", allCourse.get(5));
-        a3.setFinished(true);
-        a4.setFinished(true);
+
         allAchievements.add(a3);
         allAchievements.add(a4);
 
         //Mathe
         Achievement a1 = new Achievement("Math King", allCourse.get(6));
-        a1.setFinished(true);
         allAchievements.add(a1);
 
         //Projekt Management und Tools
@@ -101,6 +102,7 @@ public class Master {
 
         //Verteilte Systeme
         allAchievements.add(new Achievement("Cloud", allCourse.get(11)));
+        */
 
 
         //Lade Bilder
@@ -116,6 +118,8 @@ public class Master {
         todos.add("Muuuuh.");
 
         //Put it together
+
+
         allUser.forEach(u -> allCourse.forEach(c -> {
             u.addCourse(c);
             u.setTodos(todos, c.getName());

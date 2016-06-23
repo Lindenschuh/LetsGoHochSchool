@@ -151,6 +151,10 @@ public class Course implements DataObject {
     public void setUserList(User user)
     {
         userList.add(user);
+        for (Achievement achievment : achievements) {
+            if(!achievment.getUserProgress().containsKey(user))
+                achievment.addUser(user);
+        }
     }
 
     @Override

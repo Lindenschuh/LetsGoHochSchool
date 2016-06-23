@@ -26,6 +26,8 @@ public class User implements DataObject{
     private ArrayList<LocalDateTime> times;
     private String room;
     private Image image;
+    private ArrayList<Achievement> workingOnAchievment;
+    private ArrayList<Achievement> finishedAchievment;
 
 
     public User(String name,String email, String password,boolean admin, String times, int semesterLength, String room)
@@ -36,7 +38,9 @@ public class User implements DataObject{
         this.admin = admin;
         this.room = room;
         this.courses = new ArrayList<>();
-        todos = new HashMap<>();
+        this.todos = new HashMap<>();
+
+        this.workingOnAchievment = new ArrayList<>();
 
         this.times = new ArrayList<>();
         if(this.admin)
@@ -121,6 +125,17 @@ public class User implements DataObject{
     @Override
     public String toString() {
         return email;
+    }
+
+    public void addAchievment(Achievement achievment) {
+        this.workingOnAchievment.add(achievment);
+    }
+
+    public ArrayList<Achievement> getWorkingOnAchievment() { return workingOnAchievment; }
+
+    public void finishAchievement(Achievement achievement) {
+        this.finishedAchievment.add(achievement);
+        this.workingOnAchievment.remove(achievement);
     }
 
 }
