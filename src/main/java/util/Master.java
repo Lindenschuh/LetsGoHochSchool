@@ -1,5 +1,6 @@
 package util;
 
+import com.thoughtworks.xstream.XStream;
 import com.vaadin.server.FileResource;
 
 import com.vaadin.ui.Image;
@@ -8,7 +9,7 @@ import model.Achievement;
 import model.Course;
 import model.User;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -181,5 +182,82 @@ public class Master {
         img.setDescription(o.toString());
         return img;
     }
+
+    public static void saveData()
+    {
+        String stringPath = Paths.get("").toAbsolutePath().toString();
+        XStream xs = new XStream();
+
+        try {
+            xs.toXML(Master.allUser, new FileWriter(new File(stringPath+"/XMLSave/" + "User.xml")));
+            xs.toXML(Master.allCourse, new FileWriter(new File(stringPath+"/XMLSave/" + "course.xml")));
+            xs.toXML(Master.allAchievements, new FileWriter(new File(stringPath+"/XMLSave/" + "achivements.xml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void loadData()
+    {
+        String stringPath = Paths.get("").toAbsolutePath().toString();
+        XStream xs = new XStream();
+
+
+        try {
+            BufferedReader br = null;
+            br = new BufferedReader(new FileReader(stringPath+"/XMLSave/" + "User.xml"));
+            StringBuffer buff = new StringBuffer();
+            String line;
+            while((line = br.readLine()) != null){
+                buff.append(line);
+            }
+            Master.allUser = (ArrayList<User>) xs.fromXML(buff.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            BufferedReader br = null;
+            br = new BufferedReader(new FileReader(stringPath+"/XMLSave/" + "course.xml"));
+            StringBuffer buff = new StringBuffer();
+            String line;
+            while((line = br.readLine()) != null){
+                buff.append(line);
+            }
+            Master.allCourse = (ArrayList<Course>) xs.fromXML(buff.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            BufferedReader br = null;
+            br = new BufferedReader(new FileReader(stringPath+"/XMLSave/" + "achivements.xml"));
+            StringBuffer buff = new StringBuffer();
+            String line;
+            while((line = br.readLine()) != null){
+                buff.append(line);
+            }
+            Master.allAchievements = (ArrayList<Achievement>) xs.fromXML(buff.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+    }
+
 
 }
