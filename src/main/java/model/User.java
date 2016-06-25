@@ -41,6 +41,7 @@ public class User implements DataObject{
         this.todos = new HashMap<>();
 
         this.workingOnAchievment = new ArrayList<>();
+        this.finishedAchievment = new ArrayList<>();
 
         this.times = new ArrayList<>();
         if(this.admin)
@@ -99,10 +100,8 @@ public class User implements DataObject{
     }
 
     public void addCourse(Course course) {
-
         courses.add(course);
-
-        course.setUserList(User.this);
+        course.setUserList(this);
     }
 
     private void generateDate(String date,int lessons) {
@@ -132,7 +131,7 @@ public class User implements DataObject{
     }
 
     public ArrayList<Achievement> getWorkingOnAchievment() { return workingOnAchievment; }
-    
+
     public ArrayList<Achievement> getFinishedAchievment() {
         return finishedAchievment;
     }

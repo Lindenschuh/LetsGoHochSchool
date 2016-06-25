@@ -121,8 +121,6 @@ public class Master {
         todos.add("Muuuuh.");
 
         //Put it together
-
-
         allUser.forEach(u -> allCourse.forEach(c -> {
             u.addCourse(c);
             u.setTodos(todos, c.getName());

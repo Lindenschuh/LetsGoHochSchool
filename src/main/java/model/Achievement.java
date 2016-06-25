@@ -23,6 +23,7 @@ public class Achievement implements DataObject {
     public Achievement(String name, Course course, int maxValue, String description) {
         this.name = name;
         this.course = course;
+        this.course.addAchievement(this);
         this.maxValue = maxValue;
         this.description = description;
         this.userProgress = new HashMap<>();

@@ -69,16 +69,13 @@ public class AchievementsController extends Modul {
         GalleryModul finishedAchievementsGallery = new GalleryModul(user, ui);
 
         openAchievementsGallery.setName("Offene Erfolge");
+        openAchievementsGallery.setMaxWidth(true);
         finishedAchievementsGallery.setName("Abgeschlossene Erfolge");
+        finishedAchievementsGallery.setMaxWidth(true);
 
-        Master.allAchievements.forEach(achievement -> {
-            if(achievement.getUserFinished().contains(user)) {
-                finishedAchievements.add(achievement);
-            }
-            if(achievement.getUserProgress().containsKey(user)) {
-                openAchievements.add(achievement);
-            }
-        });
+        user.getFinishedAchievment().forEach(fin -> finishedAchievements.add(fin));
+        user.getWorkingOnAchievment().forEach(work -> openAchievements.add(work));
+
         openAchievementsGallery.setData((ArrayList) openAchievements);
         finishedAchievementsGallery.setData((ArrayList) finishedAchievements);
 
