@@ -132,10 +132,16 @@ public class User implements DataObject{
     }
 
     public ArrayList<Achievement> getWorkingOnAchievment() { return workingOnAchievment; }
+    
+    public ArrayList<Achievement> getFinishedAchievment() {
+        return finishedAchievment;
+    }
+
 
     public void finishAchievement(Achievement achievement) {
         this.finishedAchievment.add(achievement);
         this.workingOnAchievment.remove(achievement);
+
     }
 
 }

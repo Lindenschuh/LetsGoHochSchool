@@ -128,8 +128,6 @@ public class Master {
             u.setTodos(todos, c.getName());
         }));
 
-       allCourse.forEach(c -> c.getAchievements().forEach(a -> a.addUser(allUser.get(0))));
-
         todoTest(Master.allUser.get(0));
     }
 
