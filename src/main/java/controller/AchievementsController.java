@@ -51,7 +51,7 @@ public class AchievementsController extends Modul {
             courseAchievementsGallery.addItemClickedListener(e -> {
                 ui.getSearch().show(false);
                 if (!(ui.getContent() instanceof AchievementDetailController)) {
-                    ui.setContentPage(new AchievementDetailController((Achievement) e,user, ui));
+                    ui.setContentPage(new AchievementDetailController(user, ui,(Achievement) e));
                 }
             });
             courseAchievementsGallery.addButtonClickedListener(() -> System.out.println("Add button clicked."));

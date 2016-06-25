@@ -1,4 +1,5 @@
-@import "mymodule";
+@import "module";
+@import "page";
 @import "nextlecture.scss";
 @import "mytheme.scss";
 @import "addons.scss";
@@ -11,7 +12,8 @@
 .mytheme {
   @include addons;
   @include mytheme;
-  @include mymodule;
+  @include module;
+  @include page;
   @include nextlecture;
   @include search;
   @include calender;

@@ -3,7 +3,7 @@
 @import "../valo/valo.scss";
 
 
-@mixin mymodule {
+@mixin module {
   @include valo;
 
   .moduleIcon {
@@ -95,70 +95,21 @@
     .gwt-FileUpload {
       color: $colorFont;
     }
-  }
 
-  .page {
-    //width: 100%;
-    height: 100%;
-    background: $colorPage;
-    padding: 0 $pageSpacing $pageSpacing $pageSpacing;
-    .v-spacing {
-      height: $modulePaddingBig;
-      width: $modulePaddingBig;
+    .v-progressbar-wrapper {
+      width: 200px;
+      height: 20px;
+    }
+
+    .v-progressbar-indicator {
+      background: $colorBrand;
+      color: $colorBrand;
+      border: $colorBrand $borderSize solid;
     }
   }
 
-  .pageHeader {
-    background: $colorModule;
-    border-bottom: $borderAndroidDark 3px solid;
-    padding-left: 10%;
-    width: 100%;
-    height: 70px;
-    .v-label {
-      color: $colorFont;
-      font-weight: bold;
-      font-size: 40px;
-    }
-  }
 
-  .pageNavi {
-    background: $colorModule;
-    height: 100%;
 
-    .v-nativebutton {
-      width: 180px;
-      font-size: 18px;
-      color: $colorFont;
-      border: $borderAndroidDark $borderSize solid;
-      background: transparent;
-      display: block;
-      .v-icon {
-        margin: $modulePaddingSmall $modulePaddingSmall $modulePaddingSmall $modulePaddingSmall;
-      }
-      &:hover {
-        background: $colorFont;
-        color: $colorModule;
-        .v-icon {
-          color: $colorModule;
-        }
-      }
-    }
-
-    .v-button {
-      display: block;
-      &:hover {
-        background: $colorPage;
-        color: $colorFont;
-        .v-icon {
-          color: $colorFont;
-        }
-      }
-    }
-  }
-
-  .content {
-    background: $colorPage;
-  }
 
   .borderlessButton {
     border: none;
@@ -173,6 +124,15 @@
 
   .ui {
     background: $colorPage;
+  }
+
+  .talkTime {
+    background: $colorFont;
+    border: $colorBorder $borderSize solid;
+    border-radius: $borderRadius;
+    .v-label {
+      color: $colorModule;
+    }
   }
 
 }

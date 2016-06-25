@@ -18,12 +18,12 @@ public class AchievementDetailController extends Modul {
 
 
 
-    public AchievementDetailController(Achievement achievement, User user, MyUI ui) {
+    public AchievementDetailController(User user, MyUI ui, Achievement achievement) {
         super(user);
         this.achievement = achievement;
         this.ui = ui;
 
-        showAchievementModul = new ShowAchievementModul(user, achievement);
+        showAchievementModul = new ShowAchievementModul(user, ui, achievement);
 
         layout.addComponent(showAchievementModul.getContent());
         layout.addStyleName("page");
