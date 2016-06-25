@@ -15,18 +15,25 @@ public class ShowAchievementModul extends Modul {
     private static final String MODUL_NAME = "Achievement:";
     private static final int IMAGE_SIZE = 100;
 
+
+
     private MyUI ui;
     private Achievement achievement;
+    private float progressValue;
+    private int usersNumber;
+    private int userSum;
 
     private VerticalLayout modulLayout;
     private HorizontalLayout contentLayout;
     private VerticalLayout descriptionLayout;
+    private HorizontalLayout progressLayout;
 
     private Course achievementCourse;
 
     private Label achievementName;
     private Image achievementImage;
     private Label achievementDescription;
+    private Label progressLbl;
     private ProgressBar workingOnProgress;
 
 
@@ -63,14 +70,22 @@ public class ShowAchievementModul extends Modul {
         achievementDescription.setStyleName("descriptionLecture");
         descriptionLayout.addComponent(achievementDescription);
 
-        VerticalLayout progressLayout = new VerticalLayout();
+        progressLayout = new HorizontalLayout();
+        progressLayout.setSpacing(true);
         descriptionLayout.addComponent(progressLayout);
 
-        workingOnProgress = new ProgressBar(0.0f);
+        workingOnProgress = new ProgressBar(0.5f);
         progressLayout.addComponent(workingOnProgress);
 
+        achievement.getUserProgress().put(user, achievement.getMaxValue());
+
+        achievement.achievementFinished(user);
+
+        actualizeProgressBar();
+
+
         //TODO: Alignment right funktioniert noch nicht.
-        Label progressLbl = new Label(achievement.getUserProgress().get(user) + "/" + achievement.getMaxValue());
+        progressLbl = new Label(usersNumber + "/" + userSum);
         progressLayout.addComponent(progressLbl);
         //progressLayout.setComponentAlignment(progressLbl, Alignment.TOP_RIGHT);
         //progressLayout.setWidthUndefined();
@@ -86,5 +101,14 @@ public class ShowAchievementModul extends Modul {
 
         return ui.getPage().getBrowserWindowWidth() - (naviWidth + 2 * pagePadding + 2 * modulePadding);
 
+    }
+
+    public void actualizeProgressBar() {
+        usersNumber = achievement.getUserFinished().size();
+        userSum = usersNumber + achievement.getUserProgress().size();
+
+        progressValue = (float) usersNumber/userSum;
+
+        workingOnProgress.setValue(progressValue);
     }
 }
