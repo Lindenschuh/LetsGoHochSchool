@@ -28160,6 +28160,10 @@ div.v-layout.v-horizontal.v-widget {
 	border: #47c0d2 3px solid;
 }
 
+.mytheme .ui {
+	background: #303030;
+}
+
 .mytheme .descriptionDetail {
 	padding-left: 5px;
 	color: #e0e0e0;

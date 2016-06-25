@@ -48,6 +48,12 @@ public class AchievementsController extends Modul {
             GalleryModul courseAchievementsGallery = new GalleryModul(user, ui);
 
             courseAchievementsGallery.setName(c.getName());
+            courseAchievementsGallery.addItemClickedListener(e -> {
+                ui.getSearch().show(false);
+                if (!(ui.getContent() instanceof AchievementDetailController)) {
+                    ui.setContentPage(new AchievementDetailController((Achievement) e,user, ui));
+                }
+            });
             courseAchievementsGallery.addButtonClickedListener(() -> System.out.println("Add button clicked."));
             courseAchievementsGallery.setMaxWidth(true);
 
