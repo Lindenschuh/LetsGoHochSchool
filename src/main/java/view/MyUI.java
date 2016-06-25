@@ -48,6 +48,7 @@ public class MyUI extends UI {
 
     private void initilize() {
 
+        this.setStyleName("ui");
         //Wrapper Layout for the whole page
         final VerticalLayout wrapperLayout = new VerticalLayout();
         wrapperLayout.setWidth("100%");
@@ -94,10 +95,8 @@ public class MyUI extends UI {
             bottomLayout.addComponent(naviBar.getContent());
             bottomLayout.addComponent(contentLayout);
 
-            bottomLayout.setStyleName("content");
             bottomLayout.setWidth("100%");
             bottomLayout.setExpandRatio(contentLayout, 1.0f);
-
 
             //Set the start page.
             setContentPage(new HomeController(currentUser, this));
