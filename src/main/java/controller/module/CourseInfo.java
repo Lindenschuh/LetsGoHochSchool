@@ -44,6 +44,7 @@ public class CourseInfo extends Modul {
         HorizontalLayout footLayout = new HorizontalLayout();
         VerticalLayout vertilayout = new VerticalLayout();
 
+        layout.setWidth("100%");
         layout.setStyleName("module");
         moduleName.setStyleName("moduleHead");
         vertilayout.setStyleName("moduleContent");

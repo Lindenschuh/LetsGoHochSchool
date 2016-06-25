@@ -72,9 +72,10 @@ public class AchievementsController extends Modul {
         finishedAchievementsGallery.setName("Abgeschlossene Erfolge");
 
         Master.allAchievements.forEach(achievement -> {
-            if(achievement.achievementFinished(user)) {
+            if(achievement.getUserFinished().contains(user)) {
                 finishedAchievements.add(achievement);
-            } else {
+            }
+            if(achievement.getUserProgress().containsKey(user)) {
                 openAchievements.add(achievement);
             }
         });

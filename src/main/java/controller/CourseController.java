@@ -65,30 +65,21 @@ public class CourseController extends Modul {
         CssLayout codeGenLayout = new CodeGenModul(user,course).getContent();
         codeGenLayout.setStyleName("moduleSimple");
 
-        HorizontalLayout hori = new HorizontalLayout();
-        VerticalLayout rowOne = new VerticalLayout();
-        VerticalLayout rowTwo = new VerticalLayout();
+        GridLayout grid = new GridLayout(5, 5);
+        grid.setWidth("100%");
+        grid.setSpacing(true);
 
-        hori.setSpacing(true);
-        hori.setWidth("100%");
-        hori.addComponent(rowOne);
-        hori.addComponent(rowTwo);
-        hori.setExpandRatio(rowOne, 1.0f);
-        hori.setComponentAlignment(rowTwo, Alignment.TOP_RIGHT);
 
-        rowOne.setSpacing(true);
-        rowOne.setWidthUndefined();
-        rowOne.addComponent(combLayout);
-        rowOne.addComponent(new TodoList(user,course).getContent());
-        rowOne.addComponent(new CourseInfo(user,course).getContent());
+        grid.addComponent(combLayout);
+        grid.addComponent(codeGenLayout, 1, 0);
+        grid.addComponent(new TodoList(user, course).getContent(), 0, 1, 0, 3);
+        grid.addComponent(new CourseInfo(user, course).getContent(),0, 4, 0, 4);
 
-        rowTwo.setSpacing(true);
-        rowTwo.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
-        rowTwo.setWidthUndefined();
-        rowTwo.addComponent(codeGenLayout);
-        rowTwo.addComponent(new FileModul(user,course).getContent());
+        grid.addComponent(new FileModul(user, course).getContent(), 1, 1, 1, 4);
 
-        layout.addComponent(hori);
+        grid.setColumnExpandRatio(2, 1);
+
+        layout.addComponent(grid);
 
     }
 

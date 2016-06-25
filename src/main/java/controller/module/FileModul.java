@@ -31,7 +31,6 @@ public class FileModul extends Modul {
 
 
         creatView();
-        layout.setWidth("100%");
     }
 
 
@@ -42,6 +41,7 @@ public class FileModul extends Modul {
         VerticalLayout vert = new VerticalLayout();
         VerticalLayout moduleLayout = new VerticalLayout();
         HorizontalLayout moduleFoot = new HorizontalLayout();
+        moduleLayout.setWidth("100%");
 
         for(int i = 0; i<files.size();i++)
         {
@@ -54,11 +54,7 @@ public class FileModul extends Modul {
             fd.extend(butt);
         }
 
-        if(user.isAdmin()) {
-            Button bEdit = new Button("Bearbeiten");
-            bEdit.addClickListener(e -> startEdit());
-            moduleFoot.addComponent(bEdit);
-        }
+
 
         nameLbl.setStyleName("moduleHead");
         vert.setStyleName("moduleContent");
@@ -67,8 +63,15 @@ public class FileModul extends Modul {
 
         moduleLayout.addComponent(nameLbl);
         moduleLayout.addComponent(vert);
-        moduleLayout.addComponent(moduleFoot);
 
+        if(user.isAdmin()) {
+            Button bEdit = new Button("Bearbeiten");
+            bEdit.addClickListener(e -> startEdit());
+            moduleFoot.addComponent(bEdit);
+            moduleLayout.addComponent(moduleFoot);
+        }
+
+        layout.setWidth("100%");
         layout.addComponent(moduleLayout);
 
     }
