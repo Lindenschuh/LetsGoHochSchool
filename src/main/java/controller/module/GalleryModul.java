@@ -182,7 +182,7 @@ public class GalleryModul extends Modul {
             contentLayout.removeAllComponents();
 
             if (maxWidth) {
-                footLayout.setWidth(Integer.toString(moduleWidth) + "px");
+                contentLayout.setWidth(Integer.toString(moduleWidth) + "px");
             }
 
             if (maxColumns < 1) {
