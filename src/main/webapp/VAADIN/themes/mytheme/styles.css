@@ -28046,6 +28046,12 @@ div.v-layout.v-horizontal.v-widget {
 	width: 15px;
 }
 
+.mytheme .moduleContent .v-richtextarea, .mytheme .moduleSimple .v-richtextarea {
+	border: #2a2a2a 1px solid;
+	border-radius: 3px;
+	color: #e0e0e0;
+}
+
 .mytheme .moduleHead {
 	width: 100%;
 	padding: 5px 15px 5px 15px;

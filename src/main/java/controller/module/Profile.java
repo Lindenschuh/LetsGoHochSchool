@@ -65,7 +65,8 @@ public class Profile extends Modul {
         img.setHeight(125, Sizeable.Unit.PIXELS);
 
         //fill times if user is admin
-        update(times);
+        if(user.isAdmin())
+            update(times);
 
 
         // add user image

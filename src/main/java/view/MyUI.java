@@ -58,7 +58,7 @@ public class MyUI extends UI {
 
         //DEBUG -> Set a currentUser to skip the login screen.
         if(DEBUG) {
-            currentUser = Master.allUser.get(1);
+            currentUser = Master.allUser.get(0);
         }
 
         //Login page?

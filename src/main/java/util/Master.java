@@ -61,11 +61,12 @@ public class Master {
         allCourse.add(new Course("Verteilte Systeme", allUser.get(1),"SingalThings","03-06-2016 09:45",10,"B 200"));
 
 
-        /*
+
         //create some achievements
         //Raketen Wissenschaften
-        Achievement a2 = new Achievement("Astronaut", allCourse.get(0));
+        Achievement a2 = new Achievement("Programierer", allCourse.get(0), 15, "Du musst 15 Übungen vollendet haben.");
         allAchievements.add(a2);
+        /*
         allAchievements.add(new Achievement("Programmier Ass", allCourse.get(0)));
         allAchievements.add(new Achievement("Raketen start", allCourse.get(0)));
 
@@ -111,6 +112,7 @@ public class Master {
         allCourse.forEach(c -> c.setImage(loadImage(c)));
         allAchievements.forEach(a -> a.setImage(loadImage(a)));
 
+
         //Erstelle To do's
         ArrayList<String> todos = new ArrayList<>();
         todos.add("Das letzte Übungsblatt bearbeiten, um Erfolg zu erhalten.");
@@ -125,6 +127,8 @@ public class Master {
             u.addCourse(c);
             u.setTodos(todos, c.getName());
         }));
+
+       allCourse.forEach(c -> c.getAchievements().forEach(a -> a.addUser(allUser.get(0))));
 
         todoTest(Master.allUser.get(0));
     }
