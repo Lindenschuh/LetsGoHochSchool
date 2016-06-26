@@ -28,8 +28,8 @@ public class CourseInfo extends Modul {
                 "<br>*/"<b>Professor: </b>" + course.getAdmin().getName() +
                 "<br><b>Raum: </b>" + course.getRoom() +
                 "<br><b>Vorlesungsanzahl: </b>" + course.getDates().size() +
-                "<br><b>Vorlesungsbeginn: </b>" + course.getDates().get(0) +
-                "<br><b>Vorlesungsende: </b>" + course.getDates().get(course.getDates().size() - 1) +
+                "<br><b>Vorlesungsbeginn: </b>" + course.getDates().get(0).toString().substring(11) + " Uhr" +
+                "<br><b>Vorlesungsdauer: </b>" + course.getDuration() + " min" +
                 "<br><br><u>Beschreibung</u>" +
                 "<br><br>" + course.getDescription()
         );
