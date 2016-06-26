@@ -80,24 +80,5 @@ public class CourseInfo extends Modul {
             footLayout.addComponent(bttn);
             layout.addComponent(footLayout);
         }
-
-        if(!usr.getCourses().contains(course))
-        {
-            Button addCourse = new Button("Einschreiben");
-            addCourse.addClickListener(clickEvent -> {
-                usr.addCourse(course);
-
-                Notification notify = new Notification("Erfolgreich eingeschrieben", Notification.Type.ASSISTIVE_NOTIFICATION);
-                notify.setDelayMsec(1000);
-                notify.setPosition(Position.TOP_RIGHT);
-                notify.show(Page.getCurrent());
-
-                vertilayout.removeAllComponents();
-                setupLayout();
-
-            });
-            footLayout.addComponent(addCourse);
-            layout.addComponent(footLayout);
-        }
     }
 }
