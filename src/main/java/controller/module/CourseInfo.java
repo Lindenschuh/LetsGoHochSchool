@@ -28,8 +28,8 @@ public class CourseInfo extends Modul {
                 "<br>*/"<b>Professor: </b>" + course.getAdmin().getName() +
                 "<br><b>Raum: </b>" + course.getRoom() +
                 "<br><b>Vorlesungsanzahl: </b>" + course.getDates().size() +
-                "<br><b>Vorlesungsbeginn: </b>" + course.getDates().get(0) +
-                "<br><b>Vorlesungsende: </b>" + course.getDates().get(course.getDates().size() - 1) +
+                "<br><b>Vorlesungsbeginn: </b>" + course.getDates().get(0).toString().substring(11) + " Uhr" +
+                "<br><b>Vorlesungsdauer: </b>" + course.getDuration() + " min" +
                 "<br><br><u>Beschreibung</u>" +
                 "<br><br>" + course.getDescription()
         );
@@ -78,25 +78,6 @@ public class CourseInfo extends Modul {
                 }
             });
             footLayout.addComponent(bttn);
-            layout.addComponent(footLayout);
-        }
-
-        if(!usr.getCourses().contains(course))
-        {
-            Button addCourse = new Button("Einschreiben");
-            addCourse.addClickListener(clickEvent -> {
-                usr.addCourse(course);
-
-                Notification notify = new Notification("Erfolgreich eingeschrieben", Notification.Type.ASSISTIVE_NOTIFICATION);
-                notify.setDelayMsec(1000);
-                notify.setPosition(Position.TOP_RIGHT);
-                notify.show(Page.getCurrent());
-
-                vertilayout.removeAllComponents();
-                setupLayout();
-
-            });
-            footLayout.addComponent(addCourse);
             layout.addComponent(footLayout);
         }
     }
