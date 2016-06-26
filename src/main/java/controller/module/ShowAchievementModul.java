@@ -77,18 +77,10 @@ public class ShowAchievementModul extends Modul {
         workingOnProgress = new ProgressBar(0.5f);
         progressLayout.addComponent(workingOnProgress);
 
-        achievement.getUserProgress().put(user, achievement.getMaxValue());
-
-        achievement.achievementFinished(user);
-
         actualizeProgressBar();
 
-
-        //TODO: Alignment right funktioniert noch nicht.
         progressLbl = new Label(usersNumber + "/" + userSum);
         progressLayout.addComponent(progressLbl);
-        //progressLayout.setComponentAlignment(progressLbl, Alignment.TOP_RIGHT);
-        //progressLayout.setWidthUndefined();
 
         ui.getPage().addBrowserWindowResizeListener(event -> contentLayout.setWidth(calcWidth(), Sizeable.Unit.PIXELS));
 
@@ -111,4 +103,5 @@ public class ShowAchievementModul extends Modul {
 
         workingOnProgress.setValue(progressValue);
     }
+
 }

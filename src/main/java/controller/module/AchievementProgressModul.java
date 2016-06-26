@@ -4,6 +4,7 @@ import com.vaadin.client.debug.internal.Icon;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.*;
+import controller.AchievementDetailController;
 import model.Achievement;
 import model.User;
 
@@ -19,6 +20,8 @@ public class AchievementProgressModul extends Modul {
     private int tempAdded;
     private boolean temporary;
     private boolean trashEnabled;
+    private AchievementDetailController controller;
+
 
     private HorizontalLayout contentLayout;
     private VerticalLayout descriptionLayout;
@@ -35,9 +38,10 @@ public class AchievementProgressModul extends Modul {
 
 
 
-    public AchievementProgressModul(User user, Achievement achievement, boolean finished) {
+    public AchievementProgressModul(User user, Achievement achievement, boolean finished, AchievementDetailController controller) {
         super(user);
         this.achievement = achievement;
+        this.controller = controller;
 
         contentLayout = new HorizontalLayout();
         contentLayout.addStyleName("moduleContent");
@@ -110,7 +114,7 @@ public class AchievementProgressModul extends Modul {
         proofTemp();
     }
 
-    private void trash() {
+    public void trash() {
         int temp = achievement.getUserProgress().get(user);
         temporary = false;
         achievement.getUserProgress().put(user, temp - tempAdded);
@@ -133,5 +137,15 @@ public class AchievementProgressModul extends Modul {
             progressLayout.removeComponent(trashButon);
             trashEnabled = false;
         }
+        controller.setOpenButtonLayout();
     }
+
+    public boolean getTemp() { return this.temporary; }
+
+    public void deleteTemp() {
+        temporary = false;
+        tempAdded = 0;
+    }
+
+    public User getUser() { return this.user;  }
 }

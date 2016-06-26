@@ -89,4 +89,6 @@ public class AchievementsController extends Modul {
         moduleLayout.addComponent(finishedAchievementsGallery.getContent());
     }
 
+
+
 }

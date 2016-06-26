@@ -1,5 +1,7 @@
 package controller;
 
+import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import controller.module.AchievementProgressModul;
@@ -8,6 +10,8 @@ import controller.module.ShowAchievementModul;
 import model.Achievement;
 import model.User;
 import view.MyUI;
+
+import java.util.ArrayList;
 
 /**
  * Created by Aljos on 25.06.2016.
@@ -24,9 +28,19 @@ public class AchievementDetailController extends Modul {
 
     private VerticalLayout contentLayout;
     private VerticalLayout userOpen;
+    private HorizontalLayout cancelSaveLayout;
+    private Button cancel;
+    private Button save;
     private Label headerOpen;
     private VerticalLayout userFinished;
     private Label headerFinished;
+
+    private boolean buttonActive;
+    private boolean oneModuleTrue;
+
+    private ArrayList<AchievementProgressModul> progressModuls;
+
+
 
 
     public AchievementDetailController(User user, MyUI ui, Achievement achievement) {
@@ -50,11 +64,20 @@ public class AchievementDetailController extends Modul {
         headerOpen.addStyleName("moduleHead");
         userOpen.addComponent(headerOpen);
 
+        progressModuls = new ArrayList<>();
 
         achievement.getUserProgress().forEach((k,v) -> {
-            AchievementProgressModul achievementProgressModul = new AchievementProgressModul(k, achievement, false);
+            AchievementProgressModul achievementProgressModul = new AchievementProgressModul(k, achievement, false, this);
+            progressModuls.add(achievementProgressModul);
             userOpen.addComponent(achievementProgressModul.getContent());
         });
+
+        buttonActive = false;
+        oneModuleTrue = false;
+
+        setOpenButtonLayout();
+
+
 
         userFinished = new VerticalLayout();
         userFinished.setStyleName("module");
@@ -65,9 +88,56 @@ public class AchievementDetailController extends Modul {
         userFinished.addComponent(headerFinished);
 
         achievement.getUserFinished().forEach(u -> {
-            AchievementProgressModul achievementProgressModul = new AchievementProgressModul(u, achievement, true);
+            AchievementProgressModul achievementProgressModul = new AchievementProgressModul(u, achievement, true, this);
             userFinished.addComponent(achievementProgressModul.getContent());
         });
 
     }
+
+    public void setOpenButtonLayout() {
+        progressModuls.forEach(e -> {
+            if(e.getTemp())
+                oneModuleTrue = true;
+        });
+
+        if(!buttonActive && oneModuleTrue) {
+            cancelSaveLayout = new HorizontalLayout();
+            cancelSaveLayout.addStyleName("moduleFoot");
+            cancelSaveLayout.setSpacing(true);
+            userOpen.addComponent(cancelSaveLayout);
+
+            cancel = new Button("Abbrechen");
+            cancel.addClickListener(c -> deleteData());
+            cancelSaveLayout.addComponent(cancel);
+
+            save = new Button("Speichern");
+            save.addClickListener(s -> saveData());
+            cancelSaveLayout.addComponent(save);
+            buttonActive = true;
+        } else if(buttonActive && !oneModuleTrue) {
+            userOpen.removeComponent(cancelSaveLayout);
+            buttonActive = false;
+        }
+        oneModuleTrue = false;
+    }
+
+    private void saveData() {
+        progressModuls.forEach(e -> {
+            e.deleteTemp();
+            achievement.achievementFinished(e.getUser());
+        });
+        ui.getSearch().show(false);
+        if (!(ui.getContent() instanceof AchievementsController)) {
+            ui.setContentPage(new AchievementsController(user, ui));
+        }
+    }
+
+    public void deleteData() {
+        progressModuls.forEach(e -> e.trash());
+        ui.getSearch().show(false);
+        if (!(ui.getContent() instanceof AchievementsController)) {
+            ui.setContentPage(new AchievementsController(user, ui));
+        }
+    }
+
 }
