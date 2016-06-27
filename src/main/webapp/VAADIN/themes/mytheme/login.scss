@@ -1,0 +1,30 @@
+@import "module";
+
+@mixin login {
+
+  .loginModule {
+    background: $colorModule;
+    padding: $modulePaddingBig $modulePaddingBig $modulePaddingBig $modulePaddingBig;
+    border: $colorBorder $borderSize solid;
+
+    .v-label {
+      font-size: 25px;
+      font-weight: bold;
+      color: $colorFont;
+    }
+
+    .v-textfield {
+      margin-bottom: $modulePaddingBig;
+      width: 200px;
+    }
+
+    .titleTop {
+      margin-left: $modulePaddingSmall;
+    }
+
+    .titleBottom {
+      margin-left: $pageSpacing;
+      margin-bottom: $modulePaddingBig;
+    }
+  }
+}

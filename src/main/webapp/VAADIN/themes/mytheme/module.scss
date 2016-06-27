@@ -127,12 +127,18 @@
   }
 
   .talkTime {
-    background: $colorFont;
-    border: $colorBorder $borderSize solid;
-    border-radius: $borderRadius;
+    @extend .module;
+    background: $colorBorder;
+    border: none;
     .v-label {
-      color: $colorModule;
+      color: $colorFont;
     }
+  }
+
+  .talkTimeHead {
+    @extend .moduleHead;
+    font-weight: normal;
+    border: none;
   }
 
 }

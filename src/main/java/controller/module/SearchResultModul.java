@@ -133,7 +133,8 @@ public class SearchResultModul extends Modul {
 
         img = new Image(null, achievement.getImage().getSource());
         nameLabel.setValue(achievement.getName());
-        descriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+
+        descriptionLabel.setValue(achievement.getDescription());
     }
 
     private void loadToDoImg() {

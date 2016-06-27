@@ -5,6 +5,7 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
 
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
@@ -132,14 +133,30 @@ public class MyUI extends UI {
 
     private void LoginPage(Layout layout)
     {
+        Label title1 = new Label("Let's GO");
+        Label title2 = new Label("HochSCHOOL");
         VerticalLayout vert = new VerticalLayout();
+        VerticalLayout moduleLayout = new VerticalLayout();
         TextField login = new TextField();
         PasswordField pass = new PasswordField();
-        Button sub = new Button("Submit");
-        sub.addClickListener(e -> checkLogin(login,pass));
-        vert.addComponents(login,pass,sub);
+        Button sub = new Button("Login");
+
+        title1.setStyleName("titleTop");
+        title2.setStyleName("titleBottom");
+        login.setInputPrompt("Benutzer");
+        pass.setInputPrompt("Passwort");
+        moduleLayout.setStyleName("loginModule");
+        moduleLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        moduleLayout.setWidthUndefined();
+        vert.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        vert.setHeight(getPage().getBrowserWindowHeight(), Unit.PIXELS);
+
+        moduleLayout.addComponents(title1, title2, login,pass,sub);
+        vert.addComponent(moduleLayout);
         layout.addComponent(vert);
 
+        sub.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        sub.addClickListener(e -> checkLogin(login,pass));
 
     }
 

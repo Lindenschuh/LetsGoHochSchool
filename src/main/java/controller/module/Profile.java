@@ -1,11 +1,13 @@
 package controller.module;
 
 
+import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import model.User;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,16 +18,13 @@ import java.util.ArrayList;
  * Created by Aljos on 02.06.2016.
  */
 public class Profile extends Modul {
-    private Image img;
-    private String name;
-    private String email;
 
-    private User user;
+    private static final int ICON_SIZE = 20;
 
-    private ArrayList<LocalDateTime> times;
     private LocalDateTime nextTime;
 
-    private String room;
+    private Image dateIcon;
+    private Image roomIcon;
 
     /**
      * Constructor for the Profile page. Calls a User and puts information
@@ -39,16 +38,6 @@ public class Profile extends Modul {
 
     public Profile(User user) {
         super(user);
-        this.img = new Image(null, user.getImage().getSource());
-        this.name = user.getName();
-        this.email = user.getEmail();
-        this.user = user;
-
-        if(this.user.isAdmin()) {
-            this.times = user.getTimes();
-            this.room = user.getRoom();
-
-        }
 
         setupLayout();
     }
@@ -57,51 +46,58 @@ public class Profile extends Modul {
         //defining the horizontal layout
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         //set all components in the middle center
-        horizontalLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        //horizontalLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        //config user image
-        img.setDescription(user.getName());
-        img.setWidth(125, Sizeable.Unit.PIXELS);
-        img.setHeight(125, Sizeable.Unit.PIXELS);
-
-        //fill times if user is admin
-        if(user.isAdmin())
-            update(times);
-
-
-        // add user image
-        horizontalLayout.addComponent(img);
+        //user image
+        Image userImg = new Image(null, user.getImage().getSource());
+        userImg.setDescription(user.getName());
+        userImg.setWidth(125, Sizeable.Unit.PIXELS);
+        userImg.setHeight(125, Sizeable.Unit.PIXELS);
 
 
         //vertical layout for user information
         VerticalLayout verticalLayout = new VerticalLayout();
 
         //the text should be displayed in the middle left of the vertical layout
-        verticalLayout.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+        //verticalLayout.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
 
         //the vertical layout shouldn't be direct to the image
         verticalLayout.setMargin(true);
 
+        //adding the name and email to the vertical layout
+        verticalLayout.addComponents(new Label(user.getName()),new Label(user.getEmail()));
 
         //adding the vertical layout to the horizontal layout
-        horizontalLayout.addComponent(verticalLayout);
+        horizontalLayout.addComponents(userImg, verticalLayout);
 
-        //addin the name and email to the vertical layout
-        verticalLayout.addComponent(new Label(name));
-        verticalLayout.addComponent(new Label(email));
 
         //if the user has admin rights, add the custom layout with the times String
         //from the user.
         if(this.user.isAdmin()) {
-            VerticalLayout timesLayout = new VerticalLayout();
-            horizontalLayout.addComponent(timesLayout);
-            Label nextTimesHeader = new Label("Nächste Sprechzeit:");
-            timesLayout.addComponent(nextTimesHeader);
-            Label nextTimes = new Label(createTimeLabel(this.nextTime));
-            timesLayout.addComponent(nextTimes);
-            Label nextRoom = new Label(this.room);
-            timesLayout.addComponent(nextRoom);
 
+            update(user.getTimes());
+
+            loadDateIcon();
+            loadRoomIcon();
+            Label nextTimesHeader = new Label("Nächste Sprechzeit:");
+            Label dateLbl = new Label(createTimeLabel(this.nextTime));
+            Label roomLbl = new Label(user.getRoom());
+            VerticalLayout timesLayout = new VerticalLayout();
+            VerticalLayout descriptionLayout = new VerticalLayout();
+            HorizontalLayout dateLayout = new HorizontalLayout();
+            HorizontalLayout roomLayout = new HorizontalLayout();
+
+            timesLayout.setStyleName("talkTime");
+            nextTimesHeader.setStyleName("talkTimeHead");
+            descriptionLayout.setStyleName("moduleContent");
+            dateLbl.setStyleName("descriptionDetail");
+            roomLbl.setStyleName("descriptionDetail");
+
+            dateLayout.addComponents(dateIcon, dateLbl);
+            roomLayout.addComponents(roomIcon, roomLbl);
+            descriptionLayout.addComponents(dateLayout, roomLayout);
+            timesLayout.addComponents(nextTimesHeader, descriptionLayout);
+            horizontalLayout.addComponent(timesLayout);
 
         }
 
@@ -185,4 +181,32 @@ public class Profile extends Modul {
 
         return dateBuilder.toString();
     }
+
+
+    private void loadDateIcon() {
+        File f = new File(Paths.get("").toAbsolutePath().toString()
+                + "/Resource/Images/Icons/dateLight.png");
+
+        if(f.exists()) {
+            FileResource resource = new FileResource(f);
+            dateIcon = new Image(null, resource);
+            dateIcon.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
+            dateIcon.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
+            dateIcon.setDescription("Datum");
+        }
+    }
+
+    private void loadRoomIcon() {
+        File f = new File(Paths.get("").toAbsolutePath().toString()
+                + "/Resource/Images/Icons/locationLight.png");
+
+        if(f.exists()) {
+            FileResource resource = new FileResource(f);
+            roomIcon = new Image(null, resource);
+            roomIcon.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
+            roomIcon.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
+            roomIcon.setDescription("Raum");
+        }
+    }
+
 }
