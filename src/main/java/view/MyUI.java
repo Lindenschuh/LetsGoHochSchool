@@ -32,7 +32,7 @@ public class MyUI extends UI {
     /*
      * Debug flag -> Set true skip login screen.
      */
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     private Modul currentPage;
     private NavigationBarController naviBar;

@@ -64,33 +64,36 @@ public class Master {
 
         //create some achievements
         //Raketen Wissenschaften
-        Achievement a2 = new Achievement("Programierer", allCourse.get(0), 15, "Du musst 15 Übungen vollendet haben.");
+        Achievement a2 = new Achievement("Programierer Ass", allCourse.get(0), 15, "Du musst 15 Übungen vollendet haben.");
         allAchievements.add(a2);
-        /*
-        allAchievements.add(new Achievement("Programmier Ass", allCourse.get(0)));
-        allAchievements.add(new Achievement("Raketen start", allCourse.get(0)));
+
+        allAchievements.add(new Achievement("Raketen start", allCourse.get(0), 30, "Alle Übungen müssen erledigt sein und in einem Projekt abgegebn werden."));
+
+
 
         //Signalverarbeitung 1
-        allAchievements.add(new Achievement("Elektronik", allCourse.get(1)));
-        allAchievements.add(new Achievement("Microcontroller", allCourse.get(1)));
-        allAchievements.add(new Achievement("Signalverarbeiter", allCourse.get(1)));
-        allAchievements.add(new Achievement("Funkmast", allCourse.get(1)));
+        allAchievements.add(new Achievement("Elektronik", allCourse.get(1), 1, "Erste Schaltung erfolgreich gebaut."));
+
+        allAchievements.add(new Achievement("Microcontroller", allCourse.get(1), 25, "Alle Übungen zu Mikrocontroller wurden abgeschlossen."));
+        allAchievements.add(new Achievement("Signalverarbeiter", allCourse.get(1), 1,"Der schriftliche Test wurde bestanden."));
+        allAchievements.add(new Achievement("Funkmast", allCourse.get(1), 10, "Das Projekt Funkmast wurde abgeschlossen."));
 
         //Englisch
-        allAchievements.add(new Achievement("Erstes Buch", allCourse.get(2)));
-        allAchievements.add(new Achievement("Buecherwurm", allCourse.get(2)));
+        allAchievements.add(new Achievement("Erstes Buch", allCourse.get(2), 1, "Der Sprachtest ist bestanden."));
+        allAchievements.add(new Achievement("Buecherwurm", allCourse.get(2), 20, "20 Bücher wurden gelesen und referenziert."));
 
         //Spieleentwicklung 1
-        allAchievements.add(new Achievement("Gaming", allCourse.get(4)));
-        allAchievements.add(new Achievement("Unity Developer", allCourse.get(4)));
+        allAchievements.add(new Achievement("Gaming", allCourse.get(4), 5, "Alle schritte zum ersten Spiel wurden erfolgreich geschafft."));
+        allAchievements.add(new Achievement("Unity Developer", allCourse.get(4), 1, "Erstes Unity-Projekt wurde abgeschlossen."));
 
         //Programmieren
-        Achievement a3 = new Achievement("HTML Fabrik", allCourse.get(5));
-        Achievement a4 = new Achievement("UI Designer", allCourse.get(5));
+        Achievement a3 = new Achievement("HTML Fabrik", allCourse.get(5), 1, "Der code um eine HTML-Seite zu generieren funktioniert einwandfrei.");
+        Achievement a4 = new Achievement("UI Designer", allCourse.get(5), 15, "Alle Übungen zum User-Design wurden gemacht.");
 
         allAchievements.add(a3);
         allAchievements.add(a4);
 
+        /*
         //Mathe
         Achievement a1 = new Achievement("Math King", allCourse.get(6));
         allAchievements.add(a1);
