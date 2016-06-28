@@ -196,5 +196,9 @@ public class MyUI extends UI {
     }
 
 
+    public User getUser() {
+        return currentUser;
+    }
+
 
 }

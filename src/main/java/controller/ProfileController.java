@@ -22,21 +22,34 @@ public class ProfileController extends Modul {
 
         //Create the modules.
         Profile profile = new Profile(user);
-        GalleryModul courseGallery = new GalleryModul(user, ui);
-
-        //Setup the gallery module.
-        courseGallery.setName("Kurse");
-        courseGallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
-        courseGallery.addButtonClickedListener(() -> System.out.println("Gallery add button clicked."));
-        courseGallery.setData((ArrayList) user.getCourses());
-
         VerticalLayout contentLayout = new VerticalLayout();
+        GalleryModul gallery = new GalleryModul(user, ui);
 
-        contentLayout.addComponent(profile.getContent());
-        contentLayout.addComponent(courseGallery.getContent());
-        contentLayout.setStyleName("page");
+
         contentLayout.setSpacing(true);
+        contentLayout.setStyleName("page");
+        contentLayout.addComponents(profile.getContent(), gallery.getContent());
+
         layout.setWidth("100%");
         layout.addComponent(contentLayout);
+
+        //Check, if the user views his or another users profile.
+        if (user == ui.getUser()) {
+
+            //Setup the gallery module.
+            gallery.setName("Kurse");
+            gallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
+            gallery.addButtonClickedListener(() -> System.out.println("Gallery add button clicked."));
+            gallery.setData((ArrayList) user.getCourses());
+
+        } else if (user.isAdmin()) {
+            gallery.setName("Vorlesungen");
+            gallery.setData((ArrayList) user.getCourses());
+
+
+        } else {
+            gallery.setName("Erfolge");
+            gallery.setData((ArrayList) user.getFinishedAchievment());
+        }
     }
 }

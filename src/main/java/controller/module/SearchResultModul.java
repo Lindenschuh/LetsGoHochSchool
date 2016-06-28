@@ -3,6 +3,7 @@ package controller.module;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.*;
+import controller.ProfileController;
 import model.Achievement;
 import model.Course;
 import model.User;
@@ -107,15 +108,11 @@ public class SearchResultModul extends Modul {
 
     private void createUser() {
         User dataUser = (User) data;
-
         img = new Image(null, dataUser.getImage().getSource());
         nameLabel.setValue(dataUser.getName());
-        if(dataUser.isAdmin()) {
-            //descriptionLabel.setValue(dataUser.getTimes());
-            descriptionLabel.setValue("Montag, 11:30 Uhr");
-        } else {
-            descriptionLabel.setValue(dataUser.getEmail());
-        }
+        descriptionLabel.setValue(dataUser.getEmail());
+
+        contentLayout.addLayoutClickListener(event -> ui.setContentPage(new ProfileController(dataUser, ui)));
     }
 
     private void createCourse() {
