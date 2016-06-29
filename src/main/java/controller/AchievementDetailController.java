@@ -92,6 +92,7 @@ public class AchievementDetailController extends Modul {
             userFinished.addComponent(achievementProgressModul.getContent());
         });
 
+        ui.getContentLayout().addComponentAttachListener(listener -> progressModuls.forEach(e -> e.trash()));
     }
 
     public void setOpenButtonLayout() {
@@ -107,7 +108,7 @@ public class AchievementDetailController extends Modul {
             userOpen.addComponent(cancelSaveLayout);
 
             cancel = new Button("Abbrechen");
-            cancel.addClickListener(c -> deleteData());
+            cancel.addClickListener(c -> ui.setContentPage(new AchievementsController(user, ui)));
             cancelSaveLayout.addComponent(cancel);
 
             save = new Button("Speichern");
@@ -126,18 +127,7 @@ public class AchievementDetailController extends Modul {
             e.deleteTemp();
             achievement.achievementFinished(e.getUser());
         });
-        ui.getSearch().show(false);
-        if (!(ui.getContent() instanceof AchievementsController)) {
-            ui.setContentPage(new AchievementsController(user, ui));
-        }
-    }
-
-    public void deleteData() {
-        progressModuls.forEach(e -> e.trash());
-        ui.getSearch().show(false);
-        if (!(ui.getContent() instanceof AchievementsController)) {
-            ui.setContentPage(new AchievementsController(user, ui));
-        }
+        ui.setContentPage(new AchievementsController(user, ui));
     }
 
 }

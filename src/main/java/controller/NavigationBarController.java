@@ -45,7 +45,6 @@ public class NavigationBarController extends Modul {
         homeBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
-            proofAchievementDetailControler();
             if(!(currentPage instanceof HomeController)) {
                 ui.setContentPage(new HomeController(user, ui));
             }
@@ -58,7 +57,6 @@ public class NavigationBarController extends Modul {
         profileBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
-            proofAchievementDetailControler();
             if(!(currentPage instanceof ProfileController)) {
                 ui.setContentPage(new ProfileController(user, ui));
             } else {
@@ -76,7 +74,6 @@ public class NavigationBarController extends Modul {
         courseBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
-            proofAchievementDetailControler();
             if (!(currentPage instanceof CourseController)) {
                 ui.setContentPage(new CourseController(user));
             }
@@ -89,7 +86,6 @@ public class NavigationBarController extends Modul {
         scheduleBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
-            proofAchievementDetailControler();
             if (!(currentPage instanceof CalenderController)) {
                 ui.setContentPage(new CalenderController(user, ui));
             }
@@ -102,7 +98,6 @@ public class NavigationBarController extends Modul {
         achievementsBtn.addClickListener(e -> {
             //Hide the search and check, if a page change is needed.
             search.show(false);
-            proofAchievementDetailControler();
             if (!(currentPage instanceof AchievementsController)) {
                 ui.setContentPage(new AchievementsController(user, ui));
             }
@@ -119,12 +114,6 @@ public class NavigationBarController extends Modul {
                 currentPage = ui.getContentPage();
             }
         });
-    }
-
-    private void proofAchievementDetailControler() {
-        if(currentPage instanceof AchievementDetailController) {
-            ((AchievementDetailController)ui.getContentPage()).deleteData();
-        }
     }
 
 }
