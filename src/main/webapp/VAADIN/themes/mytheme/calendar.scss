@@ -2,7 +2,7 @@
 @import "../valo/valo";
 
 
-@mixin calender {
+@mixin calendar {
 
   .calender {
 
@@ -26,6 +26,14 @@
       color: $colorFont;
     }
 
+    .v-calendar-event-caption {
+      margin: 5px;
+      font-size: 19px;
+    }
+
+    .v-calendar-event-caption > span { display: none; }
+
+    .v-calendar-event-caption > br { display: none; }
   }
 
 }

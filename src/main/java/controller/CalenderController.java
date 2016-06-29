@@ -5,11 +5,11 @@ import com.vaadin.ui.Calendar;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.components.calendar.CalendarComponentEvents;
 import com.vaadin.ui.components.calendar.event.CalendarEvent;
+
 import controller.module.Modul;
 import model.Course;
 import model.User;
 import view.MyUI;
-
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -39,7 +39,8 @@ public class CalenderController extends Modul {
         cal.setReadOnly(true);
         cal.setLastVisibleDayOfWeek(5);
         cal.setFirstVisibleHourOfDay(8);
-        cal.setLastVisibleHourOfDay(20);
+        cal.setLastVisibleHourOfDay(19);
+        cal.setEventCaptionAsHtml(true);
         cal.setHandler((CalendarComponentEvents.DateClickHandler)null);
         setEvents();
 
@@ -95,12 +96,55 @@ public class CalenderController extends Modul {
 
                     @Override
                     public String getCaption() {
-                        return co.getName()+"\t" + co.getRoom();
+                        String hour = Integer.toString(time.getHour());
+                        String min = Integer.toString(time.getMinute());
+                        //Time formate.
+                        if (time.getHour() < 10) {
+                            hour = "0" + hour;
+                        }
+
+                        if (time.getMinute() < 10) {
+                            min = "0" + min;
+                        }
+
+                                //Layout
+                        return  "<div id=\"title\">" + co.getName() + "</div>" +
+
+                                "<div id=\"row\">" +
+                                "<div>" +
+                                "<img src=\"/VAADIN/themes/mytheme/Icons/date.png\" id=\"image\">" +
+                                "</div>" +
+                                "<div id=\"label\">" + hour + ":" + min+ "</div>" +
+                                "</div>" +
+
+                                "<div id=\"row\">" +
+                                "<div>" +
+                                "<img src=\"/VAADIN/themes/mytheme/Icons/location.png\" id=\"image\">" +
+                                "</div>" +
+                                "<div id=\"label\">" + co.getRoom() + "</div>" +
+                                "</div>" +
+
+                                //Styling
+                                "<style type=\"\"> #title" +
+                                "{margin-bottom: 5px;}" +
+                                "</style>" +
+
+                                "<style type=\"\"> #row" +
+                                "{display: flex;}" +
+                                "</style>" +
+
+                                "<style type=\"text/css\"> #label" +
+                                "{padding-top: 2px; padding-left: 2px; font-size: 17px;}" +
+                                "</style>" +
+
+                                "<style type=\"text/css\"> #image" +
+                                "{width: 20px; height:20px; margin-left: 1px;}" +
+                                "</style>";
                     }
 
                     @Override
                     public String getDescription() {
-                        return co.getRoom();
+                        return co.getAdmin().getName();
                     }
 
                     @Override
@@ -113,6 +157,7 @@ public class CalenderController extends Modul {
                         return false;
                     }
                 });
+
             }
         }
     }
