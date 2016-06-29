@@ -34,6 +34,7 @@ public class Course implements DataObject {
         userList = new ArrayList<>();
         this.name = name;
         this.admin = admin;
+        this.admin.addAdminToCourse(this);
         this.description = description;
         this.room = room;
         this.dir = new File(stringPath+"/CourseFolder/"+name);

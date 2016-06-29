@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Master {
    public static ArrayList<Course> allCourse = new ArrayList<>();
    public static ArrayList<User> allUser = new ArrayList<>();
-    public static ArrayList<Achievement> allAchievements = new ArrayList<>();
+   public static ArrayList<Achievement> allAchievements = new ArrayList<>();
 
 
     public static void makeTest()
@@ -35,121 +35,262 @@ public class Master {
      * Create some test data.
      */
     public static void makeCourseModulTestData() {
-        //TODO: there must be a rework for the testdata!
-
         allUser.clear();
         allCourse.clear();
         allAchievements.clear();
+        ArrayList<User> allAdim = new ArrayList<>();
 
-        //create some users
-        allUser.add(new User("Steve","steve@stud.hs-heilbronn.de","123",false, "", 0,""));
-        allUser.add(new User("Albus Percival Wulfric Brian Dumbledore", "adumbledore@prof.hs-heilbronn.de", "123456Seven", true,"16-03-2016 15:00" ,30 ,"A 211"));
-        allUser.add(new User("Bob Marley","bob@stud.hs-heilbronn.de", "000",false,"", 0,""));
+        //Administaratoren
+        //Hauptadministrator
+        allAdim.add(new User("Prof. Dr. Dieter Hoffmann", "dhoffmann", "dieter.hoffmann@prof.hs-heilbronn.de" ,"password", "29-06-2016 13:00", 20, "B 017"));
 
-        //create some courses
-        allCourse.add(new Course("Raketen Wissenschaften", allUser.get(1),"RocketThings","30-05-2016 11:30",10,"A 200"));
-        allCourse.add(new Course("Signalverarbeitung 1", allUser.get(1),"SingalThings","31-05-2016 14:00",10,"B 318"));
-        allCourse.add(new Course("Englisch", allUser.get(1),"EnglishThings","02-06-2016 09:45",10,"B 120"));
-        allCourse.add(new Course("Virtual Reality", allUser.get(1),"VRThings","01-06-2016 11:30",10,"F 335"));
-        allCourse.add(new Course("Spieleentwicklung 1", allUser.get(1),"PMTThings","31-05-2016 09:45",10,"A 210"));
-        allCourse.add(new Course("Programmieren", allUser.get(1),"ProgrammingThings","31-05-2016 11:30",10,"B 212"));
-        allCourse.add(new Course("Mathematik", allUser.get(1), "Malen nach Zahlen f\u00fcr Fortgeschrittene.","02-06-2016 08:00",10,"A 201"));
-        allCourse.add(new Course("Projekt Management und Tools", allUser.get(1),"Werde zum Scrum Master und mache Scrum Sachen.","01-06-2016 09:45",10,"F 213"));
-        allCourse.add(new Course("Personal Productivity", allUser.get(1),"PersonalThings","02-06-2016 11:30",10,"D 101"));
-        allCourse.add(new Course("Spieleentwicklung 2", allUser.get(1),"Gaming Things","03-06-2016 13:00",10,"X 001"));
-        allCourse.add(new Course("Signalverarbeitung 2", allUser.get(1),"SingalThings","03-06-2016 11:30",10,"F 203"));
-        allCourse.add(new Course("Verteilte Systeme", allUser.get(1),"SingalThings","03-06-2016 09:45",10,"B 200"));
+        //Nebenadministratoren
+        allAdim.add(new User("Prof. Dr. Dr. Ing. Peter Schmidt", "pschmidt", "peter.schmidt@prof.hs-heilbronn.de", "7654321", "27-06-2016 11:00", 20, "G 712"));
+        allAdim.add(new User("Prof. Dr. Mag. Albus Percival Wulfric Brian Dumbledore", "adumbledor", "albus.dumbledore@prof.hs-heilbronn.de", "123456Seven", "23-06-2016 15:00" , 20,"A 211"));
+        allAdim.add(new User("Dr. Jugine Soldberg", "jsoldberg", "Jugine.Soldberg@prof.hs-heilbronn.de", "wololo", "24-06-2016 09:00", 20, "C 402"));
 
+        //Studenten
+        //Hauptstudenten: 3
+        allUser.add(new User("Steve Urcle", "surcle", "surcle@stud.hs-heilbronn.de","1234"));
+        allUser.add(new User("Bart Simpson", "bsimpson", "bsimpson@stu.hs-heilbronn.de", "eatShorts"));
+        allUser.add(new User("Frida Bertholdt", "fberthold", "fberthold@stud.hs-heilbronn.de", "Wanderblume"));
 
-
-        //create some achievements
-        //Raketen Wissenschaften
-        Achievement a2 = new Achievement("Programierer Ass", allCourse.get(0), 15, "Du musst 15 Übungen vollendet haben.");
-        allAchievements.add(a2);
-
-        allAchievements.add(new Achievement("Raketen start", allCourse.get(0), 30, "Alle Übungen müssen erledigt sein und in einem Projekt abgegebn werden."));
-
+        //Nebenstudenten: 9
+        allUser.add(new User("Marc Hoshi", "mhoshi", "mhoshi@stud.hs-heilbronn.de", "123"));
+        allUser.add(new User("April Herold", "aherold", "aherold@stud.hs-heilbronn.de", "123"));
+        allUser.add(new User("Diddi Krause", "dkrause", "dkrause@stud.hs-heilbronn.de", "123"));
+        allUser.add(new User("Peter Peters", "ppeters", "ppeters@stud.hs-heilbronn.de", "123"));
+        allUser.add(new User("Lasse Arnold", "larnold", "larnold@stud.hs-heilbronn.de", "123"));
+        allUser.add(new User("Lydia Grosser", "lgrosser", "lgrosser@stud.hs-heilbronn.de", "123"));
+        allUser.add(new User("Marco Bamberg", "mbamberg", "mbamberg@stud.hs-heilbronn.de", "123"));
+        allUser.add(new User("Paula Groenninger", "pgroennin", "pgroennin@stud.hs-heilbronn.de", "123"));
+        allUser.add(new User("Bob Marley", "bmarley", "bmarley@stud.hs-heilbronn.de", "123"));
 
 
-        //Signalverarbeitung 1
-        allAchievements.add(new Achievement("Elektronik", allCourse.get(1), 1, "Erste Schaltung erfolgreich gebaut."));
 
-        allAchievements.add(new Achievement("Microcontroller", allCourse.get(1), 25, "Alle Übungen zu Mikrocontroller wurden abgeschlossen."));
-        allAchievements.add(new Achievement("Signalverarbeiter", allCourse.get(1), 1,"Der schriftliche Test wurde bestanden."));
-        allAchievements.add(new Achievement("Funkmast", allCourse.get(1), 10, "Das Projekt Funkmast wurde abgeschlossen."));
+        //Courses
+        //0
+        allCourse.add(new Course("Raketen Wissenschaften", allAdim.get(1),"RocketThings","30-05-2016 11:30",10,"A 200"));
+        //Achievements "Raketen Wissenschaften"
+        allAchievements.add(new Achievement("Astronaut", allCourse.get(0), 10, "Überstehe alle körperlichen Tests."));
+        allAchievements.add(new Achievement("Raketen starten", allCourse.get(0), 4, "Alle Verbrennungstriebwerktests wurden bestanden."));
+        allAchievements.add(new Achievement("Ortung", allCourse.get(0), 5, "Alle Navigationsübungen bestanden."));
 
-        //Englisch
-        allAchievements.add(new Achievement("Erstes Buch", allCourse.get(2), 1, "Der Sprachtest ist bestanden."));
-        allAchievements.add(new Achievement("Buecherwurm", allCourse.get(2), 20, "20 Bücher wurden gelesen und referenziert."));
+        //1
+        allCourse.add(new Course("Englisch", allAdim.get(3),"EnglishThings","02-06-2016 09:45",20,"B 120"));
+        //Achievements "Englisch"
+        allAchievements.add(new Achievement("Auslandsemester", allCourse.get(1), 3, "Drei mal an einem Austauschprojekt teilgenommen."));
+        allAchievements.add(new Achievement("Well Speaker", allCourse.get(1), 1, "Referatnote gut oder besser"));
 
-        //Spieleentwicklung 1
-        allAchievements.add(new Achievement("Gaming", allCourse.get(4), 5, "Alle schritte zum ersten Spiel wurden erfolgreich geschafft."));
-        allAchievements.add(new Achievement("Unity Developer", allCourse.get(4), 1, "Erstes Unity-Projekt wurde abgeschlossen."));
+        //2
+        allCourse.add(new Course("Verteilte Systeme", allAdim.get(1),"SingalThings","03-06-2016 09:45",20,"B 200"));
+        //Achievements "Verteilte Systeme"
+        allAchievements.add(new Achievement("Cloud", allCourse.get(2), 100, "In den Tests zusammen 100 Punkte erreicht."));
+        allAchievements.add(new Achievement("Netzwerker", allCourse.get(2), 10, "Alle 10 verschiedenen Netzwerkaufgaben gebaut"));
 
-        //Programmieren
-        Achievement a3 = new Achievement("HTML Fabrik", allCourse.get(5), 1, "Der code um eine HTML-Seite zu generieren funktioniert einwandfrei.");
-        Achievement a4 = new Achievement("UI Designer", allCourse.get(5), 15, "Alle Übungen zum User-Design wurden gemacht.");
+        //3
+        allCourse.add(new Course("Signalverarbeitung 1", allAdim.get(1),"SingalThings","31-05-2016 14:00",20,"B 318"));
+        //Achievments "Signalverarbeitung"
+        allAchievements.add(new Achievement("Funkmast", allCourse.get(3), 2, "Beim Aufstellen und Einstellen von 2 Funkmasten teilgenommen."));
+        allAchievements.add(new Achievement("Signalverarbeiter", allCourse.get(3), 1,"Test für Siegnalveratbeung bestanden."));
+        allAchievements.add(new Achievement("Elektronik", allCourse.get(3), 23, "Alle Schaltungen im Labor gelötet."));
+        //4
+        allCourse.add(new Course("Signalverarbeitung 2", allAdim.get(1),"SingalThings","03-06-2016 11:30",20,"F 203"));
+        //Achievements "Signalverarbetung 2"
+        allAchievements.add(new Achievement("Sinus-Schwinger", allCourse.get(4), 15, "Mehr als 15 Punkte im Messungslabor gesammelt."));
+        allAchievements.add(new Achievement("Microcontroller", allCourse.get(4), 13, "Der Programierte Microcontroller erfüllt alle 13 Kriterien."));
+        allAchievements.add(new Achievement("Komplex macht es einfacher", allCourse.get(4), 6, "Alle Übungen für Komplexe Zahlen abgegeben"));
+        allAchievements.add(new Achievement("Schaltplan zeichner", allCourse.get(4), 4, "Bei allen Schaltplanvorlesungen teilgenommen und Übungen bestanden."));
 
-        allAchievements.add(a3);
-        allAchievements.add(a4);
+        //5
+        allCourse.add(new Course("Spieleentwicklung 1", allAdim.get(0),"PMT Things","31-05-2016 09:45",20,"A 210"));
+        //Achievements "Spieleentwicklung 1"
+        allAchievements.add(new Achievement("Pong", allCourse.get(5), 1,"Erstes Spiel geschaffen."));
+        allAchievements.add(new Achievement("Map Creator", allCourse.get(5), 5,"Editor für Maps geschrieben, der mindestens 5 Kriterien erfüllt."));
+        allAchievements.add(new Achievement("Gaming", allCourse.get(5), 45, "45 Stunden an Spieleentwicklung getätigt"));
 
-        /*
-        //Mathe
-        Achievement a1 = new Achievement("Math King", allCourse.get(6));
-        allAchievements.add(a1);
+        //6
+        allCourse.add(new Course("Spieleentwicklung 2", allAdim.get(0),"Gaming Things","03-06-2016 13:00",20,"X 001"));
+        //Achievements "Spieleentwicklung 2"
+        allAchievements.add(new Achievement("Gaming Jam", allCourse.get(6), 1, "Teilnahme an der Gaming Jam dises jahr teilgenommen." ));
+        allAchievements.add(new Achievement("Unity Developer", allCourse.get(6), 35, "Alle Teilschritte für die Unityübungen vollendet."));
 
-        //Projekt Management und Tools
-        allAchievements.add(new Achievement("Scrum", allCourse.get(7)));
-
-        //Personal Productivity
-        allAchievements.add(new Achievement("Git Master", allCourse.get(8)));
-        allAchievements.add(new Achievement("JUnit", allCourse.get(8)));
-
-        //Verteilte Systeme
-        allAchievements.add(new Achievement("Cloud", allCourse.get(11)));
-        */
+        //7
+        allCourse.add(new Course("Mathematik", allAdim.get(1), "Malen nach Zahlen f\u00fcr Fortgeschrittene.","02-06-2016 08:00",20,"A 201"));
+        //Achievments "Mathematik"
+        allAchievements.add(new Achievement("Mathe King", allCourse.get(7), 1, "Mathematik erfolgreich abegschlossen."));
+        allAchievements.add(new Achievement("Buecherwurm",allCourse.get(7), 5, "Du hast alle fünf vorlesungsbezogene Bücher durchgearbeitet."));
 
 
-        //Lade Bilder
+        //8
+        allCourse.add(new Course("Projekt Management und Tools", allAdim.get(2),"Werde zum Scrum Master und mache Scrum Sachen.","01-06-2016 09:45",20,"F 213"));
+        allAchievements.add(new Achievement("Scrum",allCourse.get(8), 50, "In den Tests 50 % ereicht"));
+        allAchievements.add(new Achievement("Navigator",allCourse.get(8), 5, "Die Projektwoche wurde nach Scrum durchgeführt und jeder Tag erfolgreich Präsentiert."));
+        allAchievements.add(new Achievement("Git Master",allCourse.get(8), 7, "GIT wurde erfolgreich in das Projekt einbezogen."));
+
+        //9
+        allCourse.add(new Course("Personal Productivity", allAdim.get(2),"PersonalThings","02-06-2016 11:30",20,"D 101"));
+        allAchievements.add(new Achievement("Erstes Buch",allCourse.get(9), 10, "Alle Kapitel wurden zum erten Thema erarbeitet."));
+        allAchievements.add(new Achievement("UI Designer",allCourse.get(9), 4, "Das User Interface erfüllt alle 4 Bewertungskriterien."));
+
+        //10
+        allCourse.add(new Course("Programmieren", allAdim.get(0),"ProgrammingThings","31-05-2016 11:30",20,"B 212"));
+        allAchievements.add(new Achievement("HTML Fabrik",allCourse.get(10), 10, "Der Studierende kann sehr gut mit HTML umgehen."));
+        allAchievements.add(new Achievement("Konsole",allCourse.get(10), 3, "Vorlesung: \"Wie arbeite ich mit der Konsole\" gehört und Übung bestanden."));
+        allAchievements.add(new Achievement("JUnit",allCourse.get(10), 5, "Testen ist kein Problem mehr."));
+        allAchievements.add(new Achievement("Programmierer Ass",allCourse.get(10), 70, "Mindestens 70 Punkte im Abschlussprojekt erhalten."));
+
+
+        //11
+        allCourse.add(new Course("Virtual Reality", allAdim.get(0),"VRThings","01-06-2016 11:30",20,"F 335"));
+        allAchievements.add(new Achievement("Bluetooth Expert",allCourse.get(11), 14, "Das Virtual Reality device kann über Bluetooth angesteuert werden."));
+        allAchievements.add(new Achievement("Coding Master",allCourse.get(11), 30, "Mit der Bibliothek umzugehen ist ein Kinderspiel"));
+
+        //12
+        allCourse.add(new Course("Medizinische Informatik", allAdim.get(3), "Medizinische Informatik", "03-06-2016 08:00", 20, "F 212"));
+        allAchievements.add(new Achievement("Medizin",allCourse.get(12), 13, "Alle medizinischen Vorlesungen gehört."));
+        allAchievements.add(new Achievement("Frankenstein",allCourse.get(12), 1, "Geschichte der Medizin Test bestanden."));
+
+        //Kursbelegungen
+        //Steve Urcle
+        allUser.get(0).addCourse(allCourse.get(0));
+        ArrayList<String> todo = new ArrayList<>();
+        todo.add("Schuhe putzen");
+        todo.add("affen schälen");
+        todo.add("banane streicheln");
+        allUser.get(0).setTodos(todo, allCourse.get(0).getName());
+        todo.clear();
+
+        allUser.get(0).addCourse(allCourse.get(10));
+        todo.add("pyramiden essen");
+        todo.add("kuchen schauen");
+        allUser.get(0).setTodos(todo, allCourse.get(10).getName());
+        todo.clear();
+
+        allUser.get(0).addCourse(allCourse.get(9));
+        todo.add("ball lecken");
+        todo.add("krake riechen");
+        todo.add("parfüm anfassen");
+        todo.add("attila grüßen");
+        allUser.get(0).setTodos(todo, allCourse.get(9).getName());
+        todo.clear();
+
+        allUser.get(0).addCourse(allCourse.get(7));
+        todo.add("spiel putzen");
+        allUser.get(0).setTodos(todo, allCourse.get(7).getName());
+        todo.clear();
+
+        //Bart Simpson
+        allUser.get(1).addCourse(allCourse.get(2));
+        todo.add("sigrund füttern");
+        todo.add("Pc sauber machen");
+        todo.add("Alternative suchen");
+        allUser.get(1).setTodos(todo, allCourse.get(2).getName());
+        todo.clear();
+
+        allUser.get(1).addCourse(allCourse.get(3));
+        todo.add("kameraden fragen");
+        todo.add("salte sammeln");
+        allUser.get(1).setTodos(todo, allCourse.get(3).getName());
+        todo.clear();
+
+
+        allUser.get(1).addCourse(allCourse.get(8));
+        todo.add("mc hammer ist ein dilema");
+        todo.add("suchen finden weiter schauen");
+        allUser.get(1).setTodos(todo, allCourse.get(8).getName());
+        todo.clear();
+
+        allUser.get(1).addCourse(allCourse.get(7));
+        todo.add("omnipotentus maximus");
+        todo.add("Harry potter auf ein bier einladen");
+        allUser.get(1).setTodos(todo, allCourse.get(7).getName());
+        todo.clear();
+
+        allUser.get(1).addCourse(allCourse.get(5));
+        todo.add("Steve der mieft");
+        allUser.get(1).setTodos(todo, allCourse.get(5).getName());
+        todo.clear();
+
+        //Frida Bertholdt
+        allUser.get(2).addCourse(allCourse.get(8));
+        todo.add("Kevin the nevin");
+        todo.add("Hallo Mutter ich bin im TV");
+        todo.add(" Ron the weasel");
+        allUser.get(2).setTodos(todo, allCourse.get(8).getName());
+        todo.clear();
+
+        allUser.get(2).addCourse(allCourse.get(5));
+        todo.add("Agathe Bauer");
+        todo.add("Flamingo Flamingo");
+        allUser.get(2).setTodos(todo, allCourse.get(5).getName());
+        todo.clear();
+
+        allUser.get(2).addCourse(allCourse.get(2));
+        todo.add("Harald Potter zum wasser einladen");
+        todo.add("Salty mcSalt face");
+        allUser.get(2).setTodos(todo, allCourse.get(2).getName());
+        todo.clear();
+
+        //Andere Benutzer in Kurse eintragen
+        //3
+        allUser.get(3).addCourse(allCourse.get(12));
+        allUser.get(3).addCourse(allCourse.get(6));
+        allUser.get(3).addCourse(allCourse.get(11));
+        allUser.get(3).addCourse(allCourse.get(5));
+        allUser.get(3).addCourse(allCourse.get(7));
+
+        //4
+        allUser.get(4).addCourse(allCourse.get(8));
+        allUser.get(4).addCourse(allCourse.get(3));
+        allUser.get(4).addCourse(allCourse.get(2));
+
+        //5
+        allUser.get(5).addCourse(allCourse.get(10));
+        allUser.get(5).addCourse(allCourse.get(5));
+        allUser.get(5).addCourse(allCourse.get(6));
+
+        //6
+        allUser.get(6).addCourse(allCourse.get(3));
+        allUser.get(6).addCourse(allCourse.get(12));
+        allUser.get(6).addCourse(allCourse.get(11));
+        allUser.get(6).addCourse(allCourse.get(10));
+        allUser.get(6).addCourse(allCourse.get(5));
+
+        //7
+        allUser.get(7).addCourse(allCourse.get(1));
+        allUser.get(7).addCourse(allCourse.get(0));
+
+        //8
+        allUser.get(8).addCourse(allCourse.get(11));
+        allUser.get(8).addCourse(allCourse.get(7));
+        allUser.get(8).addCourse(allCourse.get(0));
+
+        //9
+        allUser.get(9).addCourse(allCourse.get(1));
+        allUser.get(9).addCourse(allCourse.get(2));
+        allUser.get(9).addCourse(allCourse.get(3));
+        allUser.get(9).addCourse(allCourse.get(4));
+
+        //10
+        allUser.get(10).addCourse(allCourse.get(3));
+        allUser.get(10).addCourse(allCourse.get(5));
+        allUser.get(10).addCourse(allCourse.get(9));
+
+        //11
+        allUser.get(11).addCourse(allCourse.get(12));
+        allUser.get(11).addCourse(allCourse.get(8));
+        allUser.get(11).addCourse(allCourse.get(5));
+
+        allAdim.forEach(a -> a.setImage(loadImage(a)));
         allUser.forEach(u -> u.setImage(loadImage(u)));
         allCourse.forEach(c -> c.setImage(loadImage(c)));
-        allAchievements.forEach(a -> a.setImage(loadImage(a)));
+        allAchievements.forEach(ac -> ac.setImage(loadImage(ac)));
 
 
-        //Erstelle To do's
-        ArrayList<String> todos = new ArrayList<>();
-        todos.add("Das letzte Übungsblatt bearbeiten, um Erfolg zu erhalten.");
-        todos.add("Eine andere wirklich tolle und anspruchsvolle Arbeit erledigen.");
-        todos.add("Lorem ipsum iwas Textum omine Lambda lasgom.");
-        todos.add("Muuuuh.");
+        allUser.addAll(allAdim);
 
-        //Put it together
-        allUser.forEach(u -> allCourse.forEach(c -> {
-            u.addCourse(c);
-            u.setTodos(todos, c.getName());
-        }));
-
-        todoTest(Master.allUser.get(0));
-    }
-
-
-    private static void todoTest(User user) {
-        ArrayList<String> newTodos = new ArrayList<>();
-        newTodos.add("Mathe Aufgabe 2");
-        newTodos.add("Uebe brueche");
-        user.setTodos(newTodos,"Mathe");
-
-        ArrayList<String> newTodos1 = new ArrayList<>();
-        newTodos1.add("Boom");
-        newTodos1.add("krass");
-        user.setTodos(newTodos1,"Raketen-Wissenschaften");
-
-        ArrayList<String> newTodos2 = new ArrayList<>();
-        newTodos2.add("Observer?");
-        newTodos2.add("Amd vs Nvidia!");
-        user.setTodos(newTodos2,"Programmieren");
-
-
+        saveData();
     }
 
     /**
@@ -203,6 +344,11 @@ public class Master {
 
     public static void loadData()
     {
+        allUser.clear();
+        allCourse.clear();
+        allAchievements.clear();
+
+
         String stringPath = Paths.get("").toAbsolutePath().toString();
         XStream xs = new XStream();
 
@@ -215,7 +361,7 @@ public class Master {
             while((line = br.readLine()) != null){
                 buff.append(line);
             }
-            Master.allUser = (ArrayList<User>) xs.fromXML(buff.toString());
+            Master.allUser.addAll((ArrayList<User>) xs.fromXML(buff.toString()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -231,7 +377,7 @@ public class Master {
             while((line = br.readLine()) != null){
                 buff.append(line);
             }
-            Master.allCourse = (ArrayList<Course>) xs.fromXML(buff.toString());
+            Master.allCourse.addAll ((ArrayList<Course>) xs.fromXML(buff.toString()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -247,7 +393,7 @@ public class Master {
             while((line = br.readLine()) != null){
                 buff.append(line);
             }
-            Master.allAchievements = (ArrayList<Achievement>) xs.fromXML(buff.toString());
+            Master.allAchievements.addAll ((ArrayList<Achievement>) xs.fromXML(buff.toString()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

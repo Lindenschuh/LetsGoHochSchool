@@ -29548,6 +29548,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .module .v-caption, .mytheme .moduleSimple .v-caption, .mytheme .talkTime .v-caption {
+	font-size: 17px;
 	padding-top: 15px;
 	color: #e0e0e0;
 }
@@ -29712,6 +29713,19 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .calender .v-calendar-times {
 	color: #e0e0e0;
+}
+
+.mytheme .calender .v-calendar-event-caption {
+	margin: 5px;
+	font-size: 19px;
+}
+
+.mytheme .calender .v-calendar-event-caption > span {
+	display: none;
+}
+
+.mytheme .calender .v-calendar-event-caption > br {
+	display: none;
 }
 
 .mytheme .loginModule {

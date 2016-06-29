@@ -17,12 +17,12 @@ import java.util.HashMap;
 public class User implements DataObject{
 
     private String name;
+    private String loginName;
     private String email;
     private String password;
     private boolean admin;
     private HashMap<String,ArrayList<String>> todos;
     private ArrayList<Course> courses;
-    //TODO: Sprechzeit als LocalDateTime? Könnte dann in NextLecture oder Stundenplan verwendet werden.
     private ArrayList<LocalDateTime> times;
     private String room;
     private Image image;
@@ -30,22 +30,35 @@ public class User implements DataObject{
     private ArrayList<Achievement> finishedAchievment;
 
 
-    public User(String name,String email, String password,boolean admin, String times, int semesterLength, String room)
+
+
+    public User(String name, String loginName, String email, String password, String times, int semesterLength, String room)
     {
         this.name = name;
+        this.loginName = loginName;
         this.email= email;
         this.password = password;
-        this.admin = admin;
+        this.admin = true;
         this.room = room;
         this.courses = new ArrayList<>();
         this.todos = new HashMap<>();
 
+        this.times = new ArrayList<>();
+        generateDate(times, semesterLength);
+    }
+
+    public User(String name, String loginName, String email, String password) {
+        this.name = name;
+        this.loginName = loginName;
+        this.email= email;
+        this.password = password;
+        this.admin = false;
+        this.courses = new ArrayList<>();
+        this.todos = new HashMap<>();
+
+
         this.workingOnAchievment = new ArrayList<>();
         this.finishedAchievment = new ArrayList<>();
-
-        this.times = new ArrayList<>();
-        if(this.admin)
-            generateDate(times, semesterLength);
     }
 
     @Override
@@ -54,7 +67,7 @@ public class User implements DataObject{
         this.image = image;
     }
 
-    public void setTodos(ArrayList<String> todoList,String course)
+    public void setTodos(ArrayList<String> todoList, String course)
     {
         todos.put(course,todoList);
     }
@@ -91,9 +104,9 @@ public class User implements DataObject{
         return image;
     }
 
-    public boolean validation(String name,String password)
+    public boolean validation(String name, String password)
     {
-        if(this.name.toLowerCase().equals(name.toLowerCase())&& this.password.equals(password))
+        if(this.loginName.toLowerCase().equals(name.toLowerCase())&& this.password.equals(password))
             return true;
         else
             return false;
@@ -102,6 +115,10 @@ public class User implements DataObject{
     public void addCourse(Course course) {
         courses.add(course);
         course.setUserList(this);
+    }
+
+    public void addAdminToCourse(Course course) {
+        courses.add(course);
     }
 
     private void generateDate(String date,int lessons) {
@@ -136,6 +153,9 @@ public class User implements DataObject{
         return finishedAchievment;
     }
 
+    public String getLoginName() {
+        return loginName;
+    }
 
     public void finishAchievement(Achievement achievement) {
         this.finishedAchievment.add(achievement);

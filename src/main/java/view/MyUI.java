@@ -33,6 +33,8 @@ public class MyUI extends UI {
      * Debug flag -> Set true skip login screen.
      */
     private static final boolean DEBUG = false;
+    private static final boolean RESET = true;
+
 
     private Modul currentPage;
     private NavigationBarController naviBar;
@@ -56,7 +58,10 @@ public class MyUI extends UI {
         setContent(wrapperLayout);
 
         //Create test data.
-        Master.makeTest();
+        if(RESET)
+            Master.makeTest();
+
+        Master.loadData();
 
         //DEBUG -> Set a currentUser to skip the login screen.
         if(DEBUG) {
