@@ -92,7 +92,11 @@ public class AchievementDetailController extends Modul {
             userFinished.addComponent(achievementProgressModul.getContent());
         });
 
-        ui.getContentLayout().addComponentAttachListener(listener -> progressModuls.forEach(e -> e.trash()));
+        ui.getContentLayout().addComponentDetachListener(listener -> {
+            if (ui.getContentPage() == this) {
+                progressModuls.forEach(e -> e.trash());
+            }
+        });
     }
 
     public void setOpenButtonLayout() {
