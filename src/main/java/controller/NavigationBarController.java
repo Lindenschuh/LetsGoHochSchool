@@ -61,6 +61,11 @@ public class NavigationBarController extends Modul {
             proofAchievementDetailControler();
             if(!(currentPage instanceof ProfileController)) {
                 ui.setContentPage(new ProfileController(user, ui));
+            } else {
+                ProfileController pc = (ProfileController) currentPage;
+                if (pc.getUser() != user) {
+                    ui.setContentPage(new ProfileController(user, ui));
+                }
             }
         });
         profileBtn.setIcon(FontAwesome.USER);

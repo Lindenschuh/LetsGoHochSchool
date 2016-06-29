@@ -52,4 +52,8 @@ public class ProfileController extends Modul {
             gallery.setData((ArrayList) user.getFinishedAchievment());
         }
     }
+
+    public User getUser() {
+        return user;
+    }
 }
