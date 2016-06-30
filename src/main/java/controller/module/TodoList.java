@@ -54,8 +54,10 @@ public class TodoList extends Modul {
             vert.addComponent(hori);
         }
         HorizontalLayout hori = new HorizontalLayout();
+        hori.setSpacing(true);
 
         TextField newTodo = new TextField();
+        newTodo.setWidth("410px");
         newTodo.setInputPrompt("New ToDo");
         Button submit = new Button("create");
 

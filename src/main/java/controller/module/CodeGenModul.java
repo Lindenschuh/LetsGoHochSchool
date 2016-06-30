@@ -46,8 +46,10 @@ public class CodeGenModul extends Modul {
     private void buildUser() {
         HorizontalLayout horigeller = new HorizontalLayout();
         TextField codeInput = new TextField();
+        codeInput.addStyleName("code");
         Button submit = new Button("check");
         submit.addClickListener(e -> checkCode(codeInput));
+        horigeller.setSpacing(true);
         horigeller.addComponents(codeInput,submit);
         layout.addComponent(horigeller);
 
@@ -92,9 +94,11 @@ public class CodeGenModul extends Modul {
     private void buildAdmin() {
         HorizontalLayout horigeller = new HorizontalLayout();
         TextField codeData = new TextField();
+        codeData.addStyleName("code");
         codeData.setReadOnly(true);
         Button generate = new Button("Generate");
         generate.addClickListener(e -> genHash(codeData));
+        horigeller.setSpacing(true);
         horigeller.addComponents(codeData,generate);
         layout.addComponent(horigeller);
 
