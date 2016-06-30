@@ -350,11 +350,7 @@ public class GalleryModul extends Modul {
             addBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
             addBtn.setDescription("Kurs hinzuf\u00fcgen");
             addBtn.setVisible(false);
-            addBtn.addClickListener(clickEvent -> {
-
-                ui.setContentPage(new SubscribeModul(user, ui));
-
-            });
+            addBtn.addClickListener(clickEvent -> buttonListener.forEach(galleryListener -> galleryListener.addButtonClicked()));
         }
     }
 

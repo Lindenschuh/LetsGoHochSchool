@@ -4,6 +4,7 @@ import com.vaadin.ui.VerticalLayout;
 import controller.module.GalleryModul;
 import controller.module.Modul;
 import controller.module.Profile;
+import controller.module.SubscribeModul;
 import model.Course;
 import model.User;
 import view.MyUI;
@@ -39,7 +40,7 @@ public class ProfileController extends Modul {
             //Setup the gallery module.
             gallery.setName("Kurse");
             gallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
-            gallery.addButtonClickedListener(() -> System.out.println("Gallery add button clicked."));
+            gallery.addButtonClickedListener(() -> ui.setContentPage(new SubscribeModul(user, ui)));
             gallery.setData((ArrayList) user.getCourses());
 
         } else if (user.isAdmin()) {

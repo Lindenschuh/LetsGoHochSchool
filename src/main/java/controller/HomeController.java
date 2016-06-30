@@ -4,6 +4,7 @@ import com.vaadin.ui.VerticalLayout;
 import controller.module.GalleryModul;
 import controller.module.Modul;
 import controller.module.NextLectureModul;
+import controller.module.SubscribeModul;
 import model.Course;
 import model.User;
 import view.MyUI;
@@ -31,7 +32,7 @@ public class HomeController extends Modul {
         //Setup the gallery module.
         courseGallery.setName("Kurse");
         courseGallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
-        courseGallery.addButtonClickedListener(() -> System.out.println("Gallery add button clicked."));
+        courseGallery.addButtonClickedListener(() -> ui.setContentPage(new SubscribeModul(user, ui)));
         courseGallery.setData((ArrayList) user.getCourses());
 
         VerticalLayout contentLayout = new VerticalLayout();
