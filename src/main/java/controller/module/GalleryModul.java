@@ -123,6 +123,7 @@ public class GalleryModul extends Modul {
      */
     private ArrayList<GalleryItemListener> itemListeners;
     private ArrayList<GalleryButtonListener> buttonListener;
+    private String emptyMsg;
 
     /**
      * Shows all courses from the given user.
@@ -169,21 +170,35 @@ public class GalleryModul extends Modul {
      * Update the gallery.
      */
     private void update() {
+
+        //calc the new layout size.
+        calcLayout();
+
+        //Refresh.
+        nameLabel.setValue(name);
+        contentLayout.removeAllComponents();
+
+        if (maxWidth) {
+            layout.setWidth(Integer.toString(moduleWidth) + "px");
+        }
+
         if (data.size() == 0) {
-            //TODO: Aktion durchführen, wenn Liste leer ist.
-            //Wird bist zum fix mal ausgeblendet.
-            layout.setVisible(false);
-        } else {
-            //calc the new layout size.
-            calcLayout();
-
-            //Refresh.
-            nameLabel.setValue(name);
-            contentLayout.removeAllComponents();
-
-            if (maxWidth) {
-                layout.setWidth(Integer.toString(moduleWidth) + "px");
+            if (emptyMsg != null) {
+                if (maxWidth) {
+                    contentLayout.setWidth(Integer.toString(moduleWidth) + "px");
+                }
+                contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+                Label emptyLbl = new Label(emptyMsg);
+                contentLayout.setHeight("130px");
+                contentLayout.setColumnExpandRatio(0, 1);
+                contentLayout.setRowExpandRatio(0, 1);
+                emptyLbl.setStyleName("empty");
+                contentLayout.addComponent(emptyLbl);
+                layout.setVisible(true);
+            } else {
+                layout.setVisible(false);
             }
+        } else {
 
             if (maxColumns < 1) {
                 layout.setVisible(false);
@@ -223,14 +238,12 @@ public class GalleryModul extends Modul {
                     }
                 }
             }
-
-            //Add button need?
-            addBtn.setVisible(showAdd);
-
-            //Hide the foot layout, if it's not need.
-            footLayout.setVisible(showAdd || minBtn.isVisible() || maxBtn.isVisible());
-
         }
+        //Add button need?
+        addBtn.setVisible(showAdd);
+
+        //Hide the foot layout, if it's not need.
+        footLayout.setVisible(showAdd || minBtn.isVisible() || maxBtn.isVisible());
     }
 
     /**
@@ -314,6 +327,7 @@ public class GalleryModul extends Modul {
             maxBtn.setWidth(ICON_SIZE, Sizeable.Unit.PIXELS);
             maxBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
             maxBtn.setDescription("Weitere Kurse anzeigen.");
+            maxBtn.setVisible(false);
             maxBtn.addClickListener(event -> {
                 showAll = true;
                 update();
@@ -350,7 +364,8 @@ public class GalleryModul extends Modul {
             addBtn.setHeight(ICON_SIZE, Sizeable.Unit.PIXELS);
             addBtn.setDescription("Kurs hinzuf\u00fcgen");
             addBtn.setVisible(false);
-            addBtn.addClickListener(clickEvent -> buttonListener.forEach(galleryListener -> galleryListener.addButtonClicked()));
+            addBtn.addClickListener(clickEvent ->
+                    buttonListener.forEach(galleryListener -> galleryListener.addButtonClicked()));
         }
     }
 
@@ -361,6 +376,10 @@ public class GalleryModul extends Modul {
     public void setName(String n) {
        name = n;
        update();
+    }
+
+    public void setEmptyMsg(String msg) {
+        emptyMsg = msg;
     }
 
     /**

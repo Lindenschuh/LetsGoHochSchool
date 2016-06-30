@@ -40,6 +40,7 @@ public class SubscribeModul extends Modul {
         subscribtion = new GalleryModul(user, ui);
 
         subscribtion.setName("Einschreiben");
+        subscribtion.setEmptyMsg("Keine Kurse vorhanden.");
         subscribtion.addItemClickedListener(data -> {
             user.addCourse((Course) data);
 

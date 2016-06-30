@@ -48,14 +48,11 @@ public class AchievementsController extends Modul {
             GalleryModul courseAchievementsGallery = new GalleryModul(user, ui);
 
             courseAchievementsGallery.setName(c.getName());
-            courseAchievementsGallery.addItemClickedListener(e -> {
-                ui.getSearch().show(false);
-                if (!(ui.getContent() instanceof AchievementDetailController)) {
-                    ui.setContentPage(new AchievementDetailController(user, ui,(Achievement) e));
-                }
-            });
+            courseAchievementsGallery.addItemClickedListener(e ->
+                    ui.setContentPage(new AchievementDetailController(user, ui,(Achievement) e)));
             courseAchievementsGallery.addButtonClickedListener(() -> System.out.println("Add button clicked."));
             courseAchievementsGallery.setMaxWidth(true);
+            courseAchievementsGallery.setEmptyMsg("Keine Erfolge vorhanden.");
 
             Master.allAchievements.forEach(achievement -> {
                 if(achievement.getCourse() == c) {
@@ -75,8 +72,10 @@ public class AchievementsController extends Modul {
         GalleryModul finishedAchievementsGallery = new GalleryModul(user, ui);
 
         openAchievementsGallery.setName("Offene Erfolge");
+        openAchievementsGallery.setEmptyMsg("Keine Erfolge vorhanden.");
         openAchievementsGallery.setMaxWidth(true);
         finishedAchievementsGallery.setName("Abgeschlossene Erfolge");
+        finishedAchievementsGallery.setEmptyMsg("Keine Erfolge vorhanden.");
         finishedAchievementsGallery.setMaxWidth(true);
 
         user.getFinishedAchievment().forEach(fin -> finishedAchievements.add(fin));

@@ -39,17 +39,18 @@ public class ProfileController extends Modul {
 
             //Setup the gallery module.
             gallery.setName("Kurse");
+            gallery.setEmptyMsg("Keine Kurse vorhanden.");
             gallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
             gallery.addButtonClickedListener(() -> ui.setContentPage(new SubscribeModul(user, ui)));
             gallery.setData((ArrayList) user.getCourses());
 
         } else if (user.isAdmin()) {
             gallery.setName("Vorlesungen");
+            gallery.setEmptyMsg("Keine Vorlesungen vorhanden.");
             gallery.setData((ArrayList) user.getCourses());
-
-
         } else {
             gallery.setName("Erfolge");
+            gallery.setEmptyMsg("Keine Erfolge vorhanden.");
             gallery.setData((ArrayList) user.getFinishedAchievment());
         }
     }
