@@ -279,23 +279,14 @@ public class GalleryModul extends Modul {
         moduleLayout = new VerticalLayout();
         contentLayout = new GridLayout(1, 1);
         footLayout = new HorizontalLayout();
-        HorizontalLayout placeholder = new HorizontalLayout();
 
         loadMaxBtn();
         loadMinBtn();
         loadAddBtn();
 
         //Put the layout together
-
-        footLayout.addComponent(placeholder);
-        footLayout.addComponent(addBtn);
-        footLayout.addComponent(minBtn);
-        footLayout.addComponent(maxBtn);
-
-        moduleLayout.addComponent(nameLabel);
-        moduleLayout.addComponent(contentLayout);
-        moduleLayout.addComponent(footLayout);
-
+        footLayout.addComponents(addBtn, minBtn, maxBtn);
+        moduleLayout.addComponents(nameLabel, contentLayout, footLayout);
         layout.addComponents(moduleLayout);
 
 
@@ -308,10 +299,6 @@ public class GalleryModul extends Modul {
 
         contentLayout.setHideEmptyRowsAndColumns(true);
         contentLayout.setSpacing(true);
-
-        footLayout.setExpandRatio(placeholder, 1);
-        footLayout.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
-        moduleLayout.setComponentAlignment(footLayout, Alignment.TOP_RIGHT);
 
         //Add a resize listener to update the gallery.
         ui.getPage().addBrowserWindowResizeListener(event -> update());
