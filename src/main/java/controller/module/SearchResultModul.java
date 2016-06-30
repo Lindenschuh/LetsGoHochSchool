@@ -2,7 +2,10 @@ package controller.module;
 
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.*;
+import controller.AchievementDetailController;
+import controller.CourseController;
 import controller.ProfileController;
 import model.Achievement;
 import model.Course;
@@ -19,6 +22,7 @@ import java.nio.file.Paths;
 public class SearchResultModul extends Modul {
 
     private final static int IMAGE_SIZE = 75;
+    private final static int MESSAGETIME = 45;
 
     private MyUI ui;
     private Object data;
@@ -123,6 +127,17 @@ public class SearchResultModul extends Modul {
 
         descriptionLabel.setValue(course.getDescription());
         //descriptionLabel.setValue(course.getAdmin().getName());
+
+        contentLayout.addLayoutClickListener(event -> {
+            if (user.getCourses().contains(course)) {
+                ui.setContentPage(new CourseController(user, course));
+            } else {
+                Notification notify = new Notification("Sie sind kein Mitglied dieses Kurse und besitzen daher nicht die notwendigen Rechte", Notification.Type.ERROR_MESSAGE);
+                notify.setDelayMsec(MESSAGETIME);
+                notify.setPosition(Position.TOP_RIGHT);
+                notify.show(ui.getPage());
+            }
+        });
     }
 
     private void createAchievement() {
@@ -132,6 +147,17 @@ public class SearchResultModul extends Modul {
         nameLabel.setValue(achievement.getName());
 
         descriptionLabel.setValue(achievement.getDescription());
+
+        contentLayout.addLayoutClickListener(event -> {
+            if (user.getFinishedAchievment().contains(achievement) | user.getWorkingOnAchievment().contains(achievement)) {
+                ui.setContentPage(new AchievementDetailController(user, ui, achievement));
+            } else {
+                Notification notify = new Notification("Sie sind leider nicht berechtigt diesen Erfolg anzusehen.", Notification.Type.ERROR_MESSAGE);
+                notify.setDelayMsec(MESSAGETIME);
+                notify.setPosition(Position.TOP_RIGHT);
+                notify.show(ui.getPage());
+            }
+        });
     }
 
     private void loadToDoImg() {
