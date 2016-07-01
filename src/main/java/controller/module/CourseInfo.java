@@ -30,7 +30,7 @@ public class CourseInfo extends Modul {
                 "<br><b>Vorlesungsanzahl: </b>" + course.getDates().size() +
                 "<br><b>Vorlesungsbeginn: </b>" + course.getDates().get(0).toString().substring(11) + " Uhr" +
                 "<br><b>Vorlesungsdauer: </b>" + course.getDuration() + " min" +
-                "<br><br><u>Beschreibung</u>" +
+                "<br><br><b><u>Beschreibung</u></b>" +
                 "<br><br>" + course.getDescription()
         );
     }
@@ -61,7 +61,10 @@ public class CourseInfo extends Modul {
                     footLayout.removeComponent(bttn);
                     RichTextArea rta = new RichTextArea();
                     rta.setCaption("Bearbeiten");
-                    rta.setValue(course.getDescription());
+                    rta.setValue("<font color=\"#e0e0e0\">" +
+                            course.getDescription() +
+                            "</font>");
+
                     vertilayout.addComponent(rta);
 
                     Button bttn1 = new Button("Submit");
