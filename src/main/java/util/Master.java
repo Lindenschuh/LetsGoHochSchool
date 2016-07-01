@@ -72,7 +72,7 @@ public class Master {
         //0
         allCourse.add(new Course("Raketen Wissenschaften", allAdim.get(1),"RocketThings","30-05-2016 11:30",10,"A 200"));
         //Achievements "Raketen Wissenschaften"
-        allAchievements.add(new Achievement("Astronaut", allCourse.get(0), 10, "Überstehe alle körperlichen Tests."));
+        allAchievements.add(new Achievement("Astronaut", allCourse.get(0), 10, "\u00dcberstehe alle k\u00f6rperlichen Tests."));
         allAchievements.add(new Achievement("Raketen starten", allCourse.get(0), 4, "Alle Verbrennungstriebwerktests wurden bestanden."));
         allAchievements.add(new Achievement("Ortung", allCourse.get(0), 5, "Alle Navigationsübungen bestanden."));
 
@@ -92,63 +92,63 @@ public class Master {
         allCourse.add(new Course("Signalverarbeitung 1", allAdim.get(1),"SingalThings","31-05-2016 14:00",20,"B 318"));
         //Achievments "Signalverarbeitung"
         allAchievements.add(new Achievement("Funkmast", allCourse.get(3), 2, "Beim Aufstellen und Einstellen von 2 Funkmasten teilgenommen."));
-        allAchievements.add(new Achievement("Signalverarbeiter", allCourse.get(3), 1,"Test für Siegnalveratbeung bestanden."));
-        allAchievements.add(new Achievement("Elektronik", allCourse.get(3), 23, "Alle Schaltungen im Labor gelötet."));
+        allAchievements.add(new Achievement("Signalverarbeiter", allCourse.get(3), 1, "Test f\u00fcr Siegnalveratbeung bestanden."));
+        allAchievements.add(new Achievement("Elektronik", allCourse.get(3), 23, "Alle Schaltungen im Labor gel\u00f6tet."));
         //4
         allCourse.add(new Course("Signalverarbeitung 2", allAdim.get(1),"SingalThings","03-06-2016 11:30",20,"F 203"));
         //Achievements "Signalverarbetung 2"
         allAchievements.add(new Achievement("Sinus-Schwinger", allCourse.get(4), 15, "Mehr als 15 Punkte im Messungslabor gesammelt."));
-        allAchievements.add(new Achievement("Microcontroller", allCourse.get(4), 13, "Der Programierte Microcontroller erfüllt alle 13 Kriterien."));
-        allAchievements.add(new Achievement("Komplex macht es einfacher", allCourse.get(4), 6, "Alle Übungen für Komplexe Zahlen abgegeben"));
-        allAchievements.add(new Achievement("Schaltplan zeichner", allCourse.get(4), 4, "Bei allen Schaltplanvorlesungen teilgenommen und Übungen bestanden."));
+        allAchievements.add(new Achievement("Microcontroller", allCourse.get(4), 13, "Der Programierte Microcontroller erf\u00fcllt alle 13 Kriterien."));
+        allAchievements.add(new Achievement("Komplex macht es einfacher", allCourse.get(4), 6, "Alle \u00dcbungen f\u00fcr Komplexe Zahlen abgegeben"));
+        allAchievements.add(new Achievement("Schaltplan zeichner", allCourse.get(4), 4, "Bei allen Schaltplanvorlesungen teilgenommen und \u00dcbungen bestanden."));
 
         //5
         allCourse.add(new Course("Spieleentwicklung 1", allAdim.get(0),"PMT Things","31-05-2016 09:45",20,"A 210"));
         //Achievements "Spieleentwicklung 1"
         allAchievements.add(new Achievement("Pong", allCourse.get(5), 1,"Erstes Spiel geschaffen."));
-        allAchievements.add(new Achievement("Map Creator", allCourse.get(5), 5,"Editor für Maps geschrieben, der mindestens 5 Kriterien erfüllt."));
-        allAchievements.add(new Achievement("Gaming", allCourse.get(5), 45, "45 Stunden an Spieleentwicklung getätigt"));
+        allAchievements.add(new Achievement("Map Creator", allCourse.get(5), 5, "Editor f\u00fcr Maps geschrieben, der mindestens 5 Kriterien erf\u00fcllt."));
+        allAchievements.add(new Achievement("Gaming", allCourse.get(5), 45, "45 Stunden an Spieleentwicklung get\u00e4tigt"));
 
         //6
         allCourse.add(new Course("Spieleentwicklung 2", allAdim.get(0),"Gaming Things","03-06-2016 13:00",20,"X 001"));
         //Achievements "Spieleentwicklung 2"
         allAchievements.add(new Achievement("Gaming Jam", allCourse.get(6), 1, "Teilnahme an der Gaming Jam dises jahr teilgenommen." ));
-        allAchievements.add(new Achievement("Unity Developer", allCourse.get(6), 35, "Alle Teilschritte für die Unityübungen vollendet."));
+        allAchievements.add(new Achievement("Unity Developer", allCourse.get(6), 35, "Alle Teilschritte f\u00fcr die Unity\u00fcbungen vollendet."));
 
         //7
         allCourse.add(new Course("Mathematik", allAdim.get(1), "Malen nach Zahlen f\u00fcr Fortgeschrittene.","02-06-2016 08:00",20,"A 201"));
         //Achievments "Mathematik"
         allAchievements.add(new Achievement("Mathe King", allCourse.get(7), 1, "Mathematik erfolgreich abegschlossen."));
-        allAchievements.add(new Achievement("Buecherwurm",allCourse.get(7), 5, "Du hast alle fünf vorlesungsbezogene Bücher durchgearbeitet."));
+        allAchievements.add(new Achievement("Buecherwurm",allCourse.get(7), 5, "Du hast alle f\u00fcnf vorlesungsbezogene B\u00fccher durchgearbeitet."));
 
 
         //8
         allCourse.add(new Course("Projekt Management und Tools", allAdim.get(2),"Werde zum Scrum Master und mache Scrum Sachen.","01-06-2016 09:45",20,"F 213"));
         allAchievements.add(new Achievement("Scrum",allCourse.get(8), 50, "In den Tests 50 % ereicht"));
-        allAchievements.add(new Achievement("Navigator",allCourse.get(8), 5, "Die Projektwoche wurde nach Scrum durchgeführt und jeder Tag erfolgreich Präsentiert."));
+        allAchievements.add(new Achievement("Navigator",allCourse.get(8), 5, "Die Projektwoche wurde nach Scrum durchgef\u00fchrt und jeder Tag erfolgreich Pr\u00e4sentiert."));
         allAchievements.add(new Achievement("Git Master",allCourse.get(8), 7, "GIT wurde erfolgreich in das Projekt einbezogen."));
 
         //9
         allCourse.add(new Course("Personal Productivity", allAdim.get(2),"PersonalThings","02-06-2016 11:30",20,"D 101"));
         allAchievements.add(new Achievement("Erstes Buch",allCourse.get(9), 10, "Alle Kapitel wurden zum erten Thema erarbeitet."));
-        allAchievements.add(new Achievement("UI Designer",allCourse.get(9), 4, "Das User Interface erfüllt alle 4 Bewertungskriterien."));
+        allAchievements.add(new Achievement("UI Designer",allCourse.get(9), 4, "Das User Interface erf\u00fcllt alle 4 Bewertungskriterien."));
 
         //10
         allCourse.add(new Course("Programmieren", allAdim.get(0),"ProgrammingThings","31-05-2016 11:30",20,"B 212"));
         allAchievements.add(new Achievement("HTML Fabrik",allCourse.get(10), 10, "Der Studierende kann sehr gut mit HTML umgehen."));
-        allAchievements.add(new Achievement("Konsole",allCourse.get(10), 3, "Vorlesung: \"Wie arbeite ich mit der Konsole\" gehört und Übung bestanden."));
+        allAchievements.add(new Achievement("Konsole",allCourse.get(10), 3, "Vorlesung: \"Wie arbeite ich mit der Konsole\" geh\u00f6rt und \u00dcbung bestanden."));
         allAchievements.add(new Achievement("JUnit",allCourse.get(10), 5, "Testen ist kein Problem mehr."));
         allAchievements.add(new Achievement("Programmierer Ass",allCourse.get(10), 70, "Mindestens 70 Punkte im Abschlussprojekt erhalten."));
 
 
         //11
         allCourse.add(new Course("Virtual Reality", allAdim.get(0),"VRThings","01-06-2016 11:30",20,"F 335"));
-        allAchievements.add(new Achievement("Bluetooth Expert",allCourse.get(11), 14, "Das Virtual Reality device kann über Bluetooth angesteuert werden."));
+        allAchievements.add(new Achievement("Bluetooth Expert",allCourse.get(11), 14, "Das Virtual Reality device kann \u00fcber Bluetooth angesteuert werden."));
         allAchievements.add(new Achievement("Coding Master",allCourse.get(11), 30, "Mit der Bibliothek umzugehen ist ein Kinderspiel"));
 
         //12
         allCourse.add(new Course("Medizinische Informatik", allAdim.get(3), "Medizinische Informatik", "03-06-2016 08:00", 20, "F 212"));
-        allAchievements.add(new Achievement("Medizin",allCourse.get(12), 13, "Alle medizinischen Vorlesungen gehört."));
+        allAchievements.add(new Achievement("Medizin",allCourse.get(12), 13, "Alle medizinischen Vorlesungen geh\u00f6rt."));
         allAchievements.add(new Achievement("Frankenstein",allCourse.get(12), 1, "Geschichte der Medizin Test bestanden."));
 
         //Kursbelegungen
@@ -171,7 +171,7 @@ public class Master {
         todo.add("ball lecken");
         todo.add("krake riechen");
         todo.add("parfüm anfassen");
-        todo.add("attila grüßen");
+        todo.add("attila gr\u00fc\u00dfen");
         allUser.get(0).setTodos(todo, allCourse.get(9).getName());
         todo.clear();
 
@@ -182,7 +182,7 @@ public class Master {
 
         //Bart Simpson
         allUser.get(1).addCourse(allCourse.get(2));
-        todo.add("sigrund füttern");
+        todo.add("sigrund f\u00fcttern");
         todo.add("Pc sauber machen");
         todo.add("Alternative suchen");
         allUser.get(1).setTodos(todo, allCourse.get(2).getName());
