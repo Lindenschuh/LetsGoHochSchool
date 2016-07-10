@@ -55,7 +55,7 @@ public class AchievementsController extends Modul {
             courseAchievementsGallery.setEmptyMsg("Keine Erfolge vorhanden.");
 
             Master.allAchievements.forEach(achievement -> {
-                if(achievement.getCourse() == c) {
+                if(achievement.getCourse().equals(c) ) {
                     achievements.add(achievement);
                 }
             });

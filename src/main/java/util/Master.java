@@ -352,6 +352,11 @@ public class Master {
         String stringPath = Paths.get("").toAbsolutePath().toString();
         XStream xs = new XStream();
 
+        File dir = new File(stringPath + "/XMLSave");
+
+        if(!dir.exists())
+            dir.mkdir();
+
 
         try {
             BufferedReader br = null;

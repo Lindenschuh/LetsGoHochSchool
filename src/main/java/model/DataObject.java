@@ -15,4 +15,6 @@ public interface DataObject {
     void setImage(Image i);
     Image getImage();
 
+
+
 }

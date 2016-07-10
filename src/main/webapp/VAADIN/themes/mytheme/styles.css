@@ -29503,6 +29503,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .moduleFoot {
+	text-align: right;
 	width: 100%;
 	padding: 10px 15px 10px 15px;
 	border-top: #505050 1px solid;
@@ -29523,9 +29524,60 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .moduleContent .v-richtextarea, .mytheme .moduleSimple .v-richtextarea {
-	border: #2a2a2a 1px solid;
+	box-shadow: none;
+	background: none;
+	border: #505050 1px solid;
 	border-radius: 3px;
 	color: #e0e0e0;
+}
+
+.mytheme .moduleContent .v-richtextarea .gwt-RichTextToolbar, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextToolbar {
+	box-shadow: none;
+	color: #e0e0e0;
+	background: #2B2B2B;
+	border-color: #505050;
+	border-radius: 3px;
+}
+
+.mytheme .moduleContent .v-richtextarea .gwt-RichTextToolbar-top, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextToolbar-top {
+	box-shadow: none;
+	color: #e0e0e0;
+	background: #2B2B2B;
+	border: none;
+}
+
+.mytheme .moduleContent .v-richtextarea .gwt-RichTextToolbar-bottom, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextToolbar-bottom {
+	box-shadow: none;
+	border: none;
+}
+
+.mytheme .moduleContent .v-richtextarea .gwt-RichTextArea, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextArea {
+	box-shadow: none;
+	color: #e0e0e0;
+	background: #303030;
+}
+
+.mytheme .moduleContent .v-richtextarea .gwt-ListBox, .mytheme .moduleSimple .v-richtextarea .gwt-ListBox {
+	box-shadow: none;
+	color: #e0e0e0;
+	background: #303030;
+	border: #505050 1px solid;
+}
+
+.mytheme .moduleContent .v-richtextarea .gwt-PushButton, .mytheme .moduleSimple .v-richtextarea .gwt-PushButton, .mytheme .moduleContent .v-richtextarea .gwt-ToggleButton, .mytheme .moduleSimple .v-richtextarea .gwt-ToggleButton {
+	margin: 1px;
+}
+
+.mytheme .moduleContent .v-richtextarea .gwt-PushButton:hover, .mytheme .moduleSimple .v-richtextarea .gwt-PushButton:hover, .mytheme .moduleContent .v-richtextarea .gwt-ToggleButton:hover, .mytheme .moduleSimple .v-richtextarea .gwt-ToggleButton:hover {
+	color: #e0e0e0;
+	background: #424242;
+	border-radius: 3px;
+}
+
+.mytheme .moduleContent .v-richtextarea .gwt-ToggleButton-down, .mytheme .moduleSimple .v-richtextarea .gwt-ToggleButton-down {
+	color: #a0a0a0;
+	background: #424242;
+	border-radius: 3px;
 }
 
 .mytheme .moduleHead, .mytheme .talkTimeHead {
@@ -29553,6 +29605,25 @@ div.v-layout.v-horizontal.v-widget {
 	color: #e0e0e0;
 }
 
+.mytheme .module .v-button, .mytheme .moduleSimple .v-button, .mytheme .talkTime .v-button {
+	color: #e0e0e0;
+	background: #2a2a2a;
+	border-radius: 3px;
+	border: #505050 1px solid;
+	box-shadow: none;
+}
+
+.mytheme .module .v-textfield.v-readonly, .mytheme .moduleSimple .v-textfield.v-readonly, .mytheme .talkTime .v-textfield.v-readonly, .mytheme .module .v-textfield, .mytheme .moduleSimple .v-textfield, .mytheme .talkTime .v-textfield {
+	box-shadow: none;
+	background: #303030;
+	border: 1px solid #505050;
+	color: #e0e0e0;
+}
+
+.mytheme .module .v-textfield-prompt, .mytheme .moduleSimple .v-textfield-prompt, .mytheme .talkTime .v-textfield-prompt {
+	color: #505050;
+}
+
 .mytheme .module .gwt-FileUpload, .mytheme .moduleSimple .gwt-FileUpload, .mytheme .talkTime .gwt-FileUpload {
 	color: #e0e0e0;
 }
@@ -29566,6 +29637,20 @@ div.v-layout.v-horizontal.v-widget {
 	background: #47c0d2;
 	color: #47c0d2;
 	border: #47c0d2 1px solid;
+}
+
+.mytheme .module .v-filterselect-input, .mytheme .moduleSimple .v-filterselect-input, .mytheme .talkTime .v-filterselect-input {
+	box-shadow: none;
+	background: #303030;
+	border: 1px solid #505050;
+	color: #e0e0e0;
+}
+
+.mytheme .module .v-filterselect-button, .mytheme .moduleSimple .v-filterselect-button, .mytheme .talkTime .v-filterselect-button {
+	box-shadow: none;
+	background: #2a2a2a;
+	border-left: 1px solid #505050;
+	color: #e0e0e0;
 }
 
 .mytheme .borderlessButton {
@@ -29595,6 +29680,27 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .talkTimeHead {
 	font-weight: normal;
 	border: none;
+}
+
+.mytheme .code {
+	text-align: center;
+}
+
+.mytheme .v-label-empty {
+	color: #303030;
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+	opacity: 0.5;
+}
+
+.mytheme .v-filterselect-suggestpopup .v-filterselect-suggestmenu {
+	background: #303030;
+	border: #505050 1px solid;
+}
+
+.mytheme .v-filterselect-suggestpopup .gwt-MenuItem {
+	color: #e0e0e0;
 }
 
 .mytheme .page {

@@ -162,4 +162,12 @@ public class Course implements DataObject {
         return name;
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(((DataObject)obj).getName().equals(this.getName()))
+            return true;
+        else
+            return false;
+    }
 }
