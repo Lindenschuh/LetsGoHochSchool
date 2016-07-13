@@ -21,22 +21,61 @@ import java.nio.file.Paths;
  */
 public class SearchResultModul extends Modul {
 
+    /**
+     * Width and height of the images in pixels.
+     */
     private final static int IMAGE_SIZE = 75;
+
+    /**
+     * Period of time, that the error message gets shown in seconds.
+     */
     private final static int MESSAGETIME = 45;
 
+    /**
+     * Reference of the {@link MyUI}.
+     */
     private MyUI ui;
+
+    /**
+     * Data object of the search result.
+     */
     private Object data;
 
+    /**
+     * Image for the search result.
+     */
     private Image img;
+
+    /**
+     * Image for to do search results.
+     */
     private Image toDoImg;
+
+    /**
+     * Label with the name of the search result.
+     */
     private Label nameLabel;
+
+    /**
+     * Label with the description of the search result.
+     */
     private Label descriptionLabel;
 
     private HorizontalLayout contentLayout;
     private VerticalLayout descriptionLayout;
+
+    /**
+     * Width of a the search result module.
+     */
     private int moduleWidth;
 
 
+    /**
+     * Create a new search result.
+     * @param user The user using the search.
+     * @param ui The my ui.
+     * @param o The search result.
+     */
     public SearchResultModul(User user, MyUI ui, Object o) {
         super(user);
         data = o;
@@ -44,6 +83,9 @@ public class SearchResultModul extends Modul {
         createLayout();
     }
 
+    /**
+     * Calculate the search result module size.
+     */
     private void calcLayout() {
 
         int naviWidth = 180;
@@ -53,7 +95,9 @@ public class SearchResultModul extends Modul {
         moduleWidth = browserWidth - naviWidth - 2 * pageSpace ;
     }
 
-
+    /**
+     * Create the search result layout.
+     */
     private void createLayout() {
 
         loadToDoImg();
@@ -84,6 +128,9 @@ public class SearchResultModul extends Modul {
     }
 
 
+    /**
+     * Update the search result.
+     */
     private void update() {
         calcLayout();
         contentLayout.setWidth(moduleWidth, Sizeable.Unit.PIXELS);
@@ -103,13 +150,18 @@ public class SearchResultModul extends Modul {
         img.setHeight(IMAGE_SIZE, Sizeable.Unit.PIXELS);
     }
 
-
+    /**
+     * Create a to do search result.
+     */
     private void createToDo(){
         img = toDoImg;
         nameLabel.setValue("ToDo");
         descriptionLabel.setValue((String) data);
     }
 
+    /**
+     * Create a user search result.
+     */
     private void createUser() {
         User dataUser = (User) data;
         img = new Image(null, dataUser.getImage().getSource());
@@ -119,14 +171,15 @@ public class SearchResultModul extends Modul {
         contentLayout.addLayoutClickListener(event -> ui.setContentPage(new ProfileController(dataUser, ui)));
     }
 
+    /**
+     * Create a course search result.
+     */
     private void createCourse() {
         Course course = (Course) data;
 
         img = new Image(null, course.getImage().getSource());
         nameLabel.setValue(course.getName());
-
-        descriptionLabel.setValue(course.getDescription());
-        //descriptionLabel.setValue(course.getAdmin().getName());
+        descriptionLabel.setValue(course.getAdmin().getName());
 
         contentLayout.addLayoutClickListener(event -> {
             if (user.getCourses().contains(course)) {
@@ -140,6 +193,9 @@ public class SearchResultModul extends Modul {
         });
     }
 
+    /**
+     * Create a achievement search result.
+     */
     private void createAchievement() {
         Achievement achievement = (Achievement) data;
 
@@ -160,6 +216,9 @@ public class SearchResultModul extends Modul {
         });
     }
 
+    /**
+     * Load the to do image.
+     */
     private void loadToDoImg() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Icons/search_todo.png");

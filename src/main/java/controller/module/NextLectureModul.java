@@ -10,37 +10,69 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import model.Course;
 import model.User;
-import view.MyUI;
 
 
 import java.io.File;
 import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 /**
+ * The next lecture module displays the next lecture of a user.
  * @author Andreas Reinsch (193790).
  * @version 0.1
  */
 public class NextLectureModul extends Modul {
 
-    //TODO Mit css das Layout noch verfeinern.
+    /**
+     * The name of the module.
+     */
     private static final String MODULE_NAME = "N\u00e4chste Vorlesung";
+
+    /**
+     * The width and height of the image in pixels.
+     */
     private static final int IMAGE_SIZE = 100;
+
+    /**
+     * The width and height of the icon in pixels.
+     */
     private static final int ICON_SIZE = 20;
 
+    /**
+     * Layouts.
+     */
     private VerticalLayout moduleLayout;
     private VerticalLayout descriptionLayout;
     private HorizontalLayout dateLayout;
     private HorizontalLayout locationLayout;
     private HorizontalLayout contentLayout;
 
-    private MyUI ui;
+    /**
+     * The next course of the user.
+     */
     private Course nextCourse;
+
+    /**
+     * The date of the next course.
+     */
     private LocalDateTime nextLecture;
 
+    /**
+     * Label with the name of the next course.
+     */
     private Label nextName;
+
+    /**
+     * Label with the date of the next course.
+     */
     private Label nextTime;
+
+    /**
+     * Label with the room of the next course.
+     */
     private Label nextRoom;
 
     private Image freeImg;
@@ -49,15 +81,19 @@ public class NextLectureModul extends Modul {
     private Image dateIcon;
     private Image locationIcon;
 
-
-    public NextLectureModul(User user, MyUI ui) {
+    /**
+     * Create a new next lecture module.
+     * @param user User
+     */
+    public NextLectureModul(User user) {
         super(user);
-        this.ui = ui;
 
         createLayout();
-
     }
 
+    /**
+     * Setup the layout.
+     */
     private void createLayout() {
 
         //Create the GUI components.
@@ -73,10 +109,10 @@ public class NextLectureModul extends Modul {
         locationLayout = new HorizontalLayout();
 
         //Bilder laden
-        createFreeImage();
-        createDefaultImage();
-        createDateIcon();
-        createLocationIcon();
+        loadFreeImage();
+        loadDefaultImage();
+        loadDateIcon();
+        loadLocationIcon();
 
         //Elemente füllen.
         update();
@@ -101,7 +137,6 @@ public class NextLectureModul extends Modul {
         descriptionLayout.addComponent(dateLayout);
         descriptionLayout.addComponent(locationLayout);
 
-        //contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         contentLayout.addComponent(courseImg);
         contentLayout.addComponent(descriptionLayout);
 
@@ -112,6 +147,9 @@ public class NextLectureModul extends Modul {
     }
 
 
+    /**
+     * Update the module.
+     */
     private void update() {
 
         if((user.getCourses().size() > 0)) {
@@ -148,7 +186,7 @@ public class NextLectureModul extends Modul {
         }
     }
 
-    private void createDefaultImage() {
+    private void loadDefaultImage() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Course/default.png");
 
@@ -157,13 +195,10 @@ public class NextLectureModul extends Modul {
             defaultImg = new Image(null, resource);
             defaultImg.setWidth(IMAGE_SIZE, Sizeable.Unit.PIXELS);
             defaultImg.setHeight(IMAGE_SIZE, Sizeable.Unit.PIXELS);
-            defaultImg.addClickListener(event -> {
-                //update();
-            });
         }
     }
 
-    private void createFreeImage() {
+    private void loadFreeImage() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Course/Freizeit.png");
 
@@ -176,7 +211,7 @@ public class NextLectureModul extends Modul {
         }
     }
 
-    private void createDateIcon() {
+    private void loadDateIcon() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Icons/dateLight.png");
 
@@ -189,7 +224,7 @@ public class NextLectureModul extends Modul {
         }
     }
     
-    private void createLocationIcon() {
+    private void loadLocationIcon() {
         File f = new File(Paths.get("").toAbsolutePath().toString()
                 + "/Resource/Images/Icons/locationLight.png");
 
@@ -202,12 +237,18 @@ public class NextLectureModul extends Modul {
         }
     }
 
+    /**
+     * Format the date.
+     * @param date Date to format.
+     * @return Formatted date as string.
+     */
     private String createTimeLabel(LocalDateTime date) {
 
         String month = Integer.toString(date.getMonthValue());
         if (date.getMonthValue() < 10) {
             month = "0" + month;
         }
+
         String day = Integer.toString(date.getDayOfMonth());
         if (date.getDayOfMonth() < 10) {
             day = "0" + day;
@@ -224,42 +265,8 @@ public class NextLectureModul extends Modul {
             min = "0" + min;
         }
 
-        StringBuilder dateBuilder = new StringBuilder();
-
-        switch(dayOfWeek.getValue()) {
-            case 0:
-                dateBuilder.append("So ");
-                break;
-            case 1:
-                dateBuilder.append("Mo ");
-                break;
-            case 2:
-                dateBuilder.append("Di ");
-                break;
-            case 3:
-                dateBuilder.append("Mi ");
-                break;
-            case 4:
-                dateBuilder.append("Do ");
-                break;
-            case 5:
-                dateBuilder.append("Fr ");
-                break;
-            case 6:
-                dateBuilder.append("Sa ");
-        }
-
-        dateBuilder.append(day);
-        dateBuilder.append(".");
-        dateBuilder.append(month);
-        dateBuilder.append(", ");
-
-        dateBuilder.append(hour);
-        dateBuilder.append(":");
-        dateBuilder.append(min);
-        dateBuilder.append(" ");
-
-        return dateBuilder.toString();
+        return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.GERMANY) +
+                " " + day + "." + month + ", " + hour + ":" + min;
     }
 }
 

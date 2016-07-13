@@ -12,22 +12,20 @@ import view.MyUI;
 import java.util.ArrayList;
 
 /**
+ * The start page. Currently two modules.
+ * The next lecture module, which displays the next lecture of the current user
+ * and a gallery with all courses of the user.
  * @author Andreas Reinsch (193790).
  * @version 0.1
  */
 public class HomeController extends Modul {
 
-    //TODO: Noch andere Module einfügen.
-
-    private NextLectureModul nextLecture;
-    private GalleryModul courseGallery;
-
     public HomeController(User user, MyUI ui) {
         super(user);
 
         //Create the modules.
-        nextLecture = new NextLectureModul(user, ui);
-        courseGallery = new GalleryModul(user, ui);
+        NextLectureModul nextLecture = new NextLectureModul(user);
+        GalleryModul courseGallery = new GalleryModul(user, ui);
 
         //Setup the gallery module.
         courseGallery.setName("Kurse");

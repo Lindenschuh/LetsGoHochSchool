@@ -123,6 +123,10 @@ public class GalleryModul extends Modul {
      */
     private ArrayList<GalleryItemListener> itemListeners;
     private ArrayList<GalleryButtonListener> buttonListener;
+
+    /**
+     * The String that gets shown, when the gallery is empty.
+     */
     private String emptyMsg;
 
     /**
@@ -147,7 +151,7 @@ public class GalleryModul extends Modul {
 
     /**
      * Calculate the amount of items that can be
-     * shown and the module width.
+     * shown in the gallery and the module width.
      */
     private void calcLayout() {
         maxColumns = 0;
@@ -247,7 +251,7 @@ public class GalleryModul extends Modul {
     }
 
     /**
-     * Create the images for the data
+     * Create the images for the data.
      */
     private void fillList() {
         dataImg.clear();
