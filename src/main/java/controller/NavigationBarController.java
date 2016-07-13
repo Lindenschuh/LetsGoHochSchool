@@ -5,13 +5,12 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.VerticalLayout;
 import controller.module.Modul;
-import model.Achievement;
 import model.User;
 import view.MyUI;
 
 /**
- * Created by AnAnd on 10.06.2016.
- *
+ * A navigation bar to switch between the page.
+ * @author Andreas Reinsch (193790)
  */
 public class NavigationBarController extends Modul {
 
@@ -27,6 +26,9 @@ public class NavigationBarController extends Modul {
         createLayout();
     }
 
+    /**
+     * Create the layout for the navigation bar.
+     */
     private void createLayout() {
 
         VerticalLayout naviBar = new VerticalLayout();

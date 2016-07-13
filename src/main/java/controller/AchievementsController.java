@@ -1,6 +1,5 @@
 package controller;
 
-import com.vaadin.ui.AbstractLayout;
 import com.vaadin.ui.VerticalLayout;
 import controller.module.GalleryModul;
 import controller.module.Modul;
@@ -9,26 +8,23 @@ import model.User;
 import util.Master;
 import view.MyUI;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
+ * The achievement page.
+ * Admin gets a list of all achievements sorted by the courses.
+ * Users get a list of open and finished achievements.
  * @author Andreas Reinsch (193790).
  * @version 0.1
  */
 public class AchievementsController extends Modul {
-
-    private static final int COMPONENT_SIZE = 100;
 
     private VerticalLayout moduleLayout;
 
     public AchievementsController(User user, MyUI ui) {
         super(user);
         moduleLayout = new VerticalLayout();
-        createLayout(user, ui);
-    }
 
-    private void createLayout(User user, MyUI ui) {
         if(user.isAdmin()) {
             createAdminLayout(user, ui);
         } else {
@@ -42,6 +38,11 @@ public class AchievementsController extends Modul {
     }
 
 
+    /**
+     * Create the layout for a admin.
+     * @param user The current user.
+     * @param ui The my ui.
+     */
     private void createAdminLayout(User user, MyUI ui) {
         user.getCourses().forEach(c -> {
             ArrayList<Achievement> achievements = new ArrayList<>();
@@ -64,6 +65,11 @@ public class AchievementsController extends Modul {
         });
     }
 
+    /**
+     * Create the layout for a normal user.
+     * @param user The current user.
+     * @param ui The my ui.
+     */
     private void createUserLayout(User user, MyUI ui){
         ArrayList<Achievement> openAchievements = new ArrayList<>();
         ArrayList<Achievement> finishedAchievements = new ArrayList<>();

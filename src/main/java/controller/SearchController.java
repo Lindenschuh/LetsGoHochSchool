@@ -18,17 +18,40 @@ import java.nio.file.Paths;
  */
 public class SearchController extends Modul {
 
+    /**
+     * Width and height of the search icon in pixels.
+     */
     private final static int ICON_SIZE = 38;
 
+    /**
+     * Reference of the my ui.
+     */
     private MyUI ui;
+
+    /**
+     * Placeholder.
+     */
     private Image placeholder;
+
+    /**
+     * Search icon.
+     */
     private Image searchIcon;
+
+    /**
+     * Textfield to enter a search string.
+     */
     private TextField searchField;
     private HorizontalLayout searchLayout;
     private VerticalLayout searchResultLayout;
     private CssLayout searchBar;
     private Modul previousPage;
 
+    /**
+     * Create a new search controller.
+     * @param user The current user.
+     * @param ui The my ui.
+     */
     public SearchController(User user, MyUI ui) {
         super(user);
         this.ui = ui;
@@ -41,6 +64,9 @@ public class SearchController extends Modul {
         createLayout();
     }
 
+    /**
+     * Create the layout for the search.
+     */
     private void createLayout() {
 
         createLayoutSearchBar();
@@ -59,6 +85,10 @@ public class SearchController extends Modul {
         });
     }
 
+
+    /**
+     * Create the search results.
+     */
     private void createLayoutSearchResult() {
         searchResultLayout = new VerticalLayout();
         searchResultLayout.setStyleName("page");
@@ -66,7 +96,9 @@ public class SearchController extends Modul {
         layout.addComponent(searchResultLayout);
     }
 
-
+    /**
+     * Create the search bar.
+     */
     private void createLayoutSearchBar() {
 
         //The search is hidden by default.
@@ -113,6 +145,10 @@ public class SearchController extends Modul {
     }
 
 
+    /**
+     * Set, if the search gets shown or hidden.
+     * @param show True = show, False = hide.
+     */
     public void show(boolean show) {
 
         //Show placeholder or searchfield.
@@ -129,14 +165,26 @@ public class SearchController extends Modul {
         }
     }
 
+    /**
+     * Checks, if the search is hide or not.
+     * @return True, if shown. False, if hidden.
+     */
     public boolean isVisible() {
         return searchLayout.isVisible();
     }
 
+    /**
+     * The the search text field.
+     * @return The search text field.
+     */
     public CssLayout getSearchBar() {
         return searchBar;
     }
 
+    /**
+     * Update the search module/result.
+     * @param search The search string entered by the user.
+     */
     public void update(String search) {
 
         //Clean up.
