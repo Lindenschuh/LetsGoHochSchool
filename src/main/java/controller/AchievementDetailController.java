@@ -128,7 +128,7 @@ public class AchievementDetailController extends Modul {
 
     private void saveData() {
         progressModuls.forEach(e -> {
-            e.deleteTemp();
+            e.saveData();
             achievement.achievementFinished(e.getUser());
         });
         ui.setContentPage(new AchievementsController(user, ui));

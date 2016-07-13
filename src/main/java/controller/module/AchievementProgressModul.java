@@ -97,30 +97,28 @@ public class AchievementProgressModul extends Modul {
     }
 
     private void setUpProgressBar() {
-        int currentValue = achievement.getUserProgress().get(user);
+        int currentValue = achievement.getUserProgress().get(user) + tempAdded;
         userProgress.setValue((float) currentValue / achievement.getMaxValue());
-        progressLbl.setValue(achievement.getUserProgress().get(user).toString() + "/" + achievement.getMaxValue());
+        progressLbl.setValue(currentValue + "/" + achievement.getMaxValue());
 
     }
 
     private void add() {
-        int temp = achievement.getUserProgress().get(user);
+        int temp = achievement.getUserProgress().get(user) + tempAdded;
         if(temp < achievement.getMaxValue()) {
             temporary = true;
             tempAdded++;
-            achievement.getUserProgress().put(user, ++temp);
         }
         setUpProgressBar();
         proofTemp();
     }
 
     public void trash() {
-        int temp = achievement.getUserProgress().get(user);
         temporary = false;
-        achievement.getUserProgress().put(user, temp - tempAdded);
+        tempAdded = 0;
         setUpProgressBar();
         proofTemp();
-        tempAdded = 0;
+
     }
 
     private void proofTemp() {
@@ -142,8 +140,10 @@ public class AchievementProgressModul extends Modul {
 
     public boolean getTemp() { return this.temporary; }
 
-    public void deleteTemp() {
+    public void saveData() {
         temporary = false;
+        int old = achievement.getUserProgress().get(user);
+        achievement.getUserProgress().put(user, old + tempAdded);
         tempAdded = 0;
     }
 
