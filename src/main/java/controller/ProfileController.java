@@ -1,10 +1,7 @@
 package controller;
 
 import com.vaadin.ui.VerticalLayout;
-import controller.module.GalleryModul;
-import controller.module.Modul;
-import controller.module.Profile;
-import controller.module.SubscribeModul;
+import controller.module.*;
 import model.Course;
 import model.User;
 import view.MyUI;
@@ -41,13 +38,19 @@ public class ProfileController extends Modul {
             gallery.setName("Kurse");
             gallery.setEmptyMsg("Keine Kurse vorhanden.");
             gallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
-            gallery.addButtonClickedListener(() -> ui.setContentPage(new SubscribeModul(user, ui)));
+            if (user.isAdmin()) {
+                gallery.addButtonClickedListener(() -> ui.setContentPage(new NewLecture(user, ui)));
+            }
+            if (!user.isAdmin()) {
+                gallery.addButtonClickedListener(() -> ui.setContentPage(new SubscribeModul(user, ui)));
+            }
             gallery.setData((ArrayList) user.getCourses());
 
         } else if (user.isAdmin()) {
             gallery.setName("Vorlesungen");
             gallery.setEmptyMsg("Keine Vorlesungen vorhanden.");
             gallery.setData((ArrayList) user.getCourses());
+
         } else {
             gallery.setName("Erfolge");
             gallery.setEmptyMsg("Keine Erfolge vorhanden.");
