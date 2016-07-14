@@ -91,12 +91,7 @@ public class AchievementDetailController extends Modul {
             AchievementProgressModul achievementProgressModul = new AchievementProgressModul(u, achievement, true, this);
             userFinished.addComponent(achievementProgressModul.getContent());
         });
-
-        ui.getContentLayout().addComponentDetachListener(listener -> {
-            if (ui.getContentPage() == this) {
-                progressModuls.forEach(e -> e.trash());
-            }
-        });
+        
     }
 
     public void setOpenButtonLayout() {
