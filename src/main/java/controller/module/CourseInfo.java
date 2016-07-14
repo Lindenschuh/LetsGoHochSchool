@@ -4,18 +4,22 @@ import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
+import controller.HomeController;
 import model.Course;
 import model.User;
+import view.MyUI;
 
 
 public class CourseInfo extends Modul {
     User usr;
     Course course;
     Label area;
+    MyUI ui;
 
-    public CourseInfo(User user, Course course) {
+    public CourseInfo(User user, Course course, MyUI ui) {
         super(user);
         usr = user;
+        this.ui = ui;
         area = new Label("", ContentMode.HTML);
         this.course = course;
         setupLayout();
@@ -80,6 +84,17 @@ public class CourseInfo extends Modul {
                     footLayout.addComponent(bttn1);
                 }
             });
+            footLayout.addComponent(bttn);
+            layout.addComponent(footLayout);
+        }
+
+        if (!user.isAdmin()) {
+            Button bttn = new Button("Ausschreiben");
+            bttn.addClickListener(clickEvent -> {
+                user.removeCourse(course);
+                ui.setContentPage(new HomeController(user, ui));
+            });
+
             footLayout.addComponent(bttn);
             layout.addComponent(footLayout);
         }
