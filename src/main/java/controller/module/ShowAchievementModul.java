@@ -43,48 +43,92 @@ public class ShowAchievementModul extends Modul {
         this.ui = ui;
         this.achievement = achievement;
 
-        modulLayout = new VerticalLayout();
-        modulLayout.addStyleName("module");
-        layout.addComponent(modulLayout);
+        if(user.isAdmin()) {
+            modulLayout = new VerticalLayout();
+            modulLayout.addStyleName("module");
+            layout.addComponent(modulLayout);
 
-        achievementName = new Label(this.achievement.getName());
-        achievementName.addStyleName("moduleHead");
-        modulLayout.addComponent(achievementName);
+            achievementName = new Label(this.achievement.getName());
+            achievementName.addStyleName("moduleHead");
+            modulLayout.addComponent(achievementName);
 
-        contentLayout = new HorizontalLayout();
-        contentLayout.setStyleName("moduleContent");
-        contentLayout.setWidth(calcWidth(), Sizeable.Unit.PIXELS);
-        modulLayout.addComponent(contentLayout);
+            contentLayout = new HorizontalLayout();
+            contentLayout.setStyleName("moduleContent");
+            contentLayout.setWidth(calcWidth(), Sizeable.Unit.PIXELS);
+            modulLayout.addComponent(contentLayout);
 
-        achievementImage = new Image(null, achievement.getImage().getSource());
-        achievementImage.setWidth(IMAGE_SIZE, Sizeable.Unit.PIXELS);
-        achievementImage.setHeight(IMAGE_SIZE, Sizeable.Unit.PIXELS);
-        contentLayout.addComponent(achievementImage);
+            achievementImage = new Image(null, achievement.getImage().getSource());
+            achievementImage.setWidth(IMAGE_SIZE, Sizeable.Unit.PIXELS);
+            achievementImage.setHeight(IMAGE_SIZE, Sizeable.Unit.PIXELS);
+            contentLayout.addComponent(achievementImage);
 
-        descriptionLayout = new VerticalLayout();
-        descriptionLayout.setStyleName("descriptionLayout");
-        contentLayout.addComponent(descriptionLayout);
-        contentLayout.setExpandRatio(descriptionLayout, 1);
+            descriptionLayout = new VerticalLayout();
+            descriptionLayout.setStyleName("descriptionLayout");
+            contentLayout.addComponent(descriptionLayout);
+            contentLayout.setExpandRatio(descriptionLayout, 1);
 
-        achievementDescription = new Label(this.achievement.getDescription());
-        achievementDescription.setStyleName("descriptionLecture");
-        descriptionLayout.addComponent(achievementDescription);
+            achievementDescription = new Label(this.achievement.getDescription());
+            achievementDescription.setStyleName("descriptionLecture");
+            descriptionLayout.addComponent(achievementDescription);
 
-        progressLayout = new HorizontalLayout();
-        progressLayout.setSpacing(true);
-        descriptionLayout.addComponent(progressLayout);
+            progressLayout = new HorizontalLayout();
+            progressLayout.setSpacing(true);
+            descriptionLayout.addComponent(progressLayout);
 
-        workingOnProgress = new ProgressBar(0.5f);
-        progressLayout.addComponent(workingOnProgress);
+            workingOnProgress = new ProgressBar(0.5f);
+            progressLayout.addComponent(workingOnProgress);
 
-        actualizeProgressBar();
+            actualizeProgressBar();
 
-        progressLbl = new Label(usersNumber + "/" + userSum);
-        progressLayout.addComponent(progressLbl);
+            progressLbl = new Label(usersNumber + "/" + userSum);
+            progressLayout.addComponent(progressLbl);
 
+
+        } else {
+            modulLayout = new VerticalLayout();
+            modulLayout.setStyleName("module");
+            layout.addComponent(modulLayout);
+
+            achievementName = new Label(this.achievement.getName());
+            achievementName.addStyleName("moduleHead");
+            modulLayout.addComponent(achievementName);
+
+            contentLayout = new HorizontalLayout();
+            contentLayout.addStyleName("moduleContent");
+            contentLayout.setWidth(calcWidth(), Sizeable.Unit.PIXELS);
+            modulLayout.addComponent(contentLayout);
+
+            achievementImage = new Image(null, achievement.getImage().getSource());
+            achievementImage.setWidth(IMAGE_SIZE, Sizeable.Unit.PIXELS);
+            achievementImage.setHeight(IMAGE_SIZE, Sizeable.Unit.PIXELS);
+            contentLayout.addComponent(achievementImage);
+
+            descriptionLayout = new VerticalLayout();
+            descriptionLayout.setStyleName("descriptionLayout");
+            contentLayout.addComponent(descriptionLayout);
+            contentLayout.setExpandRatio(descriptionLayout, 1);
+
+            achievementDescription = new Label(this.achievement.getDescription());
+            achievementDescription.setStyleName("descriptionLecture");
+            descriptionLayout.addComponent(achievementDescription);
+
+            progressLayout = new HorizontalLayout();
+            progressLayout.setSpacing(true);
+            descriptionLayout.addComponent(progressLayout);
+
+            workingOnProgress = new ProgressBar(0.5f);
+            progressLayout.addComponent(workingOnProgress);
+
+            actualizeUserProgressBar();
+
+            progressLbl = new Label(achievement.getOnesUserProgress(user) + "/" + achievement.getMaxValue());
+            progressLayout.addComponent(progressLbl);
+
+        }
         ui.getPage().addBrowserWindowResizeListener(event -> contentLayout.setWidth(calcWidth(), Sizeable.Unit.PIXELS));
 
     }
+
 
     public int calcWidth() {
         int naviWidth = 180;
@@ -101,6 +145,12 @@ public class ShowAchievementModul extends Modul {
 
         progressValue = (float) usersNumber/userSum;
 
+        workingOnProgress.setValue(progressValue);
+    }
+
+    public void actualizeUserProgressBar() {
+        int value = achievement.getOnesUserProgress(user);
+        progressValue = (float) value/achievement.getMaxValue();
         workingOnProgress.setValue(progressValue);
     }
 

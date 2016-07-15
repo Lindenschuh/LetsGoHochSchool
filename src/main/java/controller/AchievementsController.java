@@ -78,9 +78,13 @@ public class AchievementsController extends Modul {
         GalleryModul finishedAchievementsGallery = new GalleryModul(user, ui);
 
         openAchievementsGallery.setName("Offene Erfolge");
+        openAchievementsGallery.addItemClickedListener(e ->
+                ui.setContentPage(new AchievementDetailController(user, ui, (Achievement) e)));
         openAchievementsGallery.setEmptyMsg("Keine Erfolge vorhanden.");
         openAchievementsGallery.setMaxWidth(true);
         finishedAchievementsGallery.setName("Abgeschlossene Erfolge");
+        finishedAchievementsGallery.addItemClickedListener(e ->
+                ui.setContentPage(new AchievementDetailController(user, ui, (Achievement) e)));
         finishedAchievementsGallery.setEmptyMsg("Keine Erfolge vorhanden.");
         finishedAchievementsGallery.setMaxWidth(true);
 

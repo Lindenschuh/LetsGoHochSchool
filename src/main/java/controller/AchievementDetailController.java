@@ -48,49 +48,59 @@ public class AchievementDetailController extends Modul {
         this.achievement = achievement;
         this.ui = ui;
 
-        layout.addStyleName("page");
-        contentLayout = new VerticalLayout();
-        contentLayout.setSpacing(true);
-        layout.addComponent(contentLayout);
 
-        showAchievementModul = new ShowAchievementModul(user, ui, achievement);
-        contentLayout.addComponent(showAchievementModul.getContent());
+        if(this.user.isAdmin()) {
+            layout.addStyleName("page");
+            contentLayout = new VerticalLayout();
+            contentLayout.setSpacing(true);
+            layout.addComponent(contentLayout);
 
-        userOpen = new VerticalLayout();
-        userOpen.setStyleName("module");
-        contentLayout.addComponent(userOpen);
+            showAchievementModul = new ShowAchievementModul(user, ui, achievement);
+            contentLayout.addComponent(showAchievementModul.getContent());
 
-        headerOpen = new Label(OPEN_ACHIEVMENTS_TEXT);
-        headerOpen.addStyleName("moduleHead");
-        userOpen.addComponent(headerOpen);
+            userOpen = new VerticalLayout();
+            userOpen.setStyleName("module");
+            contentLayout.addComponent(userOpen);
 
-        progressModuls = new ArrayList<>();
+            headerOpen = new Label(OPEN_ACHIEVMENTS_TEXT);
+            headerOpen.addStyleName("moduleHead");
+            userOpen.addComponent(headerOpen);
 
-        achievement.getUserProgress().forEach((k,v) -> {
-            AchievementProgressModul achievementProgressModul = new AchievementProgressModul(k, achievement, false, this);
-            progressModuls.add(achievementProgressModul);
-            userOpen.addComponent(achievementProgressModul.getContent());
-        });
+            progressModuls = new ArrayList<>();
 
-        buttonActive = false;
-        oneModuleTrue = false;
+            achievement.getUserProgress().forEach((k, v) -> {
+                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(k, achievement, false, this);
+                progressModuls.add(achievementProgressModul);
+                userOpen.addComponent(achievementProgressModul.getContent());
+            });
 
-        setOpenButtonLayout();
+            buttonActive = false;
+            oneModuleTrue = false;
+
+            setOpenButtonLayout();
 
 
+            userFinished = new VerticalLayout();
+            userFinished.setStyleName("module");
+            contentLayout.addComponent(userFinished);
 
-        userFinished = new VerticalLayout();
-        userFinished.setStyleName("module");
-        contentLayout.addComponent(userFinished);
+            headerFinished = new Label(FINISHED_ACHIEVMENTS_TEXT);
+            headerFinished.setStyleName("moduleHead");
+            userFinished.addComponent(headerFinished);
 
-        headerFinished = new Label(FINISHED_ACHIEVMENTS_TEXT);
-        headerFinished.setStyleName("moduleHead");
-        userFinished.addComponent(headerFinished);
+            achievement.getUserFinished().forEach(u -> {
+                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(u, achievement, true, this);
+                userFinished.addComponent(achievementProgressModul.getContent());
+            });
+        } else {
+            layout.addStyleName("page");
+            contentLayout = new VerticalLayout();
+            contentLayout.setSpacing(true);
+            layout.addComponent(contentLayout);
 
-        achievement.getUserFinished().forEach(u -> {
-            AchievementProgressModul achievementProgressModul = new AchievementProgressModul(u, achievement, true, this);
-            userFinished.addComponent(achievementProgressModul.getContent());
-        });
+            showAchievementModul = new ShowAchievementModul(user, ui, achievement);
+            contentLayout.addComponent(showAchievementModul.getContent());
+        }
         
     }
 
