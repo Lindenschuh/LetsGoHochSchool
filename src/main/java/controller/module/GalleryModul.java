@@ -409,6 +409,7 @@ public class GalleryModul extends Modul {
     public void addButtonClickedListener(GalleryButtonListener listener){
         showAdd = true;
         buttonListener.add(listener);
+        update();
     }
 
 }

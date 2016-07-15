@@ -9,6 +9,7 @@ import controller.module.FileModul;
 import controller.module.Modul;
 import model.Course;
 import model.User;
+import view.MyUI;
 
 import java.util.ArrayList;
 
@@ -20,11 +21,13 @@ public class CourseController extends Modul {
     User user;
     ComboBox comb;
     Course currentCourse;
+    MyUI ui;
 
 
-    public CourseController(User user) {
+    public CourseController(User user, MyUI ui) {
         super(user);
 
+        this.ui = ui;
         this.courses = user.getCourses();
         this.user = user;
         comb = new ComboBox();
@@ -73,7 +76,7 @@ public class CourseController extends Modul {
         grid.addComponent(combLayout);
         grid.addComponent(codeGenLayout, 1, 0);
         grid.addComponent(new TodoList(user, course).getContent(), 0, 1, 0, 3);
-        grid.addComponent(new CourseInfo(user, course).getContent(),0, 4, 0, 4);
+        grid.addComponent(new CourseInfo(user, course, ui).getContent(),0, 4, 0, 4);
 
         grid.addComponent(new FileModul(user, course).getContent(), 1, 1, 1, 4);
 

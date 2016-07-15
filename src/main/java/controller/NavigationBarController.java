@@ -77,7 +77,7 @@ public class NavigationBarController extends Modul {
             //Hide the search and check, if a page change is needed.
             search.show(false);
             if (!(currentPage instanceof CourseController)) {
-                ui.setContentPage(new CourseController(user));
+                ui.setContentPage(new CourseController(user, ui));
             }
         });
         courseBtn.setIcon(FontAwesome.BOOK);
