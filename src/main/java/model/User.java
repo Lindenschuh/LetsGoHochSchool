@@ -69,7 +69,8 @@ public class User implements DataObject{
 
     public void setTodos(ArrayList<String> todoList, String course)
     {
-        todos.put(course,todoList);
+        ArrayList<String> newTodos = (ArrayList<String>) todoList.clone();
+        todos.put(course,newTodos);
     }
 
     @Override
