@@ -68,7 +68,7 @@ public class CodeGenModul extends Modul {
                 codeInput.setReadOnly(true);
                 ScheduledExecutorService execSer = Executors.newScheduledThreadPool(5);
                 execSer.schedule(()->codeInput.setReadOnly(false) ,VALIDTIME, TimeUnit.MILLISECONDS);
-                
+                course.visitCourse(user);
                 Notification notify = new Notification("Erfolgreich", Notification.Type.ASSISTIVE_NOTIFICATION);
                 notify.setDelayMsec(MESSAGETIME);
                 notify.setPosition(Position.TOP_RIGHT);
