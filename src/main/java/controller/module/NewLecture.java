@@ -69,7 +69,7 @@ public class NewLecture extends Modul {
             try {
                 Integer.parseInt(hours.getValue());
             } catch ( Exception e) {
-                Notification success = new Notification("Nur Zahlen in Anzahl der Vorlesungen", Notification.Type.ERROR_MESSAGE);
+                Notification success = new Notification("Bitte nur Zahlen in \"Anzahl Vorlesungen\"", Notification.Type.ERROR_MESSAGE);
                 success.setDelayMsec(1000);
                 success.setPosition(Position.TOP_CENTER);
                 success.show(Page.getCurrent());
@@ -87,7 +87,7 @@ public class NewLecture extends Modul {
 
             Master.allCourse.add(newCourse);
 
-            Notification success = new Notification("Course erfolgreich erstellt", Notification.Type.HUMANIZED_MESSAGE);
+            Notification success = new Notification("Kurse erfolgreich erstellt", Notification.Type.HUMANIZED_MESSAGE);
             success.setDelayMsec(1000);
             success.setPosition(Position.TOP_CENTER);
             success.show(Page.getCurrent());
@@ -114,7 +114,7 @@ public class NewLecture extends Modul {
         }
 
         if (courseName.isEmpty()) {
-            errormsg += "Kein Kursname vorhanden \n";
+            errormsg += "Kein Kursname angegeben \n";
             valid = false;
         }
         if (hours.isEmpty()) {
@@ -126,7 +126,7 @@ public class NewLecture extends Modul {
             valid = false;
         }
         if (room.isEmpty()) {
-            errormsg += "Keine Raumnummer Angegeben";
+            errormsg += "Keinen Raum angegeben";
             valid = false;
         }
 

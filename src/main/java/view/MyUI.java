@@ -59,12 +59,12 @@ public class MyUI extends UI {
         setContent(wrapperLayout);
 
 
-            Master.loadDB();
+        Master.loadDB();
 
 
         //DEBUG -> Set a currentUser to skip the login screen.
         if(DEBUG) {
-            currentUser = Master.allUser.get(1);
+            currentUser = Master.allUser.get(0);
         }
 
         //Login page?
@@ -179,7 +179,7 @@ public class MyUI extends UI {
 
         if(currentUser == null)
         {
-            Notification notify = new Notification("error" ,"username or Password is wrong", Notification.Type.ERROR_MESSAGE);
+            Notification notify = new Notification("error" ,"Benutzername oder Passwort falsch.", Notification.Type.ERROR_MESSAGE);
             notify.setDelayMsec(1000);
             notify.setPosition(Position.TOP_RIGHT);
             notify.show(Page.getCurrent());
@@ -187,7 +187,7 @@ public class MyUI extends UI {
 
         }else {
 
-            Notification notify = new Notification("Loggin" ,"Hallo "+ currentUser.getName(), Notification.Type.ASSISTIVE_NOTIFICATION);
+            Notification notify = new Notification("Login" ,"Hallo "+ currentUser.getName(), Notification.Type.ASSISTIVE_NOTIFICATION);
             notify.setDelayMsec(1000);
             notify.setPosition(Position.TOP_RIGHT);
             notify.show(Page.getCurrent());
