@@ -40,6 +40,10 @@ public class NewAV extends Modul {
         rta.setValue("Beschreibung");
         submit.addClickListener(clickEvent -> {
 
+            if (testData(course)) {
+                return;
+            }
+
             try {
                 Integer.parseInt(maxValue.getValue());
             } catch (Exception e) {
@@ -68,6 +72,29 @@ public class NewAV extends Modul {
         });
 
         setupLayout();
+    }
+
+    private boolean testData(Course course) {
+        boolean valid = true;
+        String errorMsg = "";
+        if (name.isEmpty()) {
+            valid = false;
+            errorMsg += "Kein Kursname\n";
+        }
+
+        if (maxValue.isEmpty()) {
+            valid = false;
+            errorMsg += "Kein Max. Wert";
+        }
+
+        if (!valid) {
+            Notification fail = new Notification(errorMsg, Notification.Type.ERROR_MESSAGE);
+            fail.setDelayMsec(1000);
+            fail.setPosition(Position.TOP_CENTER);
+            fail.show(Page.getCurrent());
+        }
+
+        return valid;
     }
 
     private void setupLayout()
