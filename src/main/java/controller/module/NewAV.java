@@ -15,30 +15,30 @@ import view.MyUI;
  */
 public class NewAV extends Modul {
 
-    //String name, Course course, int maxValue, String description
-
-    VerticalLayout verticalLayout;
-    TextField name;
-    Course course;
-    TextField maxValue;
-    RichTextArea rta;
-    Button submit;
+    private MyUI ui;
+    private VerticalLayout verticalLayout;
+    private TextField name;
+    private Course course;
+    private TextField maxValue;
+    private TextField descriptionField;
+    private Button submit;
     static String errorMsg = "";
 
 
     public NewAV(User user, MyUI ui, Course course) {
         super(user);
+        this.ui = ui;
         this.course = course;
 
         verticalLayout  = new VerticalLayout();
         name            = new TextField();
         maxValue        = new TextField();
-        rta             = new RichTextArea();
-        submit          = new Button("submit");
+        descriptionField= new TextField();
+        submit          = new Button("Erstellen");
 
         name.setInputPrompt("Name");
         maxValue.setInputPrompt("Benötigter Wert");
-        rta.setValue("Beschreibung");
+        descriptionField.setInputPrompt("Beschreibung");
         submit.addClickListener(clickEvent -> {
 
         boolean valid = false;
@@ -48,7 +48,7 @@ public class NewAV extends Modul {
             try {
                 Integer.parseInt(maxValue.getValue());
             } catch (Exception e) {
-                Notification success = new Notification("Nur Zahlen in Benötigter Wert", Notification.Type.ERROR_MESSAGE);
+                Notification success = new Notification("Nur Zahlen in \"Benötigter Wert\"", Notification.Type.ERROR_MESSAGE);
                 success.setDelayMsec(1000);
                 success.setPosition(Position.TOP_CENTER);
                 success.show(Page.getCurrent());
@@ -63,7 +63,7 @@ public class NewAV extends Modul {
                 return;
             }
 
-            Master.allAchievements.add(new Achievement(name.getValue(), this.course, Integer.parseInt(maxValue.getValue()), rta.getValue()));
+            Master.allAchievements.add(new Achievement(name.getValue(), this.course, Integer.parseInt(maxValue.getValue()), descriptionField.getValue()));
             Master.allAchievements.get(Master.allAchievements.size() - 1).setImage(Master.loadImage(Master.allAchievements.get(Master.allAchievements.size() - 1)));
 
             Master.allUser.forEach(user1 -> {
@@ -88,11 +88,11 @@ public class NewAV extends Modul {
         errorMsg = "";
         if (name.isEmpty()) {
             valid = false;
-            errorMsg += "Kein Kursname\n";
+            errorMsg += "Kein Name angeben.";
         } else {
             Master.allCourse.forEach(course1 -> {
                 if(course1.getName().equals(name.getValue())) {
-                    errorMsg += "Kurs bereits vorhanden\n";
+                    errorMsg += "Achievement bereits vorhanden\n";
                 }
             });
         }
@@ -118,10 +118,34 @@ public class NewAV extends Modul {
 
     private void setupLayout()
     {
+        VerticalLayout moduleLayout = new VerticalLayout();
+        HorizontalLayout footLayout = new HorizontalLayout();
+        Label nameLbl = new Label("Erfolg erstellen");
+
+        verticalLayout.setSpacing(true);
         verticalLayout.addComponent(name);
         verticalLayout.addComponent(maxValue);
-        verticalLayout.addComponent(rta);
-        verticalLayout.addComponent(submit);
-        layout.addComponent(verticalLayout);
+        verticalLayout.addComponent(descriptionField);
+
+        footLayout.addComponent(submit);
+
+        moduleLayout.addComponents(nameLbl, verticalLayout, footLayout);
+
+        layout.addComponent(moduleLayout);
+
+        nameLbl.setStyleName("moduleHead");
+        verticalLayout.setStyleName("moduleContent");
+        footLayout.setStyleName("moduleFoot");
+        moduleLayout.setStyleName("module");
+        moduleLayout.setWidth(Integer.toString(calcWidth()) + "px");
+        layout.setStyleName("page");
+    }
+
+    public int calcWidth() {
+        int naviWidth = 180;
+        int pagePadding = 40;
+        int modulePadding = 15;
+
+        return ui.getPage().getBrowserWindowWidth() - (naviWidth + 2 * pagePadding + 2 * modulePadding);
     }
 }
