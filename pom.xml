@@ -48,11 +48,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.thoughtworks.xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>1.4.8</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
@@ -93,6 +88,11 @@
 			<groupId>com.vaadin.addon.responsive</groupId>
 			<artifactId>responsive</artifactId>
 			<version>1.0.0.alpha4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zoodb</groupId>
+			<artifactId>zoodb</artifactId>
+			<version>0.4.8</version>
 		</dependency>
 	</dependencies>
 

@@ -1,6 +1,7 @@
 package util;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import com.vaadin.server.FileResource;
 
 import com.vaadin.ui.Image;
@@ -8,7 +9,11 @@ import com.vaadin.ui.Image;
 import model.Achievement;
 import model.Course;
 import model.User;
+import org.zoodb.jdo.ZooJdoHelper;
+import org.zoodb.tools.ZooHelper;
 
+import javax.jdo.Extent;
+import javax.jdo.PersistenceManager;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,6 +27,9 @@ public class Master {
    public static ArrayList<Course> allCourse = new ArrayList<>();
    public static ArrayList<User> allUser = new ArrayList<>();
    public static ArrayList<Achievement> allAchievements = new ArrayList<>();
+   public static String dbName = "letsGODb";
+
+
 
 
     public static void makeTest()
@@ -290,8 +298,9 @@ public class Master {
 
         allUser.addAll(allAdim);
 
-        saveData();
+
     }
+
 
     /**
      * Load the images for the given object.
@@ -327,88 +336,45 @@ public class Master {
         return img;
     }
 
-    public static void saveData()
+
+    public static void loadDB()
     {
-        String stringPath = Paths.get("").toAbsolutePath().toString();
-        XStream xs = new XStream();
 
-        try {
-            xs.toXML(Master.allUser, new FileWriter(new File(stringPath+"/XMLSave/" + "User.xml")));
-            xs.toXML(Master.allCourse, new FileWriter(new File(stringPath+"/XMLSave/" + "course.xml")));
-            xs.toXML(Master.allAchievements, new FileWriter(new File(stringPath+"/XMLSave/" + "achivements.xml")));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(!ZooHelper.dbExists(Master.dbName))
+        {
+            ZooHelper.createDb(Master.dbName);
+            Master.makeTest();
+        }else {
+
+            PersistenceManager pm = ZooJdoHelper.openDB(Master.dbName);
+            pm.currentTransaction().begin();
+
+            Extent<User> users = pm.getExtent(User.class);
+            users.forEach(user -> allUser.add(user));
+            users.closeAll();
+
+            Extent<Course> courses = pm.getExtent(Course.class);
+            courses.forEach(course -> allCourse.add(course));
+            courses.closeAll();
+
+            Extent<Achievement> achievements = pm.getExtent(Achievement.class);
+            achievements.forEach(achievement -> allAchievements.add(achievement));
+            achievements.closeAll();
+
+            pm.currentTransaction().commit();
+            closeDB(pm);
+
+
         }
-
     }
 
-    public static void loadData()
-    {
-        allUser.clear();
-        allCourse.clear();
-        allAchievements.clear();
+    private static void closeDB(PersistenceManager pm) {
 
-
-        String stringPath = Paths.get("").toAbsolutePath().toString();
-        XStream xs = new XStream();
-
-        File dir = new File(stringPath + "/XMLSave");
-
-        if(!dir.exists())
-            dir.mkdir();
-
-
-        try {
-            BufferedReader br = null;
-            br = new BufferedReader(new FileReader(stringPath+"/XMLSave/" + "User.xml"));
-            StringBuffer buff = new StringBuffer();
-            String line;
-            while((line = br.readLine()) != null){
-                buff.append(line);
-            }
-            Master.allUser.addAll((ArrayList<User>) xs.fromXML(buff.toString()));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (pm.currentTransaction().isActive()) {
+            pm.currentTransaction().rollback();
         }
-
-
-        try {
-            BufferedReader br = null;
-            br = new BufferedReader(new FileReader(stringPath+"/XMLSave/" + "course.xml"));
-            StringBuffer buff = new StringBuffer();
-            String line;
-            while((line = br.readLine()) != null){
-                buff.append(line);
-            }
-            Master.allCourse.addAll ((ArrayList<Course>) xs.fromXML(buff.toString()));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            BufferedReader br = null;
-            br = new BufferedReader(new FileReader(stringPath+"/XMLSave/" + "achivements.xml"));
-            StringBuffer buff = new StringBuffer();
-            String line;
-            while((line = br.readLine()) != null){
-                buff.append(line);
-            }
-            Master.allAchievements.addAll ((ArrayList<Achievement>) xs.fromXML(buff.toString()));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
-
-
+        pm.close();
+        pm.getPersistenceManagerFactory().close();
 
 
     }

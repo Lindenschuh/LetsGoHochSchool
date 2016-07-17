@@ -1,8 +1,21 @@
 package model;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import com.vaadin.ui.Image;
+import org.zoodb.api.impl.ZooPC;
+import util.Master;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +25,8 @@ import java.util.Arrays;
 /**
  * Created by Lars on 02.06.2016.
  */
-public class Course implements DataObject {
+
+public class Course extends ZooPC implements DataObject {
     private String name;
     private ArrayList<Achievement> achievements;
     private User admin;
@@ -27,6 +41,10 @@ public class Course implements DataObject {
     private  ArrayList<User> userList;
 
 
+    private Course()
+    {
+
+    }
 
 
     public Course(String name, User admin, String description, String date, int lessons, String room){
@@ -45,6 +63,19 @@ public class Course implements DataObject {
         generateDate(date,lessons);
         creatDir();
         loadFiles();
+
+    }
+    private void serilzeMe()
+    {
+
+        zooActivateWrite();
+    }
+
+    private void deSerilzeMe()
+    {
+
+        zooActivateRead();
+
     }
 
     private void loadFiles() {
@@ -76,76 +107,97 @@ public class Course implements DataObject {
     public void clearCode()
     {
         this.code = null;
+        serilzeMe();
     }
 
     public void setCode(String code) {
         this.code = code;
+        serilzeMe();
     }
 
-    public String getCode() {
+    public String getCode()
+    {
+        deSerilzeMe();
         return code;
     }
 
     public void addFile(File file)
     {
         files.add(file);
+        serilzeMe();
     }
+
 
     public void  addAchievement(Achievement achiv)
     {
         achievements.add(achiv);
+        serilzeMe();
     }
 
     @Override
     public String getName() {
+        deSerilzeMe();
         return name;
     }
 
     @Override
     public void setImage(Image i) {
         this.img = i;
+        serilzeMe();
     }
 
     @Override
     public Image getImage() {
+        deSerilzeMe();
         return img;
     }
 
     public ArrayList<Achievement> getAchievements() {
+        deSerilzeMe();
         return achievements;
     }
 
     public User getAdmin() {
+        deSerilzeMe();
         return admin;
     }
     public int getDuration() {
+        deSerilzeMe();
         return duration;
     }
     public String getDescription() {
+        deSerilzeMe();
         return description;
     }
 
-    public void setDescription(String bes) { this.description = bes; }
+    public void setDescription(String bes) { this.description = bes;
+    serilzeMe();
+    }
 
     public ArrayList<File> getFiles() {
+
         loadFiles();
         return files;
     }
 
     public void setFiles(ArrayList<File> files) {
         this.files = files;
+        serilzeMe();
     }
 
     public ArrayList<LocalDateTime> getDates() {
+        deSerilzeMe();
         return dates;
     }
 
     public String getRoom() {
+        deSerilzeMe();
         return room;
     }
 
     public ArrayList<User> getUserList()
     {
+        deSerilzeMe();
         return userList;
     }
 
@@ -155,10 +207,12 @@ public class Course implements DataObject {
         achievements.forEach(a -> {
                 a.addUser(user);
         });
+        serilzeMe();
     }
 
     @Override
     public String toString() {
+        deSerilzeMe();
         return name;
     }
 

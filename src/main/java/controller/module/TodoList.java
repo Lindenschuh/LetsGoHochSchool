@@ -7,6 +7,7 @@ import com.vaadin.ui.themes.Reindeer;
 import com.vaadin.ui.themes.ValoTheme;
 import model.Course;
 import model.User;
+import util.Master;
 
 import java.util.ArrayList;
 

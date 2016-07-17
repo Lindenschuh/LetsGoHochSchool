@@ -33,7 +33,7 @@ public class MyUI extends UI {
      * Debug flag -> Set true skip login screen.
      */
     private static final boolean DEBUG = false;
-    private static final boolean RESET = true;
+
 
 
     private Modul currentPage;
@@ -50,6 +50,7 @@ public class MyUI extends UI {
     }
 
     private void initilize() {
+        Master.initilizeXstream();
 
         this.setStyleName("ui");
         //Wrapper Layout for the whole page
@@ -57,11 +58,9 @@ public class MyUI extends UI {
         wrapperLayout.setWidth("100%");
         setContent(wrapperLayout);
 
-        //Create test data.
-        if(RESET)
-            Master.makeTest();
 
-        Master.loadData();
+            Master.loadDB();
+
 
         //DEBUG -> Set a currentUser to skip the login screen.
         if(DEBUG) {
