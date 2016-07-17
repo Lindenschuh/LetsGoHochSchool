@@ -90,13 +90,16 @@ public class AchievementProgressModul extends Modul {
 
         } else {
             contentLayout.setWidth(Integer.toString(calcWidth()) + "px");
+
             descriptionLayout = new VerticalLayout();
+
 
             descriptionLayout.setStyleName("descriptionLayout");
             contentLayout.addComponent(descriptionLayout);
             contentLayout.setExpandRatio(descriptionLayout, 1);
 
             progressLayout = new HorizontalLayout();
+            progressLayout.setSpacing(true);
             descriptionLayout.addComponent(progressLayout);
 
             userName = new Label(user.getName());
@@ -155,7 +158,7 @@ public class AchievementProgressModul extends Modul {
         deleteUserButton.addClickListener(e -> {
             if (!deleteUser) {
                 deleteUser = true;
-                contentLayout.setStyleName("AlertModuleContent");
+                contentLayout.addStyleName("AlertModuleContent");
                 deleteUserButton.setIcon(FontAwesome.MINUS);
             } else {
                 deleteUser = false;
