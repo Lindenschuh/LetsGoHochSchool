@@ -27,6 +27,7 @@ import java.util.Arrays;
 
 public class Course extends ZooPC implements DataObject {
     private String name;
+    private ArrayList<Achievement> generatorAchivemnts;
     private ArrayList<Achievement> achievements;
     private User admin;
     private String description;
@@ -60,10 +61,19 @@ public class Course extends ZooPC implements DataObject {
         this.duration = 90;
         clearCode();
         generateDate(date,lessons);
+        generatorAchivemnts = new ArrayList<>();
+        generateAchivements(lessons);
         creatDir();
         loadFiles();
 
     }
+
+    private void generateAchivements(int lessons) {
+        generatorAchivemnts.add(new Achievement(name + ": Erster Besuch", this, 1, "Erfolgreich die Erste Vorlesung von " + name +  " besucht."));
+        generatorAchivemnts.add(new Achievement(name + ": Halbe Miete", this, (lessons/2), "Die Hälfte der Vorlesungen von " + name + " besucht."));
+        generatorAchivemnts.add(new Achievement(name + ": Mr Perfect", this, lessons, "Alle vorlesungen von " + name + " besucht." ));
+    }
+
     private void serilzeMe()
     {
 
@@ -101,6 +111,14 @@ public class Course extends ZooPC implements DataObject {
         }
 
 
+    }
+
+    public void visitCourse(User user) {
+        generatorAchivemnts.forEach(a -> {
+            if (a.getMaxValue() > a.getOnesUserProgress(user)) {
+                a.getUserProgress().put(user, a.getOnesUserProgress(user) +1);
+            }
+        });
     }
 
     public void clearCode()
