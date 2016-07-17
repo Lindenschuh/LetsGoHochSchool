@@ -34,6 +34,7 @@ public class NewLecture extends Modul {
 
     public NewLecture(User user, MyUI ui) {
         super(user);
+
         vertilay = new VerticalLayout();
 
         courseName = new TextField();
@@ -58,13 +59,12 @@ public class NewLecture extends Modul {
         submit.addClickListener(clickEvent -> {
 
             String s;
+            boolean valid = false;
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 
             s = formatter.format(date.getValue());
 
-            if(testValues()) {
-                return;
-            }
+            valid = testValues();
 
             try {
                 Integer.parseInt(hours.getValue());
@@ -76,6 +76,9 @@ public class NewLecture extends Modul {
                 return;
             }
 
+            if(!valid) {
+                return;
+            }
 
 
             Course newCourse = new Course(courseName.getValue(), user, rta.getValue(), s, Integer.parseInt(hours.getValue()), room.getValue());
@@ -101,7 +104,7 @@ public class NewLecture extends Modul {
         boolean valid = true;
 
         Master.allCourse.forEach(course -> {
-            if (course.getName() == courseName.getValue()) {
+            if (course.getName().equals(courseName.getValue())) {
                 errormsg += "Kurs bereits vorhanden\n";
             }
         });
