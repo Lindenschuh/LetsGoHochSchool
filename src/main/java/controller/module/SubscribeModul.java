@@ -64,7 +64,7 @@ public class SubscribeModul extends Modul {
 
         lay.addComponent(subscribtion.getContent());
         lay.addComponent(cancel);
-
+        layout.setStyleName("page");
         layout.addComponent(lay);
 
     }
