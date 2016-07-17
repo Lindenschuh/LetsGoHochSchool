@@ -179,7 +179,7 @@ public class MyUI extends UI {
 
         if(currentUser == null)
         {
-            Notification notify = new Notification("error" ,"Benutzername oder Passwort falsch.", Notification.Type.ERROR_MESSAGE);
+            Notification notify = new Notification("Error" ,"Benutzername oder Passwort falsch.", Notification.Type.ERROR_MESSAGE);
             notify.setDelayMsec(1000);
             notify.setPosition(Position.TOP_RIGHT);
             notify.show(Page.getCurrent());
