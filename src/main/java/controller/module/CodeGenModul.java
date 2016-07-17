@@ -22,7 +22,7 @@ public class CodeGenModul extends Modul {
 
     User user;
     Course course;
-    final int VALIDTIME = 300000; // dauer für die gülitigkeit des codes 300000 == 5 min
+    final int VALIDTIME = 20000; // dauer für die gülitigkeit des codes 300000 == 5 min
     final int MESSAGETIME = 1000;// dauer einer meldung
 
     public CodeGenModul(User user, Course course) {
@@ -63,7 +63,12 @@ public class CodeGenModul extends Modul {
         {
             if(course.getCode().equals(code))
             {
+
                 codeInput.setValue("");
+                codeInput.setReadOnly(true);
+                ScheduledExecutorService execSer = Executors.newScheduledThreadPool(5);
+                execSer.schedule(()->codeInput.setReadOnly(false) ,VALIDTIME, TimeUnit.MILLISECONDS);
+                
                 Notification notify = new Notification("Erfolgreich", Notification.Type.ASSISTIVE_NOTIFICATION);
                 notify.setDelayMsec(MESSAGETIME);
                 notify.setPosition(Position.TOP_RIGHT);

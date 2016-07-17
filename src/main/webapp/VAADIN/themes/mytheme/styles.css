@@ -29785,8 +29785,12 @@ div.v-layout.v-horizontal.v-widget {
 	color: #e0e0e0;
 }
 
-.mytheme .descriptionLayout {
+.mytheme .descriptionLayout, .mytheme .descriptionUserName {
 	margin-left: 15px;
+}
+
+.mytheme .descriptionUserName {
+	margin-top: 30px;
 }
 
 .mytheme .searchResultDetail {
