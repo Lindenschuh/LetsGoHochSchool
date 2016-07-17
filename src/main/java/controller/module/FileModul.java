@@ -42,7 +42,9 @@ public class FileModul extends Modul {
         VerticalLayout moduleLayout = new VerticalLayout();
         HorizontalLayout moduleFoot = new HorizontalLayout();
         moduleLayout.setWidth("100%");
-
+        if (files.size() == 0) {
+            showEmpty(vert);
+        }
         for(int i = 0; i<files.size();i++)
         {
             Button butt = new NativeButton(files.get(i).getName());
@@ -90,6 +92,9 @@ public class FileModul extends Modul {
         HorizontalLayout moduleFoot = new HorizontalLayout();
         VerticalLayout vert = new VerticalLayout();
 
+        if (files.size() == 0) {
+            showEmpty(vert);
+        }
         for(int i = 0; i<files.size();i++)
         {
             final int aktFile = i;
@@ -171,5 +176,11 @@ public class FileModul extends Modul {
         creatEditView();
     }
 
-
+    private void showEmpty(Layout layout) {
+        Label emptyLblTop = new Label("Keine Dokumente");
+        Label emptyLblBot = new Label("vorhanden.");
+        emptyLblTop.setStyleName("empty");
+        emptyLblBot.setStyleName("empty");
+        layout.addComponents(emptyLblTop, emptyLblBot);
+    }
 }
