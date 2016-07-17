@@ -117,6 +117,7 @@ public class Course extends ZooPC implements DataObject {
         generatorAchivemnts.forEach(a -> {
             if (a.getMaxValue() > a.getOnesUserProgress(user)) {
                 a.getUserProgress().put(user, a.getOnesUserProgress(user) +1);
+                a.achievementFinished(user);
             }
         });
     }
