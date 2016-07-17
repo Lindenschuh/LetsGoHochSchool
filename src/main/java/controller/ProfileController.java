@@ -22,6 +22,7 @@ public class ProfileController extends Modul {
         Profile profile = new Profile(user);
         VerticalLayout contentLayout = new VerticalLayout();
         GalleryModul gallery = new GalleryModul(user, ui);
+        gallery.setMaxWidth(true);
 
 
         contentLayout.setSpacing(true);
