@@ -56,10 +56,6 @@ public class NewAV extends Modul {
             }
 
             if (!valid) {
-                Notification success = new Notification("Failed", Notification.Type.ERROR_MESSAGE);
-                success.setDelayMsec(1000);
-                success.setPosition(Position.TOP_CENTER);
-                success.show(Page.getCurrent());
                 return;
             }
 
@@ -90,14 +86,14 @@ public class NewAV extends Modul {
             valid = false;
             errorMsg += "Kein Name angeben.";
         } else {
-            Master.allCourse.forEach(course1 -> {
-                if(course1.getName().equals(name.getValue())) {
+            Master.allAchievements.forEach(achievement -> {
+                if(achievement.getName().equals(name.getValue())) {
                     errorMsg += "Achievement bereits vorhanden\n";
                 }
             });
         }
 
-        if (errorMsg.contains("Kurs bereits vorhanden")) {
+        if (errorMsg.contains("Achievement bereits vorhanden\n")) {
             valid = false;
         }
 
