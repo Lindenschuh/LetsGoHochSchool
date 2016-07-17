@@ -2,6 +2,7 @@ package controller;
 
 import com.vaadin.ui.VerticalLayout;
 import controller.module.*;
+import model.Achievement;
 import model.Course;
 import model.User;
 import view.MyUI;
@@ -51,11 +52,28 @@ public class ProfileController extends Modul {
             gallery.setName("Vorlesungen");
             gallery.setEmptyMsg("Keine Vorlesungen vorhanden.");
             gallery.setData((ArrayList) user.getCourses());
+            gallery.addItemClickedListener(dataObject -> {
+                if (ui.getUser().getCourses().contains(dataObject))
+                    ui.setContentPage(new CourseController(ui.getUser(), (Course) dataObject));
+            });
 
         } else {
             gallery.setName("Erfolge");
             gallery.setEmptyMsg("Keine Erfolge vorhanden.");
             gallery.setData((ArrayList) user.getFinishedAchievment());
+            gallery.addItemClickedListener(dataObject -> {
+                Achievement achievement = (Achievement) dataObject;
+                if (!ui.getUser().isAdmin()) {
+                    if (ui.getUser().getCourses().contains(dataObject))
+                        ui.setContentPage(new AchievementDetailController(
+                                ui.getUser(), ui, achievement));
+                } else {
+                    if (ui.getUser().getCourses().contains(achievement.getCourse())) {
+                        ui.setContentPage(new AchievementDetailController(
+                                ui.getUser(), ui, achievement));
+                    }
+                }
+            });
         }
     }
 
