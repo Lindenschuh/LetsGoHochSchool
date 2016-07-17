@@ -140,7 +140,6 @@ public class CodeGenModul extends Modul {
     }
 
     private void clearCode() {
-        System.out.println("now");
         course.clearCode();
     }
 }

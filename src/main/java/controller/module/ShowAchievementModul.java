@@ -1,6 +1,9 @@
 package controller.module;
 
+import com.vaadin.client.ui.Icon;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import model.Achievement;
 import model.Course;
@@ -13,6 +16,7 @@ import view.MyUI;
 public class ShowAchievementModul extends Modul {
 
     private static final String MODUL_NAME = "Achievement:";
+    private static final int ICON_SIZE = 20;
     private static final int IMAGE_SIZE = 100;
 
 
@@ -123,6 +127,13 @@ public class ShowAchievementModul extends Modul {
 
             progressLbl = new Label(achievement.getOnesUserProgress(user) + "/" + achievement.getMaxValue());
             progressLayout.addComponent(progressLbl);
+
+
+            Label courseLbl = new Label();
+            courseLbl.setContentMode(ContentMode.HTML);
+            courseLbl.setValue(FontAwesome.BOOK.getHtml() + " " + achievement.getCourse().getName());
+            descriptionLayout.addComponent(courseLbl);
+
 
         }
         ui.getPage().addBrowserWindowResizeListener(event -> contentLayout.setWidth(calcWidth(), Sizeable.Unit.PIXELS));

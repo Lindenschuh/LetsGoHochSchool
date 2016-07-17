@@ -97,6 +97,11 @@
     }
   }
 
+  .AlertModuleContent  {
+    @extend .moduleContent;
+    background: #B00538;
+  }
+
   .moduleHead {
     width: 100%;
     padding: $modulePaddingSmall $modulePaddingBig $modulePaddingSmall $modulePaddingBig;

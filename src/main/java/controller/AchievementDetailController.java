@@ -29,16 +29,22 @@ public class AchievementDetailController extends Modul {
     private VerticalLayout contentLayout;
     private VerticalLayout userOpen;
     private HorizontalLayout cancelSaveLayout;
+    private HorizontalLayout deleteSaveLayout;
     private Button cancel;
     private Button save;
     private Label headerOpen;
-    private VerticalLayout userFinished;
     private Label headerFinished;
+    private VerticalLayout userFinished;
+    private Button deleteButton;
+    private Button deleteConfirmButton;
+    private Button deleteCancelButton;
 
     private boolean buttonActive;
     private boolean oneModuleTrue;
+    private boolean deleteModus;
 
     private ArrayList<AchievementProgressModul> progressModuls;
+    private ArrayList<AchievementProgressModul> finishedModules;
 
 
 
@@ -69,7 +75,7 @@ public class AchievementDetailController extends Modul {
             progressModuls = new ArrayList<>();
 
             achievement.getUserProgress().forEach((k, v) -> {
-                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(k, achievement, false, this);
+                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(k, ui, achievement, false, this);
                 progressModuls.add(achievementProgressModul);
                 userOpen.addComponent(achievementProgressModul.getContent());
             });
@@ -88,10 +94,24 @@ public class AchievementDetailController extends Modul {
             headerFinished.setStyleName("moduleHead");
             userFinished.addComponent(headerFinished);
 
+            finishedModules = new ArrayList<>();
+
             achievement.getUserFinished().forEach(u -> {
-                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(u, achievement, true, this);
+                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(u, ui, achievement, true, this);
+                finishedModules.add(achievementProgressModul);
                 userFinished.addComponent(achievementProgressModul.getContent());
             });
+
+            deleteModus = false;
+
+            deleteSaveLayout = new HorizontalLayout();
+            deleteSaveLayout.addStyleName("moduleFoot");
+            deleteSaveLayout.setSpacing(true);
+            userFinished.addComponent(deleteSaveLayout);
+
+            if(!finishedModules.isEmpty())
+                setDeleteButtonLayout();
+
         } else {
             layout.addStyleName("page");
             contentLayout = new VerticalLayout();
@@ -129,6 +149,44 @@ public class AchievementDetailController extends Modul {
             buttonActive = false;
         }
         oneModuleTrue = false;
+    }
+
+    public void setDeleteButtonLayout() {
+
+        if (!deleteModus) {
+            deleteSaveLayout.removeAllComponents();
+
+            deleteButton = new Button("User Löschen");
+            deleteButton.addClickListener(e -> {
+                deleteModus = true;
+                setDeleteButtonLayout();
+                finishedModules.forEach( b -> b.setupDelete());
+            });
+            deleteSaveLayout.addComponent(deleteButton);
+        } else {
+            deleteSaveLayout.removeAllComponents();
+
+            deleteCancelButton = new Button("Abbrechen");
+            deleteCancelButton.addClickListener(e -> {
+                //remove all buttons and stylenames
+                finishedModules.forEach(a -> {
+                    a.removeDelete();
+                });
+                deleteModus = false;
+                setDeleteButtonLayout();
+            });
+            deleteSaveLayout.addComponent(deleteCancelButton);
+
+            deleteConfirmButton = new Button("Löschen");
+            deleteConfirmButton.addClickListener(e -> {
+                //remove all marked user from finished
+                finishedModules.forEach(f -> f.removeFinishedUser());
+                ui.setContentPage(new AchievementsController(user, ui));
+            });
+            deleteSaveLayout.addComponent(deleteConfirmButton);
+        }
+
+
     }
 
     private void saveData() {

@@ -1,12 +1,12 @@
 package controller.module;
 
-import com.vaadin.client.debug.internal.Icon;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.*;
 import controller.AchievementDetailController;
 import model.Achievement;
 import model.User;
+import view.MyUI;
 
 /**
  * Created by Aljos on 25.06.2016.
@@ -16,10 +16,12 @@ public class AchievementProgressModul extends Modul {
     private static final int ICON_SIZE = 20;
     private static final int IMAGE_SIZE = 100;
 
+    private MyUI ui;
     private Achievement achievement;
     private int tempAdded;
     private boolean temporary;
     private boolean trashEnabled;
+    private boolean deleteUser;
     private AchievementDetailController controller;
 
 
@@ -33,18 +35,20 @@ public class AchievementProgressModul extends Modul {
     private Label progressLbl;
     private NativeButton addButton;
     private NativeButton trashButon;
+    private NativeButton deleteUserButton;
 
 
 
 
 
-    public AchievementProgressModul(User user, Achievement achievement, boolean finished, AchievementDetailController controller) {
+    public AchievementProgressModul(User user, MyUI ui, Achievement achievement, boolean finished, AchievementDetailController controller) {
         super(user);
+        this.ui = ui;
         this.achievement = achievement;
         this.controller = controller;
 
         contentLayout = new HorizontalLayout();
-        contentLayout.addStyleName("moduleContent");
+        contentLayout.setStyleName("moduleContent");
         layout.addComponent(contentLayout);
 
         userImage = user.getImage();
@@ -54,11 +58,11 @@ public class AchievementProgressModul extends Modul {
 
         if(!finished) {
             descriptionLayout = new VerticalLayout();
-            descriptionLayout.addStyleName("descriptionLayout");
+            descriptionLayout.setStyleName("descriptionLayout");
             contentLayout.addComponent(descriptionLayout);
 
             userName = new Label(user.getName());
-            userName.addStyleName("descriptionLecture");
+            userName.setStyleName("descriptionLecture");
             descriptionLayout.addComponent(userName);
 
             progressLayout = new HorizontalLayout();
@@ -73,7 +77,7 @@ public class AchievementProgressModul extends Modul {
 
             addButton = new NativeButton();
             addButton.setIcon(FontAwesome.PLUS);
-            addButton.addStyleName("borderlessButton");
+            addButton.setStyleName("borderlessButton");
             addButton.addClickListener(e ->  {
                 add();
             });
@@ -85,13 +89,22 @@ public class AchievementProgressModul extends Modul {
 
 
         } else {
+            contentLayout.setWidth(Integer.toString(calcWidth()) + "px");
+
             descriptionLayout = new VerticalLayout();
-            descriptionLayout.addStyleName("descriptionLayout");
+
+
+            descriptionLayout.setStyleName("descriptionUserName");
             contentLayout.addComponent(descriptionLayout);
+            contentLayout.setExpandRatio(descriptionLayout, 1);
+
+            progressLayout = new HorizontalLayout();
+            progressLayout.setSpacing(true);
+            descriptionLayout.addComponent(progressLayout);
 
             userName = new Label(user.getName());
-            userName.addStyleName("descriptionLecture");
-            contentLayout.addComponent(userName);
+            userName.setStyleName("descriptionLecture");
+            progressLayout.addComponent(userName);
         }
 
     }
@@ -138,14 +151,56 @@ public class AchievementProgressModul extends Modul {
         controller.setOpenButtonLayout();
     }
 
+    public void setupDelete() {
+        deleteUserButton = new NativeButton();
+        deleteUserButton.setIcon(FontAwesome.TIMES);
+        deleteUserButton.setStyleName("borderlessButton");
+        deleteUserButton.addClickListener(e -> {
+            if (!deleteUser) {
+                deleteUser = true;
+                contentLayout.addStyleName("AlertModuleContent");
+                deleteUserButton.setIcon(FontAwesome.REPLY);
+            } else {
+                deleteUser = false;
+                contentLayout.removeStyleName("AlertModuleContent");
+                deleteUserButton.setIcon(FontAwesome.TIMES);
+            }
+        });
+        progressLayout.addComponent(deleteUserButton);
+    }
+
+    public void removeDelete() {
+        progressLayout.removeComponent(deleteUserButton);
+        if(deleteUser)
+            contentLayout.removeStyleName("AlertModuleContent");
+    }
+
+    public void removeFinishedUser() {
+        if(deleteUser) {
+            achievement.getUserFinished().remove(user);
+            achievement.addUser(user);
+        }
+    }
+
+
+    public boolean getDeleteUser() { return this.deleteUser; }
+
     public boolean getTemp() { return this.temporary; }
 
     public void saveData() {
-        temporary = false;
         int old = achievement.getUserProgress().get(user);
         achievement.getUserProgress().put(user, old + tempAdded);
         tempAdded = 0;
     }
 
     public User getUser() { return this.user;  }
+
+    public int calcWidth() {
+        int naviWidth = 180;
+        int pagePadding = 40;
+        int modulePadding = 15;
+
+        return ui.getPage().getBrowserWindowWidth() - (naviWidth + 2 * pagePadding + 2 * modulePadding);
+
+    }
 }

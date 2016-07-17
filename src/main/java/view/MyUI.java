@@ -50,7 +50,7 @@ public class MyUI extends UI {
     }
 
     private void initilize() {
-        Master.initilizeXstream();
+        
 
         this.setStyleName("ui");
         //Wrapper Layout for the whole page

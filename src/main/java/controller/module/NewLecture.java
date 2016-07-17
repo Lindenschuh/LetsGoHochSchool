@@ -30,15 +30,17 @@ public class NewLecture extends Modul {
     TextField room;
     Button submit;
 
+    static String errormsg = "";
+
     public NewLecture(User user, MyUI ui) {
         super(user);
         vertilay = new VerticalLayout();
 
         courseName = new TextField();
-        courseName.setInputPrompt("Kurs Name");
+        courseName.setInputPrompt("Name");
 
         rta = new RichTextArea();
-        rta.setCaption("Kurs beschreibung");
+        rta.setCaption("Kurs Beschreibung");
 
         date = new DateField();
         date.setValue(new Date());
@@ -59,6 +61,8 @@ public class NewLecture extends Modul {
 
             s = formatter.format(date.getValue());
 
+            testValues();
+
             try {
                 Integer.parseInt(hours.getValue());
             } catch ( Exception e) {
@@ -76,7 +80,6 @@ public class NewLecture extends Modul {
             newCourse.setImage(Master.loadImage(newCourse));
 
             Master.allCourse.add(newCourse);
-            //user.addCourse(newCourse);
 
             Notification success = new Notification("Course erfolgreich erstellt", Notification.Type.HUMANIZED_MESSAGE);
             success.setDelayMsec(1000);
@@ -90,14 +93,70 @@ public class NewLecture extends Modul {
         setupLayout();
     }
 
+    private boolean testValues() {
+        errormsg = "";
+        boolean valid = true;
+
+        Master.allCourse.forEach(course -> {
+            if (course.getName() == courseName.getValue()) {
+                errormsg += "Kurs bereits vorhanden\n";
+            }
+        });
+
+        if (errormsg.contains("Kurs bereits vorhanden")) {
+            valid = false;
+        }
+
+        if (courseName.isEmpty()) {
+            errormsg += "Kein Kursname vorhanden \n";
+            valid = false;
+        }
+        if (hours.isEmpty()) {
+            errormsg += "Keine Vorlesungsanzahl \n";
+            valid = false;
+        }
+        if (date.isEmpty()) {
+            errormsg += "Keine Datum angegeben \n";
+            valid = false;
+        }
+        if (room.isEmpty()) {
+            errormsg += "Keine Raumnummer Angegeben";
+            valid = false;
+        }
+
+        if (!valid) {
+            Notification fail = new Notification(errormsg, Notification.Type.ERROR_MESSAGE);
+            fail.setDelayMsec(1000);
+            fail.setPosition(Position.TOP_CENTER);
+            fail.show(Page.getCurrent());
+        }
+        return valid;
+
+    }
+
     private void setupLayout()
     {
+        Label moduleName = new Label("Kurs erstellen");
+        HorizontalLayout foot = new HorizontalLayout();
+        VerticalLayout moduleLayout = new VerticalLayout();
+
         vertilay.addComponent(courseName);
         vertilay.addComponent(rta);
         vertilay.addComponent(date);
         vertilay.addComponent(hours);
         vertilay.addComponent(room);
-        vertilay.addComponent(submit);
-        layout.addComponent(vertilay);
+
+        foot.addComponent(submit);
+
+        moduleLayout.addComponents(moduleName, vertilay, foot);
+        layout.addComponent(moduleLayout);
+
+        //Styling
+        vertilay.setStyleName("moduleContent");
+        vertilay.setSpacing(true);
+        foot.setStyleName("moduleFoot");
+        moduleName.setStyleName("moduleHead");
+        moduleLayout.setStyleName("module");
+        layout.setStyleName("page");
     }
 }

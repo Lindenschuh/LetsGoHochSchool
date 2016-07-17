@@ -1,7 +1,6 @@
 package model;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
+
 import com.vaadin.server.FileResource;
 import com.vaadin.ui.Image;
 import org.zoodb.api.impl.ZooPC;
