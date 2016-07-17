@@ -1,10 +1,7 @@
 package controller;
 
 import com.vaadin.ui.VerticalLayout;
-import controller.module.GalleryModul;
-import controller.module.Modul;
-import controller.module.NextLectureModul;
-import controller.module.SubscribeModul;
+import controller.module.*;
 import model.Course;
 import model.User;
 import view.MyUI;
@@ -33,6 +30,12 @@ public class HomeController extends Modul {
         courseGallery.setMaxWidth(true);
         courseGallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
         courseGallery.setData((ArrayList) user.getCourses());
+        if (user.isAdmin()) {
+            courseGallery.addButtonClickedListener(() -> ui.setContentPage(new NewLecture(user, ui)));
+        }
+        if (!user.isAdmin()) {
+            courseGallery.addButtonClickedListener(() -> ui.setContentPage(new SubscribeModul(user, ui)));
+        }
 
         VerticalLayout contentLayout = new VerticalLayout();
 
