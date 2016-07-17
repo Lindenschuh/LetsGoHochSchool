@@ -32,11 +32,16 @@ public class TodoList extends Modul {
     }
 
     private void createComponent() {
+        Label emptyLbl = new Label("Keine Todo's vorhanden.");
+        emptyLbl.setStyleName("empty");
 
         Label nameLbl = new Label("Todos");
         VerticalLayout module = new VerticalLayout();
         VerticalLayout vert = new VerticalLayout();
         vert.setWidth("530px");
+        if(todos.size() == 0) {
+            vert.addComponent(emptyLbl);
+        }
         for(int i = 0;i<todos.size();i++)
         {
             final int aktIndex = i;
