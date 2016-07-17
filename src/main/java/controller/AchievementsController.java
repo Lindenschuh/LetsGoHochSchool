@@ -3,6 +3,7 @@ package controller;
 import com.vaadin.ui.VerticalLayout;
 import controller.module.GalleryModul;
 import controller.module.Modul;
+import controller.module.NewAV;
 import model.Achievement;
 import model.User;
 import util.Master;
@@ -54,7 +55,11 @@ public class AchievementsController extends Modul {
             courseAchievementsGallery.addButtonClickedListener(() -> System.out.println("Add button clicked."));
             courseAchievementsGallery.setMaxWidth(true);
             courseAchievementsGallery.setEmptyMsg("Keine Erfolge vorhanden.");
-
+            if(user.isAdmin()) {
+                courseAchievementsGallery.addButtonClickedListener(() -> {
+                    ui.setContentPage(new NewAV(user, ui, c));
+                });
+            }
             Master.allAchievements.forEach(achievement -> {
                 if(achievement.getCourse().equals(c) ) {
                     achievements.add(achievement);
