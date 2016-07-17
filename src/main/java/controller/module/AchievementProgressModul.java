@@ -159,7 +159,7 @@ public class AchievementProgressModul extends Modul {
             if (!deleteUser) {
                 deleteUser = true;
                 contentLayout.addStyleName("AlertModuleContent");
-                deleteUserButton.setIcon(FontAwesome.MINUS);
+                deleteUserButton.setIcon(FontAwesome.REPLY);
             } else {
                 deleteUser = false;
                 contentLayout.removeStyleName("AlertModuleContent");
