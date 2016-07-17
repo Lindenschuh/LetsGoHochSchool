@@ -4,6 +4,7 @@ import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.*;
+import controller.CourseController;
 import controller.ProfileController;
 import model.Course;
 import model.User;
@@ -62,9 +63,8 @@ public class NewLecture extends Modul {
             boolean valid = false;
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 
-            s = formatter.format(date.getValue());
-
             valid = testValues();
+            s = formatter.format(date.getValue());
 
             try {
                 Integer.parseInt(hours.getValue());
@@ -92,7 +92,7 @@ public class NewLecture extends Modul {
             success.setPosition(Position.TOP_CENTER);
             success.show(Page.getCurrent());
 
-            ui.setContentPage(new ProfileController(user, ui));
+            ui.setContentPage(new CourseController(user, newCourse));
 
         });
 
@@ -127,6 +127,14 @@ public class NewLecture extends Modul {
         }
         if (room.isEmpty()) {
             errormsg += "Keinen Raum angegeben";
+            valid = false;
+        }
+
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+            formatter.format(date.getValue());
+        } catch(Exception e) {
+            errormsg += "Ung\u00fcltiges Datum.";
             valid = false;
         }
 

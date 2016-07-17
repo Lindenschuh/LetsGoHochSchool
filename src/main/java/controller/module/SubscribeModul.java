@@ -5,6 +5,7 @@ import com.vaadin.shared.Position;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
+import controller.CourseController;
 import controller.ProfileController;
 import model.Course;
 import model.DataObject;
@@ -49,7 +50,7 @@ public class SubscribeModul extends Modul {
             notify.setPosition(Position.TOP_RIGHT);
             notify.show(Page.getCurrent());
 
-            ui.setContentPage(new ProfileController(user, ui));
+            ui.setContentPage(new CourseController(user, (Course) data));
 
         });
 
@@ -63,7 +64,7 @@ public class SubscribeModul extends Modul {
         subscribtion.setData((ArrayList) courseList);
 
         lay.addComponent(subscribtion.getContent());
-        lay.addComponent(cancel);
+        //lay.addComponent(cancel);
         layout.setStyleName("page");
         layout.addComponent(lay);
 
