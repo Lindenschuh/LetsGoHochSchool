@@ -109,7 +109,8 @@ public class AchievementDetailController extends Modul {
             deleteSaveLayout.setSpacing(true);
             userFinished.addComponent(deleteSaveLayout);
 
-            setDeleteButtonLayout();
+            if(!finishedModules.isEmpty())
+                setDeleteButtonLayout();
 
         } else {
             layout.addStyleName("page");
