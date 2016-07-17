@@ -5,16 +5,7 @@ import com.vaadin.ui.Image;
 import org.zoodb.api.impl.ZooPC;
 import util.Master;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +18,7 @@ import java.util.Arrays;
 
 public class Course extends ZooPC implements DataObject {
     private String name;
-    private ArrayList<Achievement> generatorAchivemnts;
+    private ArrayList<Achievement> generatorAchievements;
     private ArrayList<Achievement> achievements;
     private User admin;
     private String description;
@@ -61,7 +52,7 @@ public class Course extends ZooPC implements DataObject {
         this.duration = 90;
         clearCode();
         generateDate(date,lessons);
-        generatorAchivemnts = new ArrayList<>();
+        generatorAchievements = new ArrayList<>();
         generateAchivements(lessons);
         creatDir();
         loadFiles();
@@ -69,9 +60,12 @@ public class Course extends ZooPC implements DataObject {
     }
 
     private void generateAchivements(int lessons) {
-        generatorAchivemnts.add(new Achievement(name + ": Erster Besuch", this, 1, "Erfolgreich die Erste Vorlesung von " + name +  " besucht."));
-        generatorAchivemnts.add(new Achievement(name + ": Halbe Miete", this, (lessons/2), "Die Hälfte der Vorlesungen von " + name + " besucht."));
-        generatorAchivemnts.add(new Achievement(name + ": Mr Perfect", this, lessons, "Alle vorlesungen von " + name + " besucht." ));
+        generatorAchievements.add(new Achievement(name + ": Erster Besuch", this, 1, "Erfolgreich die Erste Vorlesung von " + name +  " besucht."));
+        Master.allAchievements.add(generatorAchievements.get(0));
+        generatorAchievements.add(new Achievement(name + ": Halbe Miete", this, (lessons/2), "Die Hälfte der Vorlesungen von " + name + " besucht."));
+        Master.allAchievements.add(generatorAchievements.get(1));
+        generatorAchievements.add(new Achievement(name + ": Mr Perfect", this, lessons, "Alle vorlesungen von " + name + " besucht." ));
+        Master.allAchievements.add(generatorAchievements.get(2));
     }
 
     private void serilzeMe()
@@ -114,12 +108,13 @@ public class Course extends ZooPC implements DataObject {
     }
 
     public void visitCourse(User user) {
-        generatorAchivemnts.forEach(a -> {
+        generatorAchievements.forEach(a -> {
             if (a.getMaxValue() > a.getOnesUserProgress(user)) {
                 a.getUserProgress().put(user, a.getOnesUserProgress(user) +1);
                 a.achievementFinished(user);
             }
         });
+        serilzeMe();
     }
 
     public void clearCode()

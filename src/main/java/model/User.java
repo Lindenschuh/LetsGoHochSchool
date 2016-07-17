@@ -191,10 +191,9 @@ public class User extends ZooPC implements DataObject{
     }
 
     public void finishAchievement(Achievement achievement) {
-        this.finishedAchievment.add(achievement);
         this.workingOnAchievment.remove(achievement);
+        this.finishedAchievment.add(achievement);
         serilzeMe();
-
     }
 
     private void serilzeMe()
