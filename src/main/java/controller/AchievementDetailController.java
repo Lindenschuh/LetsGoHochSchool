@@ -75,7 +75,7 @@ public class AchievementDetailController extends Modul {
             progressModuls = new ArrayList<>();
 
             achievement.getUserProgress().forEach((k, v) -> {
-                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(k, achievement, false, this);
+                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(k, ui, achievement, false, this);
                 progressModuls.add(achievementProgressModul);
                 userOpen.addComponent(achievementProgressModul.getContent());
             });
@@ -97,7 +97,7 @@ public class AchievementDetailController extends Modul {
             finishedModules = new ArrayList<>();
 
             achievement.getUserFinished().forEach(u -> {
-                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(u, achievement, true, this);
+                AchievementProgressModul achievementProgressModul = new AchievementProgressModul(u, ui, achievement, true, this);
                 finishedModules.add(achievementProgressModul);
                 userFinished.addComponent(achievementProgressModul.getContent());
             });

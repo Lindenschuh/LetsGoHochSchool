@@ -30,6 +30,8 @@ public class NewLecture extends Modul {
     TextField room;
     Button submit;
 
+    static String errormsg = "";
+
     public NewLecture(User user, MyUI ui) {
         super(user);
         vertilay = new VerticalLayout();
@@ -59,6 +61,8 @@ public class NewLecture extends Modul {
 
             s = formatter.format(date.getValue());
 
+            testValues();
+
             try {
                 Integer.parseInt(hours.getValue());
             } catch ( Exception e) {
@@ -76,7 +80,6 @@ public class NewLecture extends Modul {
             newCourse.setImage(Master.loadImage(newCourse));
 
             Master.allCourse.add(newCourse);
-            //user.addCourse(newCourse);
 
             Notification success = new Notification("Course erfolgreich erstellt", Notification.Type.HUMANIZED_MESSAGE);
             success.setDelayMsec(1000);
@@ -88,6 +91,47 @@ public class NewLecture extends Modul {
         });
 
         setupLayout();
+    }
+
+    private boolean testValues() {
+        errormsg = "";
+        boolean valid = true;
+
+        Master.allCourse.forEach(course -> {
+            if (course.getName() == courseName.getValue()) {
+                errormsg += "Kurs bereits vorhanden\n";
+            }
+        });
+
+        if (errormsg.contains("Kurs bereits vorhanden")) {
+            valid = false;
+        }
+
+        if (courseName.isEmpty()) {
+            errormsg += "Kein Kursname vorhanden \n";
+            valid = false;
+        }
+        if (hours.isEmpty()) {
+            errormsg += "Keine Vorlesungsanzahl \n";
+            valid = false;
+        }
+        if (date.isEmpty()) {
+            errormsg += "Keine Datum angegeben \n";
+            valid = false;
+        }
+        if (room.isEmpty()) {
+            errormsg += "Keine Raumnummer Angegeben";
+            valid = false;
+        }
+
+        if (!valid) {
+            Notification fail = new Notification(errormsg, Notification.Type.ERROR_MESSAGE);
+            fail.setDelayMsec(1000);
+            fail.setPosition(Position.TOP_CENTER);
+            fail.show(Page.getCurrent());
+        }
+        return valid;
+
     }
 
     private void setupLayout()
