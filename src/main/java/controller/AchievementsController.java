@@ -52,7 +52,6 @@ public class AchievementsController extends Modul {
             courseAchievementsGallery.setName(c.getName());
             courseAchievementsGallery.addItemClickedListener(e ->
                     ui.setContentPage(new AchievementDetailController(user, ui,(Achievement) e)));
-            courseAchievementsGallery.addButtonClickedListener(() -> System.out.println("Add button clicked."));
             courseAchievementsGallery.setMaxWidth(true);
             courseAchievementsGallery.setEmptyMsg("Keine Erfolge vorhanden.");
             if(user.isAdmin()) {
