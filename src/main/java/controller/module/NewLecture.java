@@ -37,10 +37,11 @@ public class NewLecture extends Modul {
         vertilay = new VerticalLayout();
 
         courseName = new TextField();
-        courseName.setInputPrompt("Name");
+        courseName.setInputPrompt("Kursname");
 
         rta = new RichTextArea();
         rta.setCaption("Kurs Beschreibung");
+        rta.setValue("<font color=\"#e0e0e0\"> Kursbeschreibung einfügen. </font>");
 
         date = new DateField();
         date.setValue(new Date());
@@ -48,7 +49,7 @@ public class NewLecture extends Modul {
         date.setDateFormat("dd-MM-yyyy hh:mm");
 
         hours = new TextField();
-        hours.setInputPrompt("Anzahl der Vorlesungen");
+        hours.setInputPrompt("Anzahl Vorlesungen");
 
         room = new TextField();
         room.setInputPrompt("Raum");
