@@ -32,7 +32,6 @@ public class HomeController extends Modul {
         courseGallery.setEmptyMsg("Keine Kurse vorhanden.");
         courseGallery.setMaxWidth(true);
         courseGallery.addItemClickedListener(data -> ui.setContentPage(new CourseController(user, (Course) data)));
-        courseGallery.addButtonClickedListener(() -> ui.setContentPage(new SubscribeModul(user, ui)));
         courseGallery.setData((ArrayList) user.getCourses());
 
         VerticalLayout contentLayout = new VerticalLayout();
