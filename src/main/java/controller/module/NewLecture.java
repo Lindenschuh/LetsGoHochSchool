@@ -35,10 +35,10 @@ public class NewLecture extends Modul {
         vertilay = new VerticalLayout();
 
         courseName = new TextField();
-        courseName.setInputPrompt("Kurs Name");
+        courseName.setInputPrompt("Name");
 
         rta = new RichTextArea();
-        rta.setCaption("Kurs beschreibung");
+        rta.setCaption("Kurs Beschreibung");
 
         date = new DateField();
         date.setValue(new Date());
@@ -92,12 +92,27 @@ public class NewLecture extends Modul {
 
     private void setupLayout()
     {
+        Label moduleName = new Label("Kurs erstellen");
+        HorizontalLayout foot = new HorizontalLayout();
+        VerticalLayout moduleLayout = new VerticalLayout();
+
         vertilay.addComponent(courseName);
         vertilay.addComponent(rta);
         vertilay.addComponent(date);
         vertilay.addComponent(hours);
         vertilay.addComponent(room);
-        vertilay.addComponent(submit);
-        layout.addComponent(vertilay);
+
+        foot.addComponent(submit);
+
+        moduleLayout.addComponents(moduleName, vertilay, foot);
+        layout.addComponent(moduleLayout);
+
+        //Styling
+        vertilay.setStyleName("moduleContent");
+        vertilay.setSpacing(true);
+        foot.setStyleName("moduleFoot");
+        moduleName.setStyleName("moduleHead");
+        moduleLayout.setStyleName("module");
+        layout.setStyleName("page");
     }
 }
