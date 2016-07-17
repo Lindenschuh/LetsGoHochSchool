@@ -20,6 +20,7 @@ public class AchievementProgressModul extends Modul {
     private int tempAdded;
     private boolean temporary;
     private boolean trashEnabled;
+    private boolean deleteUser;
     private AchievementDetailController controller;
 
 
@@ -33,6 +34,7 @@ public class AchievementProgressModul extends Modul {
     private Label progressLbl;
     private NativeButton addButton;
     private NativeButton trashButon;
+    private NativeButton deleteUserButton;
 
 
 
@@ -89,9 +91,13 @@ public class AchievementProgressModul extends Modul {
             descriptionLayout.addStyleName("descriptionLayout");
             contentLayout.addComponent(descriptionLayout);
 
+            progressLayout = new HorizontalLayout();
+            progressLayout.setSpacing(true);
+            contentLayout.addComponent(progressLayout);
+
             userName = new Label(user.getName());
             userName.addStyleName("descriptionLecture");
-            contentLayout.addComponent(userName);
+            progressLayout.addComponent(userName);
         }
 
     }
@@ -138,10 +144,43 @@ public class AchievementProgressModul extends Modul {
         controller.setOpenButtonLayout();
     }
 
+    public void setupDelete() {
+        deleteUserButton = new NativeButton();
+        deleteUserButton.setIcon(FontAwesome.TIMES);
+        deleteUserButton.setStyleName("borderlessButton");
+        deleteUserButton.addClickListener(e -> {
+            if (!deleteUser) {
+                deleteUser = true;
+                contentLayout.addStyleName("AlertModuleContent");
+                deleteUserButton.setIcon(FontAwesome.MINUS);
+            } else {
+                deleteUser = false;
+                contentLayout.removeStyleName("AlertModuleContent");
+                deleteUserButton.setIcon(FontAwesome.TIMES);
+            }
+        });
+        progressLayout.addComponent(deleteUserButton);
+    }
+
+    public void removeDelete() {
+        progressLayout.removeComponent(deleteUserButton);
+        if(deleteUser)
+            contentLayout.removeStyleName("AlertModuleContent");
+    }
+
+    public void removeFinishedUser() {
+        if(deleteUser) {
+            achievement.getUserFinished().remove(user);
+            achievement.addUser(user);
+        }
+    }
+
+
+    public boolean getDeleteUser() { return this.deleteUser; }
+
     public boolean getTemp() { return this.temporary; }
 
     public void saveData() {
-        temporary = false;
         int old = achievement.getUserProgress().get(user);
         achievement.getUserProgress().put(user, old + tempAdded);
         tempAdded = 0;

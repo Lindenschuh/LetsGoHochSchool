@@ -29514,16 +29514,16 @@ div.v-layout.v-horizontal.v-widget {
 	width: 5px;
 }
 
-.mytheme .moduleContent, .mytheme .moduleSimple {
+.mytheme .moduleContent, .mytheme .moduleSimple, .mytheme .AlertModuleContent {
 	height: 100%;
 	padding: 15px 15px 15px 15px;
 }
 
-.mytheme .moduleContent .v-horizontal .v-spacing, .mytheme .moduleSimple .v-horizontal .v-spacing {
+.mytheme .moduleContent .v-horizontal .v-spacing, .mytheme .moduleSimple .v-horizontal .v-spacing, .mytheme .AlertModuleContent .v-horizontal .v-spacing {
 	width: 15px;
 }
 
-.mytheme .moduleContent .v-richtextarea, .mytheme .moduleSimple .v-richtextarea {
+.mytheme .moduleContent .v-richtextarea, .mytheme .moduleSimple .v-richtextarea, .mytheme .AlertModuleContent .v-richtextarea {
 	box-shadow: none;
 	background: none;
 	border: #505050 1px solid;
@@ -29531,7 +29531,7 @@ div.v-layout.v-horizontal.v-widget {
 	color: #e0e0e0;
 }
 
-.mytheme .moduleContent .v-richtextarea .gwt-RichTextToolbar, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextToolbar {
+.mytheme .moduleContent .v-richtextarea .gwt-RichTextToolbar, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextToolbar, .mytheme .AlertModuleContent .v-richtextarea .gwt-RichTextToolbar {
 	box-shadow: none;
 	color: #e0e0e0;
 	background: #2B2B2B;
@@ -29539,45 +29539,49 @@ div.v-layout.v-horizontal.v-widget {
 	border-radius: 3px;
 }
 
-.mytheme .moduleContent .v-richtextarea .gwt-RichTextToolbar-top, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextToolbar-top {
+.mytheme .moduleContent .v-richtextarea .gwt-RichTextToolbar-top, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextToolbar-top, .mytheme .AlertModuleContent .v-richtextarea .gwt-RichTextToolbar-top {
 	box-shadow: none;
 	color: #e0e0e0;
 	background: #2B2B2B;
 	border: none;
 }
 
-.mytheme .moduleContent .v-richtextarea .gwt-RichTextToolbar-bottom, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextToolbar-bottom {
+.mytheme .moduleContent .v-richtextarea .gwt-RichTextToolbar-bottom, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextToolbar-bottom, .mytheme .AlertModuleContent .v-richtextarea .gwt-RichTextToolbar-bottom {
 	box-shadow: none;
 	border: none;
 }
 
-.mytheme .moduleContent .v-richtextarea .gwt-RichTextArea, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextArea {
+.mytheme .moduleContent .v-richtextarea .gwt-RichTextArea, .mytheme .moduleSimple .v-richtextarea .gwt-RichTextArea, .mytheme .AlertModuleContent .v-richtextarea .gwt-RichTextArea {
 	box-shadow: none;
 	color: #e0e0e0;
 	background: #303030;
 }
 
-.mytheme .moduleContent .v-richtextarea .gwt-ListBox, .mytheme .moduleSimple .v-richtextarea .gwt-ListBox {
+.mytheme .moduleContent .v-richtextarea .gwt-ListBox, .mytheme .moduleSimple .v-richtextarea .gwt-ListBox, .mytheme .AlertModuleContent .v-richtextarea .gwt-ListBox {
 	box-shadow: none;
 	color: #e0e0e0;
 	background: #303030;
 	border: #505050 1px solid;
 }
 
-.mytheme .moduleContent .v-richtextarea .gwt-PushButton, .mytheme .moduleSimple .v-richtextarea .gwt-PushButton, .mytheme .moduleContent .v-richtextarea .gwt-ToggleButton, .mytheme .moduleSimple .v-richtextarea .gwt-ToggleButton {
+.mytheme .moduleContent .v-richtextarea .gwt-PushButton, .mytheme .moduleSimple .v-richtextarea .gwt-PushButton, .mytheme .AlertModuleContent .v-richtextarea .gwt-PushButton, .mytheme .moduleContent .v-richtextarea .gwt-ToggleButton, .mytheme .moduleSimple .v-richtextarea .gwt-ToggleButton, .mytheme .AlertModuleContent .v-richtextarea .gwt-ToggleButton {
 	margin: 1px;
 }
 
-.mytheme .moduleContent .v-richtextarea .gwt-PushButton:hover, .mytheme .moduleSimple .v-richtextarea .gwt-PushButton:hover, .mytheme .moduleContent .v-richtextarea .gwt-ToggleButton:hover, .mytheme .moduleSimple .v-richtextarea .gwt-ToggleButton:hover {
+.mytheme .moduleContent .v-richtextarea .gwt-PushButton:hover, .mytheme .moduleSimple .v-richtextarea .gwt-PushButton:hover, .mytheme .AlertModuleContent .v-richtextarea .gwt-PushButton:hover, .mytheme .moduleContent .v-richtextarea .gwt-ToggleButton:hover, .mytheme .moduleSimple .v-richtextarea .gwt-ToggleButton:hover, .mytheme .AlertModuleContent .v-richtextarea .gwt-ToggleButton:hover {
 	color: #e0e0e0;
 	background: #424242;
 	border-radius: 3px;
 }
 
-.mytheme .moduleContent .v-richtextarea .gwt-ToggleButton-down, .mytheme .moduleSimple .v-richtextarea .gwt-ToggleButton-down {
+.mytheme .moduleContent .v-richtextarea .gwt-ToggleButton-down, .mytheme .moduleSimple .v-richtextarea .gwt-ToggleButton-down, .mytheme .AlertModuleContent .v-richtextarea .gwt-ToggleButton-down {
 	color: #a0a0a0;
 	background: #424242;
 	border-radius: 3px;
+}
+
+.mytheme .AlertModuleContent {
+	background: #B00538;
 }
 
 .mytheme .moduleHead, .mytheme .talkTimeHead {
