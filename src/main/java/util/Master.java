@@ -377,6 +377,10 @@ public class Master {
 
 
     }
+    
+    static {
+        ZooHelper.removeDb(Master.dbName);
+    }
 
 
 }

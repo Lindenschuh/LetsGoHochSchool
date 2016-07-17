@@ -62,7 +62,9 @@ public class NewLecture extends Modul {
 
             s = formatter.format(date.getValue());
 
-            testValues();
+            if(testValues()) {
+                return;
+            }
 
             try {
                 Integer.parseInt(hours.getValue());
