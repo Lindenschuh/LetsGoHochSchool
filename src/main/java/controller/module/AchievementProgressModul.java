@@ -94,7 +94,7 @@ public class AchievementProgressModul extends Modul {
             descriptionLayout = new VerticalLayout();
 
 
-            descriptionLayout.setStyleName("descriptionLayout");
+            descriptionLayout.setStyleName("descriptionUserName");
             contentLayout.addComponent(descriptionLayout);
             contentLayout.setExpandRatio(descriptionLayout, 1);
 
