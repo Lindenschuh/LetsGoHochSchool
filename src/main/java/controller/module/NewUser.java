@@ -2,6 +2,7 @@ package controller.module;
 
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
+import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button;
@@ -10,6 +11,9 @@ import com.vaadin.ui.TextField;
 import model.User;
 import util.Master;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Kevin on 10/06/2016.
  */
@@ -17,13 +21,15 @@ public class NewUser extends Modul {
 
     VerticalLayout verticalLayout;
     HorizontalLayout horiLayout;
-    TextField username, email, checkEmail;
+    TextField name, username, email, checkEmail;
     PasswordField password, checkPassword;
     CheckBox admin;
     Button submit;
     TextField speakTime;
-    TextField Raum;
+    TextField raum;
+    TextField semesterlength;
     Label sz;
+    DateField date;
 
     public NewUser(User user) {
         super(user);
@@ -31,31 +37,60 @@ public class NewUser extends Modul {
         verticalLayout  = new VerticalLayout();
         horiLayout = new HorizontalLayout();
 
+        name            = new TextField();
         username        = new TextField();
         email           = new TextField();
         checkEmail      = new TextField();
         password        = new PasswordField();
         checkPassword   = new PasswordField();
         admin           = new CheckBox();
+        semesterlength  = new TextField();
         submit          = new Button("Submit");
+        raum            = new TextField();
+        date            = new DateField();
+        speakTime       = new TextField();
+        sz              = new Label("Sprechzeit\n", ContentMode.HTML);
 
-        speakTime = new TextField();
 
-        Raum = new TextField();
+        date.setValue(new Date());
+        date.setResolution(Resolution.MINUTE);
+        date.setDateFormat("dd-MM-yyyy hh:mm");
+
+        name.setInputPrompt("Name");
 
         username.setInputPrompt("Benutzername");
+
         email.setInputPrompt("E-mailadresse");
+
         checkEmail.setInputPrompt("E-mailadress bestätigen");
+
         password.setInputPrompt("Passwort");
+
         checkPassword.setInputPrompt("Passwort bestätigen");
-        admin.setValue(false);
-        admin.addValueChangeListener(valueChangeEvent -> setTime() );
+
         submit.addClickListener(clickEvent -> submit());
-        sz              = new Label("Sprechzeiten", ContentMode.HTML);
 
-        speakTime.setInputPrompt("Zeit");
+        admin.setValue(false);
 
-        Raum.setInputPrompt("Raum");
+        admin.addValueChangeListener(valueChangeEvent -> {
+           if  (admin.getValue()) {
+               verticalLayout.removeComponent(submit);
+               verticalLayout.addComponent(sz);
+               verticalLayout.addComponent(date);
+               verticalLayout.addComponent(speakTime);
+               verticalLayout.addComponent(raum);
+               verticalLayout.addComponent(submit);
+           }
+
+            if (!admin.getValue()) {
+                verticalLayout.removeComponent(sz);
+                verticalLayout.removeComponent(date);
+                verticalLayout.removeComponent(speakTime);
+                verticalLayout.removeComponent(raum);
+                verticalLayout.removeComponent(submit);
+                verticalLayout.addComponent(submit);
+            }
+       });
 
 
         CreateLayout();
@@ -63,6 +98,7 @@ public class NewUser extends Modul {
 
     private void CreateLayout()
     {
+        verticalLayout.addComponent(name);
         verticalLayout.addComponent(username);
         verticalLayout.addComponent(email);
         verticalLayout.addComponent(checkEmail);
@@ -74,26 +110,6 @@ public class NewUser extends Modul {
         layout.addComponent(verticalLayout);
     }
 
-    private void setTime()
-    {
-        if(admin.getValue() == true) {
-            verticalLayout.removeComponent(submit);
-            verticalLayout.addComponent(sz);
-
-            horiLayout.addComponent(speakTime);
-            horiLayout.addComponent(Raum);
-            verticalLayout.addComponent(horiLayout);
-
-            verticalLayout.addComponent(submit);
-        }
-
-        if(admin.getValue() == false)
-        {
-            verticalLayout.removeComponent(sz);
-            verticalLayout.removeComponent(horiLayout);
-        }
-    }
-
     private String getTimeForm()
     {
 
@@ -103,7 +119,7 @@ public class NewUser extends Modul {
 
         if(!speakTime.isEmpty())
         {
-            time = time + speakTime.getValue() + "<br>" + Raum.getValue();
+            time = time + speakTime.getValue() + "<br>" + raum.getValue();
         }
 
         time = time + "</p></div><style type=\"text/css\"> #ip { background-color: #d3d3d3; padding: 1.3em;} </style>";
@@ -145,18 +161,24 @@ public class NewUser extends Modul {
             errorMsg = errorMsg + "Kein Passwort angegeben\n";
         }
 
-        if(getTimeForm() == "" && admin.getValue())
-        {
-            failed = true;
-            errorMsg = errorMsg + "Keine Sprechzeit angegeben\n";
-        }
+        if (admin.getValue()) {
+            if (speakTime.isEmpty()) {
+                failed = true;
+                errorMsg = errorMsg + "Keine Sprechzeit angegeben\n";
+            } else {
+                try {
+                    Integer.parseInt(speakTime.getValue());
+                } catch (Exception e) {
+                    failed = true;
+                    errorMsg += "Nur zahlen in Sprechzeit!\n";
+                }
+            }
 
-        if(speakTime.isEmpty() != Raum.isEmpty())
-        {
-            failed = true;
-            errorMsg = errorMsg + "Raum oder Zeit für Montag Vergessen\n";
+            if (raum.isEmpty()) {
+                failed = true;
+                errorMsg = errorMsg + "Raum oder Zeit für Montag Vergessen\n";
+            }
         }
-
 
         if(failed == true)
         {
@@ -166,7 +188,14 @@ public class NewUser extends Modul {
             return;
         }
 
-        //Master.allUser.add(new User(username.getValue(), email.getValue(), password.getValue(), admin.getValue(), getTimeForm()));
+        if (!admin.getValue()) {
+            Master.allUser.add(new User(name.getValue(), username.getValue(), email.getValue(), password.getValue()));
+        }
+
+        if (admin.getValue()) {
+           SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+           Master.allUser.add(new User(name.getValue(), username.getValue(), email.getValue(), password.getValue(), formatter.format(date.getValue()), Integer.parseInt(speakTime.getValue()), raum.getValue()));
+        }
 
         Notification success = new Notification("Benutzer erfolgreich erstellt", Notification.Type.HUMANIZED_MESSAGE);
         success.setDelayMsec(1000);
