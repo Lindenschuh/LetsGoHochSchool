@@ -23,6 +23,7 @@ public class NewAV extends Modul {
     TextField maxValue;
     RichTextArea rta;
     Button submit;
+    static String errorMsg = "";
 
 
     public NewAV(User user, MyUI ui, Course course) {
@@ -40,9 +41,9 @@ public class NewAV extends Modul {
         rta.setValue("Beschreibung");
         submit.addClickListener(clickEvent -> {
 
-            if (testData(course)) {
-                return;
-            }
+        boolean valid = false;
+
+             valid = testData(course);
 
             try {
                 Integer.parseInt(maxValue.getValue());
@@ -54,11 +55,19 @@ public class NewAV extends Modul {
                 return;
             }
 
+            if (!valid) {
+                Notification success = new Notification("Failed", Notification.Type.ERROR_MESSAGE);
+                success.setDelayMsec(1000);
+                success.setPosition(Position.TOP_CENTER);
+                success.show(Page.getCurrent());
+                return;
+            }
+
             Master.allAchievements.add(new Achievement(name.getValue(), this.course, Integer.parseInt(maxValue.getValue()), rta.getValue()));
             Master.allAchievements.get(Master.allAchievements.size() - 1).setImage(Master.loadImage(Master.allAchievements.get(Master.allAchievements.size() - 1)));
 
             Master.allUser.forEach(user1 -> {
-                if (user1.getCourses().contains(this.course)) {
+                if (user1.getCourses().contains(this.course) && !user1.isAdmin()) {
                    user1.addAchievment(Master.allAchievements.get(Master.allAchievements.size() - 1));
                 }
             });
@@ -76,10 +85,20 @@ public class NewAV extends Modul {
 
     private boolean testData(Course course) {
         boolean valid = true;
-        String errorMsg = "";
+        errorMsg = "";
         if (name.isEmpty()) {
             valid = false;
             errorMsg += "Kein Kursname\n";
+        } else {
+            Master.allCourse.forEach(course1 -> {
+                if(course1.getName().equals(name.getValue())) {
+                    errorMsg += "Kurs bereits vorhanden\n";
+                }
+            });
+        }
+
+        if (errorMsg.contains("Kurs bereits vorhanden")) {
+            valid = false;
         }
 
         if (maxValue.isEmpty()) {
