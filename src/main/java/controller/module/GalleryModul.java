@@ -203,6 +203,8 @@ public class GalleryModul extends Modul {
                 layout.setVisible(false);
             }
         } else {
+            
+            contentLayout.setSizeUndefined();
 
             if (maxColumns < 1) {
                 layout.setVisible(false);
