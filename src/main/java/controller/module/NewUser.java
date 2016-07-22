@@ -31,6 +31,10 @@ public class NewUser extends Modul {
     Label sz;
     DateField date;
 
+    /**
+     * constructor der alle variablen initiallisiert
+     * @param user der user der die seite aufruft
+     */
     public NewUser(User user) {
         super(user);
 
@@ -96,6 +100,9 @@ public class NewUser extends Modul {
         CreateLayout();
     }
 
+    /**
+     * erstllt das layout und zeigt es an
+     */
     private void CreateLayout()
     {
         verticalLayout.addComponent(name);
@@ -110,24 +117,9 @@ public class NewUser extends Modul {
         layout.addComponent(verticalLayout);
     }
 
-    private String getTimeForm()
-    {
-
-        String time;
-
-        time = "<div id = \"ip\"><p>";
-
-        if(!speakTime.isEmpty())
-        {
-            time = time + speakTime.getValue() + "<br>" + raum.getValue();
-        }
-
-        time = time + "</p></div><style type=\"text/css\"> #ip { background-color: #d3d3d3; padding: 1.3em;} </style>";
-
-        return time;
-
-    }
-
+    /**
+     * buttonclick methode, checkt alle variablen und erstllt ein user sollten sie valide sein
+     */
     private void submit()
     {
         boolean failed = false;

@@ -16,6 +16,12 @@ public class CourseInfo extends Modul {
     Label area;
     MyUI ui;
 
+    /**
+     * konstruktor
+     * @param user der user der die seite aufruft
+     * @param course der kurs für den die Info angezeigt werden soll
+     * @param ui die UI in der die KursInfo angezeigt werden soll
+     */
     public CourseInfo(User user, Course course, MyUI ui) {
         super(user);
         usr = user;
@@ -25,6 +31,9 @@ public class CourseInfo extends Modul {
         setupLayout();
     }
 
+    /**
+     * updated then text mit den momentanen kurs daten
+     */
     private void updateText()
     {
         area.setValue(/*"<h2>" + course.getName() + "</h2>" +
@@ -40,6 +49,9 @@ public class CourseInfo extends Modul {
     }
 
 
+    /**
+     * erstellt layout und zeigt es an
+     */
     private void setupLayout() {
 
         updateText();

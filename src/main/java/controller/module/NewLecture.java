@@ -33,6 +33,11 @@ public class NewLecture extends Modul {
 
     static String errormsg = "";
 
+    /**
+     * constructor der alle elemente der GUI initiallisiert
+     * @param user user der die seite aufruft
+     * @param ui ui in welcher die seite aufgerufen wird
+     */
     public NewLecture(User user, MyUI ui) {
         super(user);
 
@@ -99,6 +104,10 @@ public class NewLecture extends Modul {
         setupLayout();
     }
 
+    /**
+     * testet ob die eingaben richtig sind oder falsch
+     * @return true o. false je nach dem ob die values valid sind
+     */
     private boolean testValues() {
         errormsg = "";
         boolean valid = true;
@@ -148,6 +157,9 @@ public class NewLecture extends Modul {
 
     }
 
+    /**
+     * erstellt die GUI und zeigt diese an
+     */
     private void setupLayout()
     {
         Label moduleName = new Label("Kurs erstellen");

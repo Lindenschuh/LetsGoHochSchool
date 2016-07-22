@@ -25,6 +25,12 @@ public class NewAV extends Modul {
     static String errorMsg = "";
 
 
+    /**
+     * constuctor, initiallisiert alle variablen
+     * @param user user, der die seite aufruft
+     * @param ui die ui in welcher die seite erstellt wird
+     * @param course für welchen kurs das AV erstellt wird
+     */
     public NewAV(User user, MyUI ui, Course course) {
         super(user);
         this.ui = ui;
@@ -43,7 +49,7 @@ public class NewAV extends Modul {
 
         boolean valid = false;
 
-             valid = testData(course);
+             valid = testData();
 
             try {
                 Integer.parseInt(maxValue.getValue());
@@ -79,7 +85,11 @@ public class NewAV extends Modul {
         setupLayout();
     }
 
-    private boolean testData(Course course) {
+    /**
+     * checkt ob alle eingaben valide sind
+     * @return true or false wenn je nach dem ob valid
+     */
+    private boolean testData() {
         boolean valid = true;
         errorMsg = "";
         if (name.isEmpty()) {
@@ -112,6 +122,9 @@ public class NewAV extends Modul {
         return valid;
     }
 
+    /**
+     * erstellt layout und zeigt es an
+     */
     private void setupLayout()
     {
         VerticalLayout moduleLayout = new VerticalLayout();
