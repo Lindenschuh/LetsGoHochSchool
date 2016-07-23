@@ -45,6 +45,7 @@ public class Achievement extends ZooPC implements DataObject {
         this.description = description;
         this.userProgress = new HashMap<>();
         this.userFinished = new ArrayList<>();
+        this.setImage(Master.loadImage(this));
     }
     private void serilzeMe()
     {

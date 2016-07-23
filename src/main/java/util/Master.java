@@ -289,10 +289,7 @@ public class Master {
         allUser.get(11).addCourse(allCourse.get(8));
         allUser.get(11).addCourse(allCourse.get(5));
 
-        allAdim.forEach(a -> a.setImage(loadImage(a)));
-        allUser.forEach(u -> u.setImage(loadImage(u)));
-        allCourse.forEach(c -> c.setImage(loadImage(c)));
-        allAchievements.forEach(ac -> ac.setImage(loadImage(ac)));
+
 
 
         allUser.addAll(allAdim);

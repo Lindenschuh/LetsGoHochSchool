@@ -56,6 +56,7 @@ public class Course extends ZooPC implements DataObject {
         generateAchivements(lessons);
         creatDir();
         loadFiles();
+        this.setImage(Master.loadImage(this));
 
     }
 

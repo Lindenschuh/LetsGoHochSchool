@@ -59,6 +59,7 @@ public class User extends ZooPC implements DataObject{
 
         this.times = new ArrayList<>();
         generateDate(times, semesterLength);
+        this.setImage(Master.loadImage(this));
     }
 
     public User(String name, String loginName, String email, String password) {
@@ -73,6 +74,7 @@ public class User extends ZooPC implements DataObject{
 
         this.workingOnAchievment = new ArrayList<>();
         this.finishedAchievment = new ArrayList<>();
+        this.setImage(Master.loadImage(this));
 
     }
 
