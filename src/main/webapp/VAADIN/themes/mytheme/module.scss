@@ -1,0 +1,238 @@
+@import "colortheme.scss";
+@import "sizetheme";
+@import "../valo/valo.scss";
+
+//Module styling.
+@mixin module {
+  @include valo;
+
+  .moduleIcon {
+    width: 100px;
+    height: 100px;
+    margin-right: $modulePaddingMiddle;
+    padding: $modulePaddingSmall $modulePaddingSmall $modulePaddingSmall $modulePaddingSmall;
+  }
+
+  .moduleFoot {
+    text-align: right;
+    width: 100%;
+    padding: $modulePaddingMiddle $modulePaddingBig $modulePaddingMiddle $modulePaddingBig;
+    border-top: $colorBorder $borderSize solid;
+    .v-spacing {
+      height: $modulePaddingSmall;
+      width: $modulePaddingSmall;
+    }
+  }
+
+  .moduleSimple{
+    @extend .module;
+    @extend .moduleContent;
+  }
+
+  .moduleContent {
+    height: 100%;
+    padding: $modulePaddingBig $modulePaddingBig $modulePaddingBig $modulePaddingBig;
+    .v-horizontal .v-spacing {
+      width: $modulePaddingBig;
+    }
+
+    .v-richtextarea {
+      box-shadow: none;
+      background: none;
+      border: $colorBorder $borderSize solid;
+      border-radius: $borderRadius;
+      color: $colorFont;
+
+      .gwt-RichTextToolbar {
+        box-shadow: none;
+        color: $colorFont;
+        background: #2B2B2B;
+        border-color: $colorBorder;
+        border-radius: $borderRadius;
+      }
+
+      .gwt-RichTextToolbar-top {
+        box-shadow: none;
+        color: $colorFont;
+        background: #2B2B2B;
+        border: none;
+      }
+
+      .gwt-RichTextToolbar-bottom {
+        box-shadow:  none;
+        border: none;
+      }
+
+      .gwt-RichTextArea {
+        box-shadow: none;
+        color: $colorFont;
+        background: $colorPage;
+      }
+
+      .gwt-ListBox {
+        box-shadow: none;
+        color: $colorFont;
+        background: $colorPage;
+        border: $colorBorder 1px solid;
+      }
+
+      .gwt-PushButton,
+      .gwt-ToggleButton {
+        margin: 1px;
+      }
+
+      .gwt-PushButton:hover,
+      .gwt-ToggleButton:hover {
+        color: $colorFont;
+        background: $colorModule;
+        border-radius: 3px;
+      }
+
+      .gwt-ToggleButton-down {
+        color: #a0a0a0;
+        background: $colorModule;
+        border-radius: 3px;
+      }
+
+    }
+  }
+
+  .AlertModuleContent  {
+    @extend .moduleContent;
+    background: #B00538;
+  }
+
+  .moduleHead {
+    width: 100%;
+    padding: $modulePaddingSmall $modulePaddingBig $modulePaddingSmall $modulePaddingBig;
+    border-bottom: $colorBorder $borderSize solid;
+    font-size: $moduleNameSize;
+    font-weight: bold;
+    color: $colorFont;
+
+  }
+
+  .module {
+    background: $colorModule;
+    border: $borderAndroidDark $borderSize solid;
+    border-radius: $borderRadius;
+
+    .v-label {
+      color: $colorFont;
+    }
+
+    .v-caption {
+      font-size: 17px;
+      padding-top: $modulePaddingBig;
+      color: $colorFont;
+    }
+
+    .v-button {
+      color: $colorFont;
+      background: $borderAndroidDark;
+      border-radius: $borderRadius;
+      border: $colorBorder 1px solid;
+      box-shadow: none;
+    }
+
+
+    //Text field styling
+    .v-textfield.v-readonly,
+    .v-textfield {
+      box-shadow: none;
+      background: $colorPage;
+      border: 1px solid $colorBorder;
+      color: $colorFont;
+    }
+
+    .v-textfield-prompt {
+      color: $colorBorder;
+    }
+
+
+    //Upload module styling
+    .gwt-FileUpload {
+      color: $colorFont;
+    }
+
+
+    //Progress bar styling.
+    .v-progressbar-wrapper {
+      width: 200px;
+      height: 20px;
+    }
+
+    .v-progressbar-indicator {
+      background: $colorBrand;
+      color: $colorBrand;
+      border: $colorBrand $borderSize solid;
+    }
+
+
+    //Combo box styling.
+    .v-filterselect-input {
+      box-shadow: none;
+      background: $colorPage;
+      border: 1px solid $colorBorder;
+      color: $colorFont;
+    }
+
+    .v-filterselect-button {
+      box-shadow: none;
+      background: $borderAndroidDark;
+      border-left: 1px solid $colorBorder;
+      color: $colorFont;
+    }
+  }
+
+  .borderlessButton {
+    border: none;
+    background: transparent;
+    font-weight: bold;
+    color: $colorFont;
+  }
+
+  .testBorder {
+    border: $colorBrand 3px solid;
+  }
+
+  .ui {
+    background: $colorPage;
+  }
+
+  .talkTime {
+    @extend .module;
+    background: $colorBorder;
+    border: none;
+    .v-label {
+      color: $colorFont;
+    }
+  }
+
+  .talkTimeHead {
+    @extend .moduleHead;
+    font-weight: normal;
+    border: none;
+  }
+
+  .code {
+    text-align: center;
+  }
+
+  .v-label-empty {
+    color: $colorPage;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    opacity: 0.5;
+  }
+
+  .v-filterselect-suggestpopup .v-filterselect-suggestmenu {
+    background: $colorPage;
+    border: $colorBorder 1px solid;
+  }
+
+  .v-filterselect-suggestpopup .gwt-MenuItem {
+    color: $colorFont;
+  }
+}

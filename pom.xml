@@ -84,6 +84,16 @@
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-themes</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.vaadin.addon.responsive</groupId>
+			<artifactId>responsive</artifactId>
+			<version>1.0.0.alpha4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zoodb</groupId>
+			<artifactId>zoodb</artifactId>
+			<version>0.4.8</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -124,6 +134,8 @@
 				<executions>
 					<execution>
 						<goals>
+							<goal>clean</goal>
+							<goal>resources</goal>
 							<goal>update-theme</goal>
 							<goal>update-widgetset</goal>
 							<goal>compile</goal>

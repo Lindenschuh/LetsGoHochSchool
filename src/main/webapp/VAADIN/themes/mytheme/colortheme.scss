@@ -1,0 +1,44 @@
+
+
+/*
+ * Define your color themes here.
+ */
+
+//brand
+$colorBrand1: #47c0d2;
+
+//Light theme.
+$colorFontLight: #555555;
+$colorPageLight: #f5f5f5;
+$colorBorderLight: #e0e0e0;
+$colorModuleLight: #ffffff;
+
+//Light2 theme.
+$colorFontLight2: #555555;
+$colorPageLight2: #ffffff;
+$colorBorderLight2: #e0e0e0;
+$colorModuleLight2: #f5f5f5;
+
+
+//Dark theme 1.
+$fontAndroidDark: #f5f5f5;
+$pageAndroidDark: #303030;
+$borderAndroidDark: #2a2a2a;
+$moduleAndroidDark: #424242;
+
+//Dark theme 2.
+$colorFontDark2: #e0e0e0;
+$colorPageDark2: #303030;
+$colorBorderDark2: #505050;
+$colorModuleDark2: #424242;
+
+
+
+
+
+//Set the used colors.
+$colorBrand: $colorBrand1;
+$colorFont: $colorFontDark2;
+$colorPage: $colorPageDark2;
+$colorBorder: $colorBorderDark2;
+$colorModule: $colorModuleDark2;

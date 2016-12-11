@@ -1,7 +1,8 @@
-vaadin-demo
+What is Lets Go Hochschool ?
 ==============
 
-Template for a simple Vaadin application that only requires a Servlet 3.0 container to run.
+Lets Go Hochschool is a Course Management Tool
+Created by Lars Aßmus, Aljoscha Burgmaier, Kevin Lee and Andreas Reinsch.
 
 
 Workflow

@@ -1,0 +1,29 @@
+
+@import "module";
+
+//Styling for the next lecture.
+@mixin nextlecture {
+
+  .descriptionDetail {
+    padding-left: $modulePaddingSmall;
+    padding-bottom: $modulePaddingSmall;
+    color: $colorFont;
+  }
+
+  .descriptionLecture {
+    padding-top: $modulePaddingSmall;
+    padding-bottom: 12px;
+    font-size: $moduleNameSize;
+    color: $colorFont;
+  }
+
+  .descriptionLayout {
+    margin-left: $modulePaddingBig;
+  }
+
+  .descriptionUserName{
+    @extend .descriptionLayout;
+    margin-top: 30px;
+  }
+
+}

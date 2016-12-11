@@ -31,8 +31,41 @@
 
 @import "../valo/valo.scss";
 
+
 @mixin mytheme {
   @include valo;
 
-  // Insert your own theme rules here
+
+  .top {
+    background: white;
+    padding-left: 10%;
+    width: 100%;
+    font: {
+
+      weight: bold;
+    }
+  }
+
+
+  .menu {
+
+
+
+    .v-button {
+      display: block;
+
+
+
+
+      &:hover {
+        background: black;
+        color: white;
+        .v-icon {
+          color: white;
+        }
+      }
+    }
+  }
+
+
 }

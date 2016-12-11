@@ -1,0 +1,21 @@
+@import "module";
+
+//Styling for the search.
+@mixin search {
+
+  .searchResultDetail {
+    padding-left: $modulePaddingSmall;
+    color: $colorFont;
+  }
+
+  .searchResultName {
+    padding-top: $modulePaddingSmall;
+    padding-bottom: 12px;
+    font-size: $moduleNameSize;
+    color: $colorFont;
+  }
+
+  .searchResultDescriptionLayout {
+    margin-left: $modulePaddingBig;
+  }
+}

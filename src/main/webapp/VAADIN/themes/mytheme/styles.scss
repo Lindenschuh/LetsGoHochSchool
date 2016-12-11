@@ -1,5 +1,11 @@
+@import "module";
+@import "page";
+@import "nextlecture.scss";
 @import "mytheme.scss";
 @import "addons.scss";
+@import "search.scss";
+@import "calendar";
+@import "login";
 
 // This file prefixes all rules with the theme name to avoid causing conflicts with other themes.
 // The actual styles should be defined in mytheme.scss
@@ -7,5 +13,11 @@
 .mytheme {
   @include addons;
   @include mytheme;
+  @include module;
+  @include page;
+  @include nextlecture;
+  @include search;
+  @include calendar;
+  @include login;
 
 }
